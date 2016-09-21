@@ -7,6 +7,7 @@ Begin VB.UserControl UserControl1
    ScaleHeight     =   735
    ScaleWidth      =   3015
    Begin VB.TextBox Text1 
+      Alignment       =   1  'Right Justify
       Appearance      =   0  'Flat
       BeginProperty Font 
          Name            =   "MS Sans Serif"
@@ -33,10 +34,11 @@ Private p_info As String, p_tabla As String, p_campo As String, p_clave As Strin
 Public Event finbusqueda(llave As String, valor As String)
 Public Event change()
 Public Event alta()
-Public Event validate(Cancel As Boolean)
+Public Event vacio()
 
 Private Sub Text1_Change()
   RaiseEvent change
+  If Text1 = "" Then RaiseEvent vacio
 End Sub
 
 Private Sub Text1_GotFocus()
@@ -46,25 +48,33 @@ Private Sub Text1_GotFocus()
 End Sub
 
 Private Sub Text1_KeyDown(KeyCode As Integer, Shift As Integer)
+  On Error GoTo E
   If p_tabla <> "" And p_campo <> "" And p_clave <> "" And p_busq <> "" Then
     Select Case KeyCode
     Case vbKeyF3:
       formbuscar p_tabla, p_campo, p_clave, p_busq
-      If Not buscar.Cancel Then
-        RaiseEvent finbusqueda(buscar.key, buscar.val)
-      End If
+      If Not buscar.Cancel Then RaiseEvent finbusqueda(buscar.key, buscar.val)
     Case vbKeyF4:
       RaiseEvent alta
+    Case vbKeyReturn:
+      assert IsNumeric(Text1), INVDAT, "Tipo de código inválido"
+      With busc("select * from " & p_tabla & " where " & p_clave & "=" & Text1)
+        If .RecordCount > 0 Then
+          If !regvalid Then RaiseEvent finbusqueda(.Fields(p_clave), .Fields(p_campo))
+        Else
+          StatusBar1.SimpleText = "Código inexistente"
+          RaiseEvent vacio
+        End If
+      End With
     End Select
   End If
+  Exit Sub
+E:
+  If Not StatusBar1 Is Nothing Then StatusBar1.SimpleText = Err.Description
 End Sub
 
 Private Sub Text1_LostFocus()
   If Not StatusBar1 Is Nothing Then StatusBar1.SimpleText = ""
-End Sub
-
-Private Sub Text1_Validate(Cancel As Boolean)
-  RaiseEvent validate(Cancel)
 End Sub
 
 Private Sub UserControl_Resize()

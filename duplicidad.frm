@@ -1,7 +1,7 @@
 VERSION 5.00
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
 Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
 Object = "{C932BA88-4374-101B-A56C-00AA003668DC}#1.1#0"; "msmask32.ocx"
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
 Begin VB.Form duplicidad 
    BorderStyle     =   1  'Fixed Single
    ClientHeight    =   6945
@@ -16,36 +16,80 @@ Begin VB.Form duplicidad
    ScaleWidth      =   8985
    StartUpPosition =   3  'Windows Default
    WindowState     =   2  'Maximized
-   Begin VB.TextBox txtemp 
-      Appearance      =   0  'Flat
-      BeginProperty Font 
-         Name            =   "MS Sans Serif"
-         Size            =   9.75
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
+   Begin VB.Frame Frame1 
+      BorderStyle     =   0  'None
+      Caption         =   "Frame1"
       Height          =   375
-      Left            =   1882
-      TabIndex        =   0
-      Top             =   240
-      Width           =   1695
+      Left            =   720
+      TabIndex        =   13
+      Top             =   360
+      Width           =   7455
+      Begin Project1.UserControl1 txtemp 
+         Height          =   375
+         Left            =   1080
+         TabIndex        =   14
+         Top             =   0
+         Width           =   1695
+         _ExtentX        =   2990
+         _ExtentY        =   661
+         info            =   "Ingresar código de empresa. F3: buscar"
+         tabla           =   "empresas"
+         campo           =   "nom_emp"
+         clave           =   "cod_emp"
+         busq            =   "nom_emp"
+      End
+      Begin VB.Label Label7 
+         Caption         =   "Cód.emp"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   255
+         Left            =   0
+         TabIndex        =   16
+         Top             =   120
+         Width           =   975
+      End
+      Begin VB.Label labnom 
+         Alignment       =   2  'Center
+         Appearance      =   0  'Flat
+         BorderStyle     =   1  'Fixed Single
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         ForeColor       =   &H80000008&
+         Height          =   375
+         Left            =   2760
+         TabIndex        =   15
+         Top             =   0
+         Width           =   4695
+      End
    End
    Begin TabDlg.SSTab SSTab1 
-      Height          =   7695
+      Height          =   6975
       Left            =   0
-      TabIndex        =   5
-      Top             =   840
+      TabIndex        =   0
+      Top             =   0
       Width           =   9015
       _ExtentX        =   15901
-      _ExtentY        =   13573
+      _ExtentY        =   12303
       _Version        =   393216
+      TabOrientation  =   1
       Tabs            =   2
-      Tab             =   1
       TabsPerRow      =   2
       TabHeight       =   520
+      Enabled         =   0   'False
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "MS Sans Serif"
          Size            =   9.75
@@ -57,66 +101,35 @@ Begin VB.Form duplicidad
       EndProperty
       TabCaption(0)   =   "COMPRAS - GASTOS"
       TabPicture(0)   =   "duplicidad.frx":0000
-      Tab(0).ControlEnabled=   0   'False
-      Tab(0).Control(0)=   "Label2"
+      Tab(0).ControlEnabled=   -1  'True
+      Tab(0).Control(0)=   "Label6"
+      Tab(0).Control(0).Enabled=   0   'False
       Tab(0).Control(1)=   "Label3"
-      Tab(0).Control(2)=   "Label6"
-      Tab(0).Control(3)=   "txtfecha(1)"
-      Tab(0).Control(4)=   "txtfecha(0)"
-      Tab(0).Control(5)=   "lstcompras"
+      Tab(0).Control(1).Enabled=   0   'False
+      Tab(0).Control(2)=   "Label2"
+      Tab(0).Control(2).Enabled=   0   'False
+      Tab(0).Control(3)=   "lstcompras"
+      Tab(0).Control(3).Enabled=   0   'False
+      Tab(0).Control(4)=   "txtfecha(1)"
+      Tab(0).Control(4).Enabled=   0   'False
+      Tab(0).Control(5)=   "txtfecha(0)"
+      Tab(0).Control(5).Enabled=   0   'False
       Tab(0).ControlCount=   6
       TabCaption(1)   =   "VENTAS - COBROS"
       TabPicture(1)   =   "duplicidad.frx":001C
-      Tab(1).ControlEnabled=   -1  'True
-      Tab(1).Control(0)=   "Label1"
-      Tab(1).Control(0).Enabled=   0   'False
-      Tab(1).Control(1)=   "Label5"
-      Tab(1).Control(1).Enabled=   0   'False
-      Tab(1).Control(2)=   "Label4"
-      Tab(1).Control(2).Enabled=   0   'False
-      Tab(1).Control(3)=   "txtfecha(3)"
-      Tab(1).Control(3).Enabled=   0   'False
-      Tab(1).Control(4)=   "txtfecha(2)"
-      Tab(1).Control(4).Enabled=   0   'False
-      Tab(1).Control(5)=   "lstventas"
-      Tab(1).Control(5).Enabled=   0   'False
+      Tab(1).ControlEnabled=   0   'False
+      Tab(1).Control(0)=   "lstventas"
+      Tab(1).Control(1)=   "txtfecha(2)"
+      Tab(1).Control(2)=   "txtfecha(3)"
+      Tab(1).Control(3)=   "Label1"
+      Tab(1).Control(4)=   "Label5"
+      Tab(1).Control(5)=   "Label4"
       Tab(1).ControlCount=   6
-      Begin MSComctlLib.ListView lstcompras 
-         Height          =   4935
-         Left            =   -74760
-         TabIndex        =   6
-         Top             =   480
-         Width           =   8535
-         _ExtentX        =   15055
-         _ExtentY        =   8705
-         View            =   3
-         LabelEdit       =   1
-         Sorted          =   -1  'True
-         LabelWrap       =   -1  'True
-         HideSelection   =   -1  'True
-         FullRowSelect   =   -1  'True
-         GridLines       =   -1  'True
-         _Version        =   393217
-         ForeColor       =   -2147483640
-         BackColor       =   -2147483643
-         BorderStyle     =   1
-         Appearance      =   0
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "MS Sans Serif"
-            Size            =   9.75
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         NumItems        =   0
-      End
       Begin MSComctlLib.ListView lstventas 
          Height          =   4935
-         Left            =   240
-         TabIndex        =   7
-         Top             =   480
+         Left            =   -74760
+         TabIndex        =   2
+         Top             =   1020
          Width           =   8535
          _ExtentX        =   15055
          _ExtentY        =   8705
@@ -155,9 +168,9 @@ Begin VB.Form duplicidad
          EndProperty
          Height          =   375
          Index           =   2
-         Left            =   1920
+         Left            =   -73080
          TabIndex        =   3
-         Top             =   5520
+         Top             =   6060
          Width           =   1335
          _ExtentX        =   2355
          _ExtentY        =   661
@@ -188,9 +201,9 @@ Begin VB.Form duplicidad
          EndProperty
          Height          =   375
          Index           =   3
-         Left            =   4080
+         Left            =   -70920
          TabIndex        =   4
-         Top             =   5520
+         Top             =   6060
          Width           =   1335
          _ExtentX        =   2355
          _ExtentY        =   661
@@ -221,9 +234,9 @@ Begin VB.Form duplicidad
          EndProperty
          Height          =   375
          Index           =   0
-         Left            =   -73080
-         TabIndex        =   1
-         Top             =   5520
+         Left            =   1920
+         TabIndex        =   5
+         Top             =   6060
          Width           =   1335
          _ExtentX        =   2355
          _ExtentY        =   661
@@ -254,9 +267,9 @@ Begin VB.Form duplicidad
          EndProperty
          Height          =   375
          Index           =   1
-         Left            =   -70920
-         TabIndex        =   2
-         Top             =   5520
+         Left            =   4080
+         TabIndex        =   6
+         Top             =   6060
          Width           =   1335
          _ExtentX        =   2355
          _ExtentY        =   661
@@ -275,41 +288,38 @@ Begin VB.Form duplicidad
          Mask            =   "##/##/####"
          PromptChar      =   " "
       End
-      Begin VB.Label Label6 
-         Caption         =   "hasta"
-         BeginProperty Font 
+      Begin MSComctlLib.ListView lstcompras 
+         Height          =   4935
+         Left            =   240
+         TabIndex        =   1
+         Top             =   1020
+         Width           =   8535
+         _ExtentX        =   15055
+         _ExtentY        =   8705
+         View            =   3
+         LabelEdit       =   1
+         Sorted          =   -1  'True
+         LabelWrap       =   -1  'True
+         HideSelection   =   -1  'True
+         FullRowSelect   =   -1  'True
+         GridLines       =   -1  'True
+         _Version        =   393217
+         ForeColor       =   -2147483640
+         BackColor       =   -2147483643
+         BorderStyle     =   1
+         Appearance      =   0
+         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
             Name            =   "MS Sans Serif"
             Size            =   9.75
             Charset         =   0
-            Weight          =   700
+            Weight          =   400
             Underline       =   0   'False
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Height          =   255
-         Left            =   -71640
-         TabIndex        =   13
-         Top             =   5640
-         Width           =   735
+         NumItems        =   0
       End
-      Begin VB.Label Label3 
-         Caption         =   "Fecha:"
-         BeginProperty Font 
-            Name            =   "MS Sans Serif"
-            Size            =   9.75
-            Charset         =   0
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   255
-         Left            =   -74760
-         TabIndex        =   12
-         Top             =   5640
-         Width           =   855
-      End
-      Begin VB.Label Label2 
+      Begin VB.Label Label1 
          Caption         =   "desde"
          BeginProperty Font 
             Name            =   "MS Sans Serif"
@@ -322,25 +332,8 @@ Begin VB.Form duplicidad
          EndProperty
          Height          =   255
          Left            =   -73920
-         TabIndex        =   11
-         Top             =   5640
-         Width           =   735
-      End
-      Begin VB.Label Label4 
-         Caption         =   "hasta"
-         BeginProperty Font 
-            Name            =   "MS Sans Serif"
-            Size            =   9.75
-            Charset         =   0
-            Weight          =   700
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   255
-         Left            =   3360
-         TabIndex        =   10
-         Top             =   5640
+         TabIndex        =   12
+         Top             =   6180
          Width           =   735
       End
       Begin VB.Label Label5 
@@ -355,12 +348,29 @@ Begin VB.Form duplicidad
             Strikethrough   =   0   'False
          EndProperty
          Height          =   255
-         Left            =   240
-         TabIndex        =   9
-         Top             =   5640
+         Left            =   -74760
+         TabIndex        =   11
+         Top             =   6180
          Width           =   855
       End
-      Begin VB.Label Label1 
+      Begin VB.Label Label4 
+         Caption         =   "hasta"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   255
+         Left            =   -71640
+         TabIndex        =   10
+         Top             =   6180
+         Width           =   735
+      End
+      Begin VB.Label Label2 
          Caption         =   "desde"
          BeginProperty Font 
             Name            =   "MS Sans Serif"
@@ -373,47 +383,44 @@ Begin VB.Form duplicidad
          EndProperty
          Height          =   255
          Left            =   1080
-         TabIndex        =   8
-         Top             =   5640
+         TabIndex        =   9
+         Top             =   6180
          Width           =   735
       End
-   End
-   Begin VB.Label labnom 
-      Alignment       =   2  'Center
-      Appearance      =   0  'Flat
-      BorderStyle     =   1  'Fixed Single
-      BeginProperty Font 
-         Name            =   "MS Sans Serif"
-         Size            =   9.75
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H80000008&
-      Height          =   375
-      Left            =   3562
-      TabIndex        =   15
-      Top             =   240
-      Width           =   4695
-   End
-   Begin VB.Label Label7 
-      Caption         =   "Cód.emp"
-      BeginProperty Font 
-         Name            =   "MS Sans Serif"
-         Size            =   9.75
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   255
-      Left            =   727
-      TabIndex        =   14
-      Top             =   360
-      Width           =   975
+      Begin VB.Label Label3 
+         Caption         =   "Fecha:"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   255
+         Left            =   240
+         TabIndex        =   8
+         Top             =   6180
+         Width           =   855
+      End
+      Begin VB.Label Label6 
+         Caption         =   "hasta"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   255
+         Left            =   3360
+         TabIndex        =   7
+         Top             =   6180
+         Width           =   735
+      End
    End
 End
 Attribute VB_Name = "duplicidad"
@@ -421,6 +428,8 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+Option Explicit
+
 Private Sub Form_Load()
   initlst lstcompras, Array("FECHA", "TIPO", "Nº", "PROVEEDOR", "CUIT", "TOTAL"), _
     Array(0.13, 0.1, 0.18, 0.25, 0.17, 0.15)
@@ -428,38 +437,31 @@ Private Sub Form_Load()
     Array(0.13, 0.1, 0.18, 0.25, 0.17, 0.15)
 End Sub
 
-Private Sub txtemp_GotFocus()
-  StatusBar1.SimpleText = "Ingresar código de empresa. F3: buscar"
+Private Sub txtemp_finbusqueda(llave As String, valor As String)
+  txtemp = llave
+  labnom = valor
+  SSTab1.enabled = True
 End Sub
 
-Private Sub txtemp_KeyDown(keycode As Integer, Shift As Integer)
-  If keycode = vbKeyF3 Then
-    If teclaemp(txtemp, labnom) Then cargar
-  End If
+Private Sub txtemp_vacio()
+  labnom = ""
+  SSTab1.enabled = False
 End Sub
 
-Private Sub txtemp_LostFocus()
-  StatusBar1.SimpleText = ""
+Private Sub txtfecha_GotFocus(Index As Integer)
+  txtfecha(Index).SelStart = 0
+  txtfecha(Index).SelLength = 10
 End Sub
 
-Private Sub txtemp_Validate(Cancel As Boolean)
-  If txtemp <> "" Then Cancel = validaremp(txtemp, labnom) Else labnom = ""
-  If Not Cancel And txtemp <> "" Then cargar
-End Sub
-
-Private Sub txtfecha_GotFocus(index As Integer)
-  txtfecha(index).SelStart = 0
-  txtfecha(index).SelLength = 10
-End Sub
-
-Private Sub txtfecha_LostFocus(index As Integer)
-  Select Case index
+Private Sub txtfecha_LostFocus(Index As Integer)
+  Select Case Index
   Case 0, 1: fecha1
   Case 2, 3: fecha2
   End Select
 End Sub
 
 Private Sub fecha1()
+  Dim sql As String
   'filtra desde fecha1
   If viewexiste("vegresos") Then
     sql = "select * from vegresos where true"
@@ -470,6 +472,7 @@ Private Sub fecha1()
 End Sub
 
 Private Sub fecha2()
+  Dim sql As String
   'filtra hasta fecha2
   If viewexiste("vingresos") Then
     sql = "select * from vingresos where true"
@@ -506,6 +509,6 @@ Private Sub cargar()
   End If
 End Sub
 
-Private Sub txtfecha_Validate(index As Integer, Cancel As Boolean)
-  If txtfecha(index) <> "  /  /    " Then Cancel = Not validarfecha(txtfecha(index))
+Private Sub txtfecha_Validate(Index As Integer, Cancel As Boolean)
+  If txtfecha(Index) <> "  /  /    " Then Cancel = Not validarfecha(txtfecha(Index))
 End Sub

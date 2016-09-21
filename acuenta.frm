@@ -14,6 +14,23 @@ Begin VB.Form abmcuenta
    ScaleWidth      =   8985
    StartUpPosition =   3  'Windows Default
    WindowState     =   2  'Maximized
+   Begin VB.TextBox txtnombre 
+      Appearance      =   0  'Flat
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   375
+      Left            =   120
+      TabIndex        =   0
+      Top             =   6000
+      Width           =   8775
+   End
    Begin VB.CommandButton cmdeliminar 
       Caption         =   "Eliminar"
       BeginProperty Font 
@@ -27,20 +44,9 @@ Begin VB.Form abmcuenta
       EndProperty
       Height          =   375
       Left            =   4522
-      TabIndex        =   3
+      TabIndex        =   2
       Top             =   6480
       Width           =   1215
-   End
-   Begin Project1.UserControl1 txtnombre 
-      Height          =   375
-      Left            =   120
-      TabIndex        =   2
-      Top             =   6000
-      Width           =   8775
-      _ExtentX        =   15478
-      _ExtentY        =   661
-      info            =   "Elegir un rubro e ingresar nombre de la cuenta"
-      text            =   ""
    End
    Begin VB.CommandButton cmdagregar 
       Caption         =   "Agregar"
@@ -55,14 +61,14 @@ Begin VB.Form abmcuenta
       EndProperty
       Height          =   375
       Left            =   3247
-      TabIndex        =   0
+      TabIndex        =   1
       Top             =   6480
       Width           =   1215
    End
    Begin MSComctlLib.TreeView trcuentas 
       Height          =   5895
       Left            =   120
-      TabIndex        =   1
+      TabIndex        =   3
       Top             =   120
       Width           =   8775
       _ExtentX        =   15478
@@ -92,7 +98,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Public tmp As Boolean
+Option Explicit
 
 Private Sub cmdagregar_Click()
   On Error GoTo E
@@ -110,16 +116,12 @@ Private Sub cmdagregar_Click()
   StatusBar1.SimpleText = "Cuenta agregada"
   txtnombre = ""
   txtnombre.SetFocus
-  If tmp Then
-    tmp = False
-    Unload Me
-  End If
   Exit Sub
 E: StatusBar1.SimpleText = Err.Description
 End Sub
 
 Private Sub Form_Load()
-  llenarNivel trcuentas, "select * from cuentas", "nom_cue", "cod_cue", "cod_pad"
+  llenarnivel trcuentas, "select * from cuentas", "nom_cue", "cod_cue", "cod_pad"
 End Sub
 
 Private Sub cmdeliminar_Click()

@@ -13,34 +13,16 @@ Begin VB.Form abmegreso
    ScaleHeight     =   6945
    ScaleWidth      =   8985
    WindowState     =   2  'Maximized
-   Begin Project1.UserControl1 txtproveedor 
+   Begin Project1.UserControl3 txtcuenta 
       Height          =   375
-      Left            =   2160
-      TabIndex        =   5
-      Top             =   3480
+      Left            =   5880
+      TabIndex        =   40
+      Top             =   4440
       Width           =   1935
-      _extentx        =   3413
-      _extenty        =   661
-      info            =   "Ingresar código de proveedor. F3: buscar. F4: agregar"
-      tabla           =   "proveedores"
-      campo           =   "nom_prov"
-      clave           =   "cod_prov"
-      busq            =   "nom_prov"
-      enabled         =   0
-   End
-   Begin Project1.UserControl1 txtcodigo 
-      Height          =   375
-      Left            =   2160
-      TabIndex        =   1
-      Top             =   2040
-      Width           =   1935
-      _extentx        =   3413
-      _extenty        =   661
-      info            =   "F3: buscar"
-      campo           =   "cod_egr|fecha|format(sucursal,'0000')&'-'&format(n_comp,'00000000') as numero"
-      clave           =   "cod_egr"
-      busq            =   "n_comp"
-      enabled         =   0
+      _ExtentX        =   4048
+      _ExtentY        =   661
+      info            =   "Ingresar código de cuenta. F3: buscar"
+      enabled         =   0   'False
    End
    Begin Project1.UserControl1 txtemp 
       Height          =   375
@@ -48,11 +30,46 @@ Begin VB.Form abmegreso
       TabIndex        =   0
       Top             =   480
       Width           =   1695
-      _extentx        =   2990
-      _extenty        =   661
+      _ExtentX        =   2990
+      _ExtentY        =   661
+      info            =   "Ingresar código de empresa. F3: buscar"
+      tabla           =   "empresas"
+      campo           =   "nom_emp"
+      clave           =   "cod_emp"
+      busq            =   "nom_emp"
+   End
+   Begin Project1.UserControl1 txtproveedor 
+      Height          =   375
+      Left            =   2160
+      TabIndex        =   5
+      Top             =   3480
+      Width           =   1935
+      _ExtentX        =   3413
+      _ExtentY        =   661
+      info            =   "Ingresar código de proveedor. F3: buscar. F4: agregar"
+      tabla           =   "proveedores"
+      campo           =   "nom_prov"
+      clave           =   "cod_prov"
+      busq            =   "nom_prov"
+      enabled         =   0   'False
+   End
+   Begin Project1.UserControl1 txtcodigo 
+      Height          =   375
+      Left            =   2160
+      TabIndex        =   1
+      Top             =   2040
+      Width           =   1935
+      _ExtentX        =   3413
+      _ExtentY        =   661
+      info            =   "F3: buscar"
+      campo           =   "cod_egr|fecha|format(sucursal,'0000')&'-'&format(n_comp,'00000000') as numero"
+      clave           =   "cod_egr"
+      busq            =   "numero"
+      enabled         =   0   'False
    End
    Begin VB.CommandButton cmdeliminar 
       Caption         =   "Eliminar"
+      Enabled         =   0   'False
       BeginProperty Font 
          Name            =   "MS Sans Serif"
          Size            =   9.75
@@ -64,7 +81,7 @@ Begin VB.Form abmegreso
       EndProperty
       Height          =   375
       Left            =   4545
-      TabIndex        =   17
+      TabIndex        =   16
       Top             =   6480
       Width           =   1215
    End
@@ -152,28 +169,9 @@ Begin VB.Form abmegreso
       EndProperty
       Height          =   375
       Left            =   5880
-      TabIndex        =   37
+      TabIndex        =   36
       Text            =   "0.00"
       Top             =   5160
-      Width           =   1935
-   End
-   Begin VB.TextBox txtcuenta 
-      Alignment       =   1  'Right Justify
-      Appearance      =   0  'Flat
-      Enabled         =   0   'False
-      BeginProperty Font 
-         Name            =   "MS Sans Serif"
-         Size            =   9.75
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   375
-      Left            =   5880
-      TabIndex        =   15
-      Top             =   4440
       Width           =   1935
    End
    Begin VB.TextBox txtn 
@@ -415,6 +413,7 @@ Begin VB.Form abmegreso
    End
    Begin VB.CommandButton cmdguardar 
       Caption         =   "Registrar"
+      Enabled         =   0   'False
       BeginProperty Font 
          Name            =   "MS Sans Serif"
          Size            =   9.75
@@ -426,7 +425,7 @@ Begin VB.Form abmegreso
       EndProperty
       Height          =   375
       Left            =   3225
-      TabIndex        =   16
+      TabIndex        =   15
       Top             =   6480
       Width           =   1215
    End
@@ -454,6 +453,43 @@ Begin VB.Form abmegreso
       Mask            =   "##/##/####"
       PromptChar      =   " "
    End
+   Begin VB.Label labnom 
+      Alignment       =   2  'Center
+      Appearance      =   0  'Flat
+      BorderStyle     =   1  'Fixed Single
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H80000008&
+      Height          =   375
+      Left            =   3480
+      TabIndex        =   33
+      Top             =   480
+      Width           =   4695
+   End
+   Begin VB.Label Label17 
+      Caption         =   "Cód.emp"
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   255
+      Left            =   720
+      TabIndex        =   27
+      Top             =   600
+      Width           =   975
+   End
    Begin VB.Label labcodigo 
       Alignment       =   1  'Right Justify
       Caption         =   "Cód.compra"
@@ -468,12 +504,11 @@ Begin VB.Form abmegreso
       EndProperty
       Height          =   255
       Left            =   240
-      TabIndex        =   40
+      TabIndex        =   39
       Top             =   2160
       Width           =   1695
    End
    Begin VB.Label labcodcue 
-      Alignment       =   2  'Center
       Appearance      =   0  'Flat
       BorderStyle     =   1  'Fixed Single
       BeginProperty Font 
@@ -488,12 +523,11 @@ Begin VB.Form abmegreso
       ForeColor       =   &H80000008&
       Height          =   375
       Left            =   5880
-      TabIndex        =   39
+      TabIndex        =   38
       Top             =   4800
       Width           =   1935
    End
    Begin VB.Label labproveedor 
-      Alignment       =   2  'Center
       Appearance      =   0  'Flat
       BorderStyle     =   1  'Fixed Single
       BeginProperty Font 
@@ -508,7 +542,7 @@ Begin VB.Form abmegreso
       ForeColor       =   &H80000008&
       Height          =   375
       Left            =   2160
-      TabIndex        =   38
+      TabIndex        =   37
       Top             =   3840
       Width           =   1935
    End
@@ -529,7 +563,7 @@ Begin VB.Form abmegreso
       ForeColor       =   &H80000008&
       Height          =   375
       Left            =   7800
-      TabIndex        =   36
+      TabIndex        =   35
       Top             =   3360
       Width           =   855
    End
@@ -551,29 +585,9 @@ Begin VB.Form abmegreso
       ForeColor       =   &H80000008&
       Height          =   375
       Left            =   7800
-      TabIndex        =   35
+      TabIndex        =   34
       Top             =   3000
       Width           =   855
-   End
-   Begin VB.Label labnom 
-      Alignment       =   2  'Center
-      Appearance      =   0  'Flat
-      BorderStyle     =   1  'Fixed Single
-      BeginProperty Font 
-         Name            =   "MS Sans Serif"
-         Size            =   9.75
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      ForeColor       =   &H80000008&
-      Height          =   375
-      Left            =   3480
-      TabIndex        =   34
-      Top             =   480
-      Width           =   4695
    End
    Begin VB.Label Label6 
       Alignment       =   1  'Right Justify
@@ -589,7 +603,7 @@ Begin VB.Form abmegreso
       EndProperty
       Height          =   255
       Left            =   240
-      TabIndex        =   33
+      TabIndex        =   32
       Top             =   3600
       Width           =   1695
    End
@@ -607,7 +621,7 @@ Begin VB.Form abmegreso
       EndProperty
       Height          =   255
       Left            =   240
-      TabIndex        =   32
+      TabIndex        =   31
       Top             =   4320
       Width           =   1695
    End
@@ -625,7 +639,7 @@ Begin VB.Form abmegreso
       EndProperty
       Height          =   255
       Left            =   240
-      TabIndex        =   31
+      TabIndex        =   30
       Top             =   2520
       Width           =   1695
    End
@@ -643,7 +657,7 @@ Begin VB.Form abmegreso
       EndProperty
       Height          =   255
       Left            =   240
-      TabIndex        =   30
+      TabIndex        =   29
       Top             =   3240
       Width           =   1695
    End
@@ -661,26 +675,9 @@ Begin VB.Form abmegreso
       EndProperty
       Height          =   255
       Left            =   240
-      TabIndex        =   29
+      TabIndex        =   28
       Top             =   2880
       Width           =   1695
-   End
-   Begin VB.Label Label17 
-      Caption         =   "Cód.emp"
-      BeginProperty Font 
-         Name            =   "MS Sans Serif"
-         Size            =   9.75
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   255
-      Left            =   720
-      TabIndex        =   28
-      Top             =   600
-      Width           =   975
    End
    Begin VB.Label Label15 
       Alignment       =   1  'Right Justify
@@ -696,7 +693,7 @@ Begin VB.Form abmegreso
       EndProperty
       Height          =   255
       Left            =   4320
-      TabIndex        =   27
+      TabIndex        =   26
       Top             =   5280
       Width           =   1335
    End
@@ -714,7 +711,7 @@ Begin VB.Form abmegreso
       EndProperty
       Height          =   255
       Left            =   4320
-      TabIndex        =   26
+      TabIndex        =   25
       Top             =   4560
       Width           =   1335
    End
@@ -732,7 +729,7 @@ Begin VB.Form abmegreso
       EndProperty
       Height          =   255
       Left            =   4320
-      TabIndex        =   25
+      TabIndex        =   24
       Top             =   4200
       Width           =   1335
    End
@@ -750,7 +747,7 @@ Begin VB.Form abmegreso
       EndProperty
       Height          =   255
       Left            =   4320
-      TabIndex        =   24
+      TabIndex        =   23
       Top             =   3840
       Width           =   1335
    End
@@ -768,7 +765,7 @@ Begin VB.Form abmegreso
       EndProperty
       Height          =   255
       Left            =   4320
-      TabIndex        =   23
+      TabIndex        =   22
       Top             =   2760
       Width           =   1335
    End
@@ -786,7 +783,7 @@ Begin VB.Form abmegreso
       EndProperty
       Height          =   255
       Left            =   4320
-      TabIndex        =   22
+      TabIndex        =   21
       Top             =   2400
       Width           =   1335
    End
@@ -804,7 +801,7 @@ Begin VB.Form abmegreso
       EndProperty
       Height          =   255
       Left            =   4320
-      TabIndex        =   21
+      TabIndex        =   20
       Top             =   3120
       Width           =   1335
    End
@@ -822,7 +819,7 @@ Begin VB.Form abmegreso
       EndProperty
       Height          =   255
       Left            =   4320
-      TabIndex        =   20
+      TabIndex        =   19
       Top             =   1680
       Width           =   1335
    End
@@ -840,7 +837,7 @@ Begin VB.Form abmegreso
       EndProperty
       Height          =   255
       Left            =   4320
-      TabIndex        =   19
+      TabIndex        =   18
       Top             =   2040
       Width           =   1335
    End
@@ -858,7 +855,7 @@ Begin VB.Form abmegreso
       EndProperty
       Height          =   255
       Left            =   4320
-      TabIndex        =   18
+      TabIndex        =   17
       Top             =   3480
       Width           =   1335
    End
@@ -868,24 +865,29 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+Option Explicit
 Private porcs(2, 1) As Double, idc As Integer, ivadisc As Boolean, adoegr As ADODB.Recordset
 Public alta As Boolean
 
 Private Sub cmbletra_Click()
+  Dim i As Integer
   For i = 0 To txtn.UBound: txtn(i).enabled = (cmbletra.ListIndex > -1): Next
   txtcuenta.enabled = (cmbletra.ListIndex > -1)
-  ivadisc = True
+  If cmbletra.ListIndex > -1 Then ivadisc = cmbletra.ItemData(cmbletra.ListIndex)
+  For i = 0 To txtn.UBound: txtn(i) = "0.00": Next
+  idc = 0: porcs(0, 1) = 0: porcs(1, 1) = 0: porcs(2, 1) = 0
+  labiva = porcs(0, 0) * 100 & "%": lablitros = "0.00"
 End Sub
 
 Private Sub cmdeliminar_Click()
   On Error GoTo E
   assert Not adoegr Is Nothing, NOCAMP, "Elegir comprobante a eliminar"
-  If MsgBox("Realmente desea eliminar el comprobante?", vbYesNo) = vbYes Then
+  If MsgBox("¿Realmente desea eliminar el comprobante?", vbYesNo) = vbYes Then
     adoegr.Delete
     adoegr.Update
     limpiaregreso
     idc = 0: porcs(0, 1) = 0: porcs(1, 1) = 0: porcs(2, 1) = 0
-    labiva = porcs(0, 0) * 100 & "%"
+    labiva = porcs(0, 0) * 100 & "%": lablitros = "0.00"
     Set adoegr = Nothing
   End If
   Exit Sub
@@ -893,6 +895,7 @@ E: StatusBar1.SimpleText = Err.Description
 End Sub
 
 Private Sub cmdguardar_Click()
+  Dim r As ADODB.Recordset, msg As String, tbl As String
   On Error GoTo E
   assert txtsucursal <> "" And txtcomp <> "" And txtfecha <> "  /  /    " And cmbletra.ListIndex <> -1, NOCAMP, "Campos obligatorios: sucursal, número, fecha y tipo"
   If alta Then
@@ -914,6 +917,7 @@ Private Sub cmdguardar_Click()
   idc = 0: porcs(0, 1) = 0: porcs(1, 1) = 0: porcs(2, 1) = 0
   labiva = porcs(0, 0) * 100 & "%"
   Set adoegr = Nothing
+  If alta Then txtfecha.SetFocus Else txtcodigo.SetFocus
   Exit Sub
 E: StatusBar1.SimpleText = Err.Description
 End Sub
@@ -922,7 +926,8 @@ Private Sub Form_Load()
   labcodigo.Visible = Not alta
   txtcodigo.Visible = Not alta
   cmdeliminar.Visible = Not alta
-  loadmov Me, porcs
+  porcs(0, 0) = 0.21: porcs(1, 0) = 0.105: porcs(2, 0) = 0.27
+  llenarcmb cmbletra, "select * from comprobantes", "nom_comp", "ivadisc_comp"
 End Sub
 
 Private Sub txtcodigo_finbusqueda(llave As String, valor As String)
@@ -943,7 +948,7 @@ Private Sub txtcodigo_finbusqueda(llave As String, valor As String)
     porcs(1, 1) = Format(!iva105, "0.00")
     porcs(2, 1) = Format(!iva27, "0.00")
     txtn(4) = Format(porcs(idc, 1), "0.00")
-    txtlitros = !litros
+    txtn(5) = !litros
     txtn(6) = Format(!perc_iva, "0.00")
     txtn(7) = Format(!perc_ib, "0.00")
     If Not IsNull(!cod_cue) Then
@@ -954,18 +959,20 @@ Private Sub txtcodigo_finbusqueda(llave As String, valor As String)
   calcsubt
 End Sub
 
-Private Sub txtemp_change()
-  enable (txtemp <> "")
-  If txtemp = "" Then
-    limpiaregreso
-    txtcodigo = ""
-  End If
+Private Sub txtemp_finbusqueda(llave As String, valor As String)
+  txtemp = llave
+  labnom = valor
+  txtcuenta.empresa = txtemp
+  crearegresos llave
+  txtcodigo.tabla = "egresos" & llave
+  enable True
+  If alta Then txtfecha.SetFocus Else txtcodigo.SetFocus
 End Sub
 
-Private Sub txtemp_finbusqueda(llave As String, valor As String)
-  labnom = valor
-  txtemp = llave
-  txtcodigo.tabla = "egresos" & llave
+Private Sub txtemp_vacio()
+  enable False
+  labnom = ""
+  limpiaregreso
 End Sub
 
 Private Sub txtfecha_GotFocus()
@@ -985,7 +992,12 @@ End Sub
 
 Private Sub txtn_KeyDown(Index As Integer, KeyCode As Integer, Shift As Integer)
   If Index = 4 And KeyCode = vbKeyF2 Then
-    teclatxtnmov Me, 4, idc, porcs
+    porcs(idc, 1) = val(txtn(4))
+    idc = (idc + 1) Mod 3
+    txtn(4) = Format(porcs(idc, 1), "0.00")
+    labiva = porcs(idc, 0) * 100 & "%"
+    txtn(4).SelStart = 0
+    txtn(4).SelLength = Len(txtn(4))
     calcsubt
   End If
 End Sub
@@ -996,17 +1008,17 @@ Private Sub txtn_LostFocus(Index As Integer)
     If ivadisc Then
       porcs(0, 1) = val(txtn(0)) * 0.21
     Else
-      txtn(0).Tag = txtn(0)
+      txtn(0).tag = txtn(0)
       txtn(0) = Format(val(txtn(0)) / 1.21, "0.00")
-      porcs(0, 1) = val(txtn(0).Tag) - val(txtn(0))
+      porcs(0, 1) = val(txtn(0).tag) - val(txtn(0))
     End If
     If idc = 0 Then txtn(4) = Format(porcs(0, 1), "0.00")
   Case 3: 'interno
-    txtn(3).Tag = txtn(3)
-    txtn(3) = val(txtn(3).Tag) - val(lablitros)
+    txtn(3).tag = txtn(3)
+    txtn(3) = val(txtn(3).tag) - val(lablitros)
   Case 5: 'litros
     lablitros = Format(val(txtn(5)) * 0.27, "0.00")
-    txtn(3) = val(txtn(3).Tag) - val(lablitros)
+    txtn(3) = val(txtn(3).tag) - val(lablitros)
   Case 4: 'iva
     porcs(idc, 1) = val(txtn(4))
     StatusBar1.SimpleText = ""
@@ -1014,37 +1026,23 @@ Private Sub txtn_LostFocus(Index As Integer)
   calcsubt
 End Sub
 
-Private Sub txtemp_Validate(Cancel As Boolean)
-  If txtemp <> "" Then Cancel = validaremp(txtemp, labnom) Else labnom = ""
-  If Not Cancel And txtemp <> "" Then crearegresos txtemp
-End Sub
-
-Private Sub txtcuenta_GotFocus()
-  StatusBar1.SimpleText = "Ingresar código de cuenta. F3: buscar. F4: agregar"
-End Sub
-
-Private Sub txtcuenta_KeyDown(KeyCode As Integer, Shift As Integer)
-  teclacuemov Me, KeyCode
-End Sub
-
-Private Sub txtcuenta_Validate(Cancel As Boolean)
-  Cancel = validarcuemov(Me)
-End Sub
-
 Private Sub txtproveedor_alta()
-  If p And 2 ^ 2 Then teclaprov1 Else StatusBar1.SimpleText = "Permiso necesario"
+  If p And 2 ^ 2 Then
+    abmproveedor.tmp = True
+    abmproveedor.alta = True
+    abrir inicio.Frame1, abmproveedor, False
+  Else
+    StatusBar1.SimpleText = "Permiso necesario"
+  End If
 End Sub
 
 Private Sub txtproveedor_finbusqueda(llave As String, valor As String)
-  labproveedor = valor
   txtproveedor = llave
-End Sub
-
-Private Sub txtproveedor_Validate(Cancel As Boolean)
-  If txtproveedor <> "" Then Cancel = validarprov(txtproveedor, labproveedor)
+  labproveedor = left2(valor, 15)
 End Sub
 
 Private Sub calcsubt()
+  Dim i As Integer
   txtsubtotal = 0
   For i = 0 To txtn.UBound
     txtsubtotal = val(txtsubtotal) + IIf(i = 4 Or i = 5, 0, val(txtn(i)))
@@ -1061,17 +1059,20 @@ Private Sub enable(b As Boolean)
   txtcomp.enabled = b
   txtproveedor.enabled = b
   cmbletra.enabled = b
+  cmdguardar.enabled = b
+  cmdeliminar.enabled = b
   If Not b Then cmbletra.ListIndex = -1
 End Sub
 
 Private Sub limpiaregreso()
+  Dim i As Integer
   txtcodigo = "": txtsucursal = "": txtcomp = ""
   txtfecha = "  /  /    ": lablitros = "0.00": cmbletra.ListIndex = -1
   txtproveedor = "": labproveedor = "": txtcuenta = ""
   labcodcue = "": txtsubtotal = "0.00"
   For i = 0 To txtn.UBound
     txtn(i) = "0.00"
-    txtn(i).Locked = False
+    txtn(i).enabled = False
   Next
 End Sub
 
@@ -1093,6 +1094,16 @@ Private Sub guardaregreso()
     !litros = txtn(5)
     !perc_iva = txtn(6)
     !perc_ib = txtn(7)
-    !cod_cue = IIf(txtcuenta = "", Null, txtcuenta)
+    If txtcuenta <> "" Then !cod_cue = val(txtcuenta)
   End With
+End Sub
+
+Private Sub txtcuenta_finbusqueda(llave As String, valor As String)
+  txtcuenta = llave
+  labcodcue = valor
+End Sub
+
+Private Sub txtcuenta_vacio()
+  txtcuenta = ""
+  labcodcue = ""
 End Sub

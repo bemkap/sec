@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
 Begin VB.Form buscard 
    BorderStyle     =   1  'Fixed Single
    ClientHeight    =   6945
@@ -14,10 +14,14 @@ Begin VB.Form buscard
    ScaleWidth      =   8985
    StartUpPosition =   3  'Windows Default
    WindowState     =   2  'Maximized
-   Begin VB.Timer Timer1 
-      Enabled         =   0   'False
-      Left            =   11880
-      Top             =   120
+   Begin Project1.UserControl2 txtbuscar 
+      Height          =   375
+      Left            =   120
+      TabIndex        =   3
+      Top             =   6480
+      Width           =   8415
+      _ExtentX        =   14843
+      _ExtentY        =   661
    End
    Begin VB.PictureBox Picture1 
       Appearance      =   0  'Flat
@@ -28,31 +32,14 @@ Begin VB.Form buscard
       Picture         =   "buscard.frx":0000
       ScaleHeight     =   345
       ScaleWidth      =   345
-      TabIndex        =   1
-      Top             =   6480
-      Width           =   375
-   End
-   Begin VB.TextBox txtbuscar 
-      Appearance      =   0  'Flat
-      BeginProperty Font 
-         Name            =   "MS Sans Serif"
-         Size            =   9.75
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   375
-      Left            =   120
       TabIndex        =   0
       Top             =   6480
-      Width           =   8415
+      Width           =   375
    End
    Begin MSComctlLib.ListView lst 
       Height          =   2895
       Left            =   120
-      TabIndex        =   2
+      TabIndex        =   1
       Top             =   3600
       Width           =   8775
       _ExtentX        =   15478
@@ -81,7 +68,7 @@ Begin VB.Form buscard
    Begin MSComctlLib.ListView lstd 
       Height          =   3495
       Left            =   120
-      TabIndex        =   3
+      TabIndex        =   2
       Top             =   120
       Width           =   8775
       _ExtentX        =   15478
@@ -113,18 +100,20 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+Option Explicit
 Public columna As String, clave As String, tabla As String, busq As String
 Public detalle As String, excol As String, extab As String, excla As String
 Private dt() As String
 
 Private Sub Form_Load()
   initlst lst, Array(columna), Array(1)
-  llenarlst lst, "select " & clave & "," & columna & " from " & tabla, Array(columna), clave
+  llenarlst lst, "select * from " & tabla, Array(columna), clave
   initlst lstd, Array("Campo", "Valor"), Array(0.3, 0.69)
   dt = Split(detalle, "|")
 End Sub
 
 Private Sub lst_DblClick()
+  Dim i As Integer
   lstd.ListItems.Clear
   With busc("select " & Replace(detalle, "|", ",") & " from " & tabla & " where " & clave & "=" & Mid(lst.SelectedItem.key, 2))
     For i = 0 To UBound(dt)
@@ -137,12 +126,6 @@ Private Sub lst_DblClick()
   End If
 End Sub
 
-Private Sub Timer1_Timer()
-  Timer1.Enabled = False
-  llenarlst lst, "select " & clave & "," & columna & " from " & tabla & " where " & busq & " like '%" & txtbuscar & "%'", Array(columna), clave
-End Sub
-
-Private Sub txtbuscar_Change()
-  Timer1.Interval = 500
-  Timer1.Enabled = True
+Private Sub txtbuscar_buscar()
+  llenarlst lst, "select * from " & tabla & " where " & busq & " like '%" & txtbuscar & "%'", Array(columna), clave
 End Sub

@@ -1,6 +1,5 @@
 VERSION 5.00
-Object = "{C932BA88-4374-101B-A56C-00AA003668DC}#1.1#0"; "msmask32.ocx"
-Object = "{5E9E78A0-531B-11CF-91F6-C2863C385E30}#1.0#0"; "MSFlxGrd.ocx"
+Object = "{5E9E78A0-531B-11CF-91F6-C2863C385E30}#1.0#0"; "MSFLXGRD.OCX"
 Begin VB.Form calculo 
    BorderStyle     =   1  'Fixed Single
    ClientHeight    =   6945
@@ -15,25 +14,9 @@ Begin VB.Form calculo
    ScaleWidth      =   8985
    StartUpPosition =   3  'Windows Default
    WindowState     =   2  'Maximized
-   Begin VB.TextBox txtemp 
-      Appearance      =   0  'Flat
-      BeginProperty Font 
-         Name            =   "MS Sans Serif"
-         Size            =   9.75
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   375
-      Left            =   1905
-      TabIndex        =   0
-      Top             =   600
-      Width           =   1695
-   End
-   Begin VB.CommandButton Command1 
-      Caption         =   "Graficar"
+   Begin VB.CommandButton cmdnuevo 
+      Caption         =   "Editar"
+      Enabled         =   0   'False
       BeginProperty Font 
          Name            =   "MS Sans Serif"
          Size            =   9.75
@@ -44,28 +27,28 @@ Begin VB.Form calculo
          Strikethrough   =   0   'False
       EndProperty
       Height          =   375
-      Left            =   4545
-      TabIndex        =   5
+      Left            =   3243
+      TabIndex        =   4
       Top             =   6480
       Width           =   1215
    End
-   Begin VB.ComboBox cmbperiodos 
+   Begin VB.CommandButton cmdgraficar 
+      Caption         =   "Graficar"
       Enabled         =   0   'False
       BeginProperty Font 
          Name            =   "MS Sans Serif"
          Size            =   9.75
          Charset         =   0
-         Weight          =   400
+         Weight          =   700
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   360
-      Left            =   480
-      Style           =   2  'Dropdown List
-      TabIndex        =   3
-      Top             =   3000
-      Width           =   2415
+      Height          =   375
+      Left            =   4560
+      TabIndex        =   5
+      Top             =   6480
+      Width           =   1215
    End
    Begin VB.Frame Frame1 
       Caption         =   "PERIODO"
@@ -78,34 +61,15 @@ Begin VB.Form calculo
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   1095
+      Height          =   1575
       Left            =   480
       TabIndex        =   7
-      Top             =   1680
+      Top             =   1560
       Width           =   2415
-      Begin MSMask.MaskEdBox txtperiodo 
-         BeginProperty DataFormat 
-            Type            =   1
-            Format          =   "MM/dd/yyyy"
-            HaveTrueFalseNull=   0
-            FirstDayOfWeek  =   0
-            FirstWeekOfYear =   0
-            LCID            =   11274
-            SubFormatType   =   3
-         EndProperty
-         Height          =   375
-         Index           =   0
-         Left            =   1080
-         TabIndex        =   1
-         Top             =   240
-         Width           =   1095
-         _ExtentX        =   1931
-         _ExtentY        =   661
-         _Version        =   393216
-         Appearance      =   0
-         MaxLength       =   7
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "Courier"
+      Begin VB.ComboBox cmbperiodos 
+         Enabled         =   0   'False
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
             Size            =   9.75
             Charset         =   0
             Weight          =   400
@@ -113,32 +77,18 @@ Begin VB.Form calculo
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Mask            =   "##/####"
-         PromptChar      =   " "
+         Height          =   360
+         Left            =   960
+         Style           =   2  'Dropdown List
+         TabIndex        =   3
+         Top             =   840
+         Width           =   1215
       End
-      Begin MSMask.MaskEdBox txtperiodo 
-         BeginProperty DataFormat 
-            Type            =   1
-            Format          =   "MM/dd/yyyy"
-            HaveTrueFalseNull=   0
-            FirstDayOfWeek  =   0
-            FirstWeekOfYear =   0
-            LCID            =   11274
-            SubFormatType   =   3
-         EndProperty
-         Height          =   375
-         Index           =   1
-         Left            =   1080
-         TabIndex        =   2
-         Top             =   600
-         Width           =   1095
-         _ExtentX        =   1931
-         _ExtentY        =   661
-         _Version        =   393216
-         Appearance      =   0
-         MaxLength       =   7
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "Courier"
+      Begin VB.TextBox txtperiodo 
+         Appearance      =   0  'Flat
+         Enabled         =   0   'False
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
             Size            =   9.75
             Charset         =   0
             Weight          =   400
@@ -146,11 +96,15 @@ Begin VB.Form calculo
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Mask            =   "##/####"
-         PromptChar      =   " "
+         Height          =   375
+         Left            =   960
+         TabIndex        =   2
+         Top             =   360
+         Width           =   1215
       End
       Begin VB.Label Label2 
-         Caption         =   "hasta"
+         Alignment       =   2  'Center
+         Caption         =   "per."
          BeginProperty Font 
             Name            =   "MS Sans Serif"
             Size            =   9.75
@@ -162,12 +116,13 @@ Begin VB.Form calculo
          EndProperty
          Height          =   255
          Left            =   240
-         TabIndex        =   9
-         Top             =   720
+         TabIndex        =   1
+         Top             =   945
          Width           =   675
       End
       Begin VB.Label Label1 
-         Caption         =   "desde"
+         Alignment       =   2  'Center
+         Caption         =   "año"
          BeginProperty Font 
             Name            =   "MS Sans Serif"
             Size            =   9.75
@@ -180,26 +135,9 @@ Begin VB.Form calculo
          Height          =   255
          Left            =   240
          TabIndex        =   8
-         Top             =   360
+         Top             =   480
          Width           =   675
       End
-   End
-   Begin VB.CommandButton cmdguardar 
-      Caption         =   "Calcular"
-      BeginProperty Font 
-         Name            =   "MS Sans Serif"
-         Size            =   9.75
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   375
-      Left            =   3225
-      TabIndex        =   4
-      Top             =   6480
-      Width           =   1215
    End
    Begin MSFlexGridLib.MSFlexGrid flx1 
       Height          =   3735
@@ -227,6 +165,20 @@ Begin VB.Form calculo
          Strikethrough   =   0   'False
       EndProperty
    End
+   Begin Project1.UserControl1 txtemp 
+      Height          =   375
+      Left            =   1920
+      TabIndex        =   0
+      Top             =   600
+      Width           =   1695
+      _ExtentX        =   2990
+      _ExtentY        =   661
+      info            =   "Ingresar código de empresa. F3: buscar"
+      tabla           =   "empresas"
+      campo           =   "nom_emp"
+      clave           =   "cod_emp"
+      busq            =   "nom_emp"
+   End
    Begin VB.Label labnom 
       Alignment       =   2  'Center
       Appearance      =   0  'Flat
@@ -235,15 +187,15 @@ Begin VB.Form calculo
          Name            =   "MS Sans Serif"
          Size            =   9.75
          Charset         =   0
-         Weight          =   400
+         Weight          =   700
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H80000008&
       Height          =   375
-      Left            =   3585
-      TabIndex        =   11
+      Left            =   3600
+      TabIndex        =   10
       Top             =   600
       Width           =   4695
    End
@@ -259,8 +211,8 @@ Begin VB.Form calculo
          Strikethrough   =   0   'False
       EndProperty
       Height          =   255
-      Left            =   705
-      TabIndex        =   10
+      Left            =   840
+      TabIndex        =   9
       Top             =   720
       Width           =   975
    End
@@ -270,60 +222,60 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Private tc As New Collection, tv As New Collection
+Option Explicit
 
 Private Sub cmbperiodos_Click()
-  llenar cmbperiodos.ListIndex + 1
+  If cmbperiodos <> "" Then llenar cmbperiodos
 End Sub
 
-Private Sub cmdguardar_Click()
+Private Sub cmdgraficar_Click()
   On Error GoTo E
-  assert txtemp <> "" And txtperiodo(0) <> "  /    " And txtperiodo(1) <> "  /    ", NOCAMP, "Campos obligatorios: empresa y periodos"
-  assert CDate(txtperiodo(0)) <= CDate(txtperiodo(1)), INVDAT, "Fechas incorrectas"
-  cmbperiodos.Enabled = True
-  For m = Month(txtperiodo(0)) - 1 To Month(txtperiodo(1)) + 12 * (Year(txtperiodo(1)) - Year(txtperiodo(0))) - 1
-    cmbperiodos.AddItem (m Mod 12) + 1 & "/" & Year(txtperiodo(0)) + Round((m + 1) / 12 - 0.51)
-  Next
-  For i = 0 To cmbperiodos.ListCount - 1
-    mm = Month(CDate(cmbperiodos.List(i)))
-    yy = Year(CDate(cmbperiodos.List(i)))
-    'totales de compras por periodo
-    tc.Add busc("select sum(gravado),sum(no_gravado),sum(iva21)+sum(iva105)+sum(iva27),sum(exento),sum(interno),sum(perc_iva),sum(perc_ib),sum(litros*0.27) from egresos" & txtemp & _
-                " having month(fecha)=" & mm & " and year(fecha)=" & yy)
-    'totales de ventas por periodo
-    tv.Add busc("select sum(gravado),sum(no_gravado),sum(iva21)+sum(iva105)+sum(iva27),sum(exento),sum(interno),sum(ret_iva),sum(ret_ib) from ingresos" & txtemp & _
-                " having month(fecha)=" & mm & " and year(fecha)=" & yy)
-  Next
-  cmbperiodos.ListIndex = 0
-  Exit Sub
-E: StatusBar1.SimpleText = Err.Description
-End Sub
-
-Private Sub Command1_Click()
-  On Error GoTo E
-  assert txtemp <> "" And txtperiodo(0) <> "  /    " And txtperiodo(1) <> "  /    ", NOCAMP, "Campos obligatorios: empresa y periodos"
-  assert CDate(txtperiodo(0)) <= CDate(txtperiodo(1)), INVDAT, "Fechas incorrectas"
-  'construccion de las cadenas para el histrograma
-  For j = 1 To cmbperiodos.ListCount
-    n = 0: m = 0
-    For i = 0 To 7
-      n = n + coalesce(tc(j).Fields(i), 0)
-      If i < 7 Then m = m + coalesce(tv(j).Fields(i), 0)
-    Next
-    se = se & "," & n 'importe egreso(compra/gasto)
-    si = si & "," & m 'importe ingreso(venta/cobro)
-    my = my & "," & cmbperiodos.List(j - 1) 'mes
-  Next
-  fhisto.se = Mid(se, 2): fhisto.si = Mid(si, 2)
-  fhisto.em = Mid(my, 2): fhisto.im = Mid(my, 2)
+  assert txtemp <> "" And txtperiodo <> "", NOCAMP, "Campos obligatorios: empresa y año"
+  fhisto.aa = txtperiodo
   fhisto.Show vbModal
   Exit Sub
 E: StatusBar1.SimpleText = Err.Description
 End Sub
 
+Private Sub cmdnuevo_Click()
+  On Error GoTo E
+  assert txtperiodo <> "" And cmbperiodos.ListIndex > -1, NOCAMP, "Campos obligatorios: año y mes"
+  initlst selcierre.lstcomp(0), Array("FECHA", "Nº COMPROBANTE", "IVA", "SUBTOTAL"), _
+    Array(0.25, 0.25, 0.25, 0.25)
+  initlst selcierre.lstcomp(1), Array("FECHA", "Nº COMPROBANTE", "IVA", "SUBTOTAL"), _
+    Array(0.25, 0.25, 0.25, 0.25)
+  initlst selcierre.lstcomp1(0), Array("FECHA", "Nº COMPROBANTE", "IVA", "SUBTOTAL"), _
+    Array(0.25, 0.25, 0.25, 0.25)
+  initlst selcierre.lstcomp1(1), Array("FECHA", "Nº COMPROBANTE", "IVA", "SUBTOTAL"), _
+    Array(0.25, 0.25, 0.25, 0.25)
+  
+  llenarlst selcierre.lstcomp(0), "select cod_egr,fecha,format(sucursal,'0000')&'-'&format(n_comp,'00000000') as numero," & _
+    "iva21+iva105+iva27 as iva,gravado+no_gravado+iva21+iva105+iva27+exento+interno+perc_iva+perc_ib" & _
+    "+litros*0.27 as subtotal from egresos" & txtemp & " where periodo=" & txtperiodo * 12 + cmbperiodos, _
+    Array("fecha", "numero", "iva", "subtotal"), "cod_egr"
+  llenarlst selcierre.lstcomp1(0), "select cod_egr,fecha,format(sucursal,'0000')&'-'&format(n_comp,'00000000') as numero," & _
+    "iva21+iva105+iva27 as iva,gravado+no_gravado+iva21+iva105+iva27+exento+interno+perc_iva+perc_ib" & _
+    "+litros*0.27 as subtotal from egresos" & txtemp & " where periodo<=0", _
+    Array("fecha", "numero", "iva", "subtotal"), "cod_egr"
+  llenarlst selcierre.lstcomp(1), "select cod_ing,fecha,format(sucursal,'0000')&'-'&format(n_comp,'00000000') as numero," & _
+    "iva21+iva105+iva27 as iva,gravado+no_gravado+iva21+iva105+iva27+exento+interno+ret_iva+ret_ib" & _
+    " as subtotal from ingresos" & txtemp & " where periodo=" & txtperiodo * 12 + cmbperiodos, _
+    Array("fecha", "numero", "iva", "subtotal"), "cod_ing"
+  llenarlst selcierre.lstcomp1(1), "select cod_ing,fecha,format(sucursal,'0000')&'-'&format(n_comp,'00000000') as numero," & _
+    "iva21+iva105+iva27 as iva,gravado+no_gravado+iva21+iva105+iva27+exento+interno+ret_iva+ret_ib" & _
+    " as subtotal from ingresos" & txtemp & " where periodo<=0", _
+    Array("fecha", "numero", "iva", "subtotal"), "cod_ing"
+  selcierre.periodo = txtperiodo * 12 + cmbperiodos
+  selcierre.emp = txtemp
+  selcierre.Show vbModal
+  Exit Sub
+E: StatusBar1.SimpleText = Err.Description
+End Sub
+
 Private Sub Form_Load()
+  Dim col(), fil(), i As Integer
   col = Array("COMPRAS", "VENTAS")
-  fil = Array("GRAVADO", "NO GRAVADO", "IVA", "EXENTO", "INTERNO", "PERC/RET IVA", "PERC./RET. IB", "LITROS*0.27", "SUBTOTAL")
+  fil = Array("GRAVADO", "NO GRAVADO", "IVA", "EXENTO", "INTERNO", "PERC./RET. IVA", "PERC./RET. IB", "LITROS*0.27", "SUBTOTAL")
   With flx1
     For i = 0 To UBound(fil): .TextMatrix(i + 1, 0) = fil(i): Next
     For i = 0 To UBound(col): .TextMatrix(0, i + 1) = col(i): Next
@@ -333,55 +285,76 @@ Private Sub Form_Load()
   End With
 End Sub
 
-Private Sub txtemp_GotFocus()
-  StatusBar1.SimpleText = "Ingresar código de empresa. F3: buscar"
+Private Sub txtemp_vacio()
+  labnom = ""
+  txtperiodo.enabled = False
+  cmdgraficar.enabled = False
+  cmdnuevo.enabled = False
 End Sub
 
-Private Sub txtemp_KeyDown(KeyCode As Integer, Shift As Integer)
-  If KeyCode = vbKeyF3 Then
-    If teclaemp(txtemp, labnom) Then
-      For j = 0 To min(tc.Count, tv.Count) - 1: llenar j: Next
-    End If
-  End If
-End Sub
-
-Private Sub txtemp_Validate(Cancel As Boolean)
-  If txtemp <> "" Then Cancel = validaremp(txtemp, labnom) Else labnom = ""
-  If Not Cancel And txtemp <> "" Then
-    For j = 0 To min(tc.Count, tv.Count) - 1: llenar j: Next
-  End If
-End Sub
-
-Private Sub txtemp_LostFocus()
-  StatusBar1.SimpleText = ""
-End Sub
-
-Private Sub txtperiodo_Change(Index As Integer)
+Private Sub txtperiodo_Change()
   cmbperiodos.Clear
-  cmbperiodos.Enabled = False
-  If Not tv Is Nothing Then Set tv = Nothing: Set tv = New Collection
-  If Not tc Is Nothing Then Set tc = Nothing: Set tc = New Collection
+  cmbperiodos.enabled = False
 End Sub
 
-Private Sub txtperiodo_GotFocus(Index As Integer)
-  txtperiodo(Index).SelStart = 0
-  txtperiodo(Index).SelLength = 7
+Private Sub txtperiodo_GotFocus()
+  txtperiodo.SelStart = 0
+  txtperiodo.SelLength = Len(txtperiodo.text)
+End Sub
+
+Private Sub txtemp_finbusqueda(llave As String, valor As String)
+  txtemp = llave
+  labnom = valor
+  txtperiodo.enabled = True
+  txtperiodo.SetFocus
+  cmdgraficar.enabled = True
+  cmdnuevo.enabled = True
 End Sub
 
 Private Sub llenar(ByVal j As Integer)
+  Dim n As Double, m As Double, i As Integer
   n = 0: m = 0
-  With flx1
-    For i = 1 To .Rows - 2
-      .TextMatrix(i, 1) = Format(coalesce(tc(j).Fields(i - 1), 0), "0.00")
-      If i < .Rows - 2 Then .TextMatrix(i, 2) = Format(coalesce(tv(j).Fields(i - 1), 0), "0.00")
-      n = n + val(.TextMatrix(i, 1))
-      m = m + val(.TextMatrix(i, 2))
+  With busc("select * from vte where periodo=" & txtperiodo * 12 + cmbperiodos)
+    For i = 1 To flx1.Rows - 2
+      flx1.TextMatrix(i, 1) = "0.00"
+      If .RecordCount > 0 Then flx1.TextMatrix(i, 1) = Format(coalesce(.Fields(i - 1), 0), "0.00")
+      n = n + val(flx1.TextMatrix(i, 1))
     Next
-    .TextMatrix(.Rows - 1, 1) = n
-    .TextMatrix(.Rows - 1, 2) = m
   End With
+  With busc("select * from vti where periodo=" & txtperiodo * 12 + cmbperiodos)
+    For i = 1 To flx1.Rows - 2
+      flx1.TextMatrix(i, 2) = "0.00"
+      If .RecordCount > 0 Then flx1.TextMatrix(i, 2) = Format(coalesce(.Fields(i - 1), 0), "0.00")
+      m = m + val(flx1.TextMatrix(i, 2))
+    Next
+  End With
+  flx1.TextMatrix(flx1.Rows - 1, 1) = n
+  flx1.TextMatrix(flx1.Rows - 1, 2) = m
 End Sub
 
-Private Sub txtperiodo_Validate(Index As Integer, Cancel As Boolean)
-  If txtperiodo(Index) <> "  /    " Then Cancel = Not validarfecha(txtperiodo(Index))
+Private Sub txtperiodo_KeyDown(KeyCode As Integer, Shift As Integer)
+  Dim i As Integer
+  On Error GoTo E
+  If KeyCode = vbKeyReturn Then
+    If txtperiodo <> "" Then
+      For i = 1 To 12: cmbperiodos.AddItem i: Next
+      If viewexiste("vti") Then C.Execute "drop view vti"
+      If viewexiste("vte") Then C.Execute "drop view vte"
+      C.Execute "create view vti as " & _
+          "select sum(gravado) as sgravado,sum(no_gravado) as sno_gravado,sum(iva21)+sum(iva105)+sum(iva27) as siva," & _
+          "sum(exento) as sexento,sum(interno) as sinterno,sum(ret_iva) as sret_iva,sum(ret_ib) as sret_ib,'' as slitros,periodo," & _
+          "sum(iva21) as s21,sum(iva105) as s105,sum(iva27) as s27 from ingresos" & txtemp & _
+          " where periodo>" & txtperiodo * 12 & " and periodo<=" & txtperiodo * 12 + 12 & " group by periodo"
+      C.Execute "create view vte as " & _
+          "select sum(gravado) as sgravado,sum(no_gravado) as sno_gravado,sum(iva21)+sum(iva105)+sum(iva27) as siva," & _
+          "sum(exento) as sexento,sum(interno) as sinterno,sum(perc_iva) as sperc_iva,sum(perc_ib) as sperc_ib,sum(litros)*0.27 as slitros,periodo," & _
+          "sum(iva21) as s21,sum(iva105) as s105,sum(iva27) as s27 from egresos" & txtemp & _
+          " where periodo>" & txtperiodo * 12 & " and periodo<=" & txtperiodo * 12 + 12 & " group by periodo"
+      cmbperiodos.enabled = (txtperiodo <> "")
+      cmbperiodos.ListIndex = -1
+      cmbperiodos.SetFocus
+    End If
+  End If
+  Exit Sub
+E: StatusBar1.SimpleText = Err.Description
 End Sub

@@ -1,4 +1,5 @@
 Attribute VB_Name = "errores"
+Option Explicit
 Enum NERROR
   NOCAMP = 1
   CAMPEX = 2

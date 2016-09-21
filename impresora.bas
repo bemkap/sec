@@ -1,4 +1,6 @@
 Attribute VB_Name = "impresora"
+Option Explicit
+
 Public Sub centro(ByVal str As String)
   Printer.CurrentX = (Printer.ScaleWidth - Len(str)) / 2
   Printer.Print str;

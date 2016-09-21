@@ -1,8 +1,8 @@
 VERSION 5.00
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
 Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
 Object = "{C932BA88-4374-101B-A56C-00AA003668DC}#1.1#0"; "msmask32.ocx"
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
-Begin VB.Form aempresa 
+Begin VB.Form abmempresa 
    BorderStyle     =   1  'Fixed Single
    ClientHeight    =   6945
    ClientLeft      =   15
@@ -18,7 +18,7 @@ Begin VB.Form aempresa
    Begin TabDlg.SSTab SSTab1 
       Height          =   6975
       Left            =   0
-      TabIndex        =   10
+      TabIndex        =   11
       Top             =   0
       Width           =   9015
       _ExtentX        =   15901
@@ -47,15 +47,17 @@ Begin VB.Form aempresa
       Tab(0).Control(5)=   "txtsus"
       Tab(0).Control(6)=   "txttel"
       Tab(0).Control(7)=   "txtdom"
-      Tab(0).Control(8)=   "Label24"
-      Tab(0).Control(9)=   "Label23"
-      Tab(0).Control(10)=   "Label22"
-      Tab(0).Control(11)=   "Label21"
-      Tab(0).Control(12)=   "Label20"
-      Tab(0).Control(13)=   "Label19"
-      Tab(0).Control(14)=   "Label18"
-      Tab(0).Control(15)=   "Label17"
-      Tab(0).ControlCount=   16
+      Tab(0).Control(8)=   "txtcodigo"
+      Tab(0).Control(9)=   "labcodigo"
+      Tab(0).Control(10)=   "Label24"
+      Tab(0).Control(11)=   "Label23"
+      Tab(0).Control(12)=   "Label22"
+      Tab(0).Control(13)=   "Label21"
+      Tab(0).Control(14)=   "Label20"
+      Tab(0).Control(15)=   "Label19"
+      Tab(0).Control(16)=   "Label18"
+      Tab(0).Control(17)=   "Label17"
+      Tab(0).ControlCount=   18
       TabCaption(1)   =   "PLAN DE CUENTAS"
       TabPicture(1)   =   "aempresa.frx":001C
       Tab(1).ControlEnabled=   0   'False
@@ -78,19 +80,45 @@ Begin VB.Form aempresa
       Tab(2).Control(5).Enabled=   0   'False
       Tab(2).Control(6)=   "lstactividades"
       Tab(2).Control(6).Enabled=   0   'False
-      Tab(2).Control(7)=   "Timer1"
+      Tab(2).Control(7)=   "Command6"
       Tab(2).Control(7).Enabled=   0   'False
-      Tab(2).Control(8)=   "Command6"
+      Tab(2).Control(8)=   "cmdguardar"
       Tab(2).Control(8).Enabled=   0   'False
-      Tab(2).Control(9)=   "txtbuscar"
+      Tab(2).Control(9)=   "Picture1"
       Tab(2).Control(9).Enabled=   0   'False
-      Tab(2).Control(10)=   "cmdguardar"
+      Tab(2).Control(10)=   "Picture2"
       Tab(2).Control(10).Enabled=   0   'False
-      Tab(2).Control(11)=   "Picture1"
+      Tab(2).Control(11)=   "txtbuscar"
       Tab(2).Control(11).Enabled=   0   'False
-      Tab(2).Control(12)=   "Picture2"
+      Tab(2).Control(12)=   "cmdeliminar"
       Tab(2).Control(12).Enabled=   0   'False
       Tab(2).ControlCount=   13
+      Begin VB.CommandButton cmdeliminar 
+         Caption         =   "Eliminar"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   375
+         Left            =   4560
+         TabIndex        =   32
+         Top             =   6480
+         Width           =   1215
+      End
+      Begin Project1.UserControl2 txtbuscar 
+         Height          =   360
+         Left            =   120
+         TabIndex        =   30
+         Top             =   5040
+         Width           =   8415
+         _ExtentX        =   14843
+         _ExtentY        =   635
+      End
       Begin VB.PictureBox Picture2 
          Appearance      =   0  'Flat
          BackColor       =   &H80000005&
@@ -98,8 +126,9 @@ Begin VB.Form aempresa
          Height          =   360
          Left            =   8520
          Picture         =   "aempresa.frx":0054
-         ScaleHeight     =   330
-         ScaleWidth      =   345
+         ScaleHeight     =   22
+         ScaleMode       =   3  'Pixel
+         ScaleWidth      =   23
          TabIndex        =   29
          Top             =   5040
          Width           =   375
@@ -129,15 +158,15 @@ Begin VB.Form aempresa
          EndProperty
          Height          =   375
          Left            =   -70680
-         TabIndex        =   1
-         Top             =   2400
+         TabIndex        =   2
+         Top             =   2520
          Width           =   2895
       End
       Begin MSMask.MaskEdBox txtcuit 
          Height          =   375
          Left            =   -70680
-         TabIndex        =   0
-         Top             =   2040
+         TabIndex        =   1
+         Top             =   2160
          Width           =   2895
          _ExtentX        =   5106
          _ExtentY        =   661
@@ -170,31 +199,15 @@ Begin VB.Form aempresa
             Strikethrough   =   0   'False
          EndProperty
          Height          =   375
-         Left            =   3990
-         TabIndex        =   9
+         Left            =   3240
+         TabIndex        =   10
          Top             =   6480
          Width           =   1215
-      End
-      Begin VB.TextBox txtbuscar 
-         Appearance      =   0  'Flat
-         BeginProperty Font 
-            Name            =   "MS Sans Serif"
-            Size            =   9.75
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   360
-         Left            =   120
-         TabIndex        =   19
-         Top             =   5040
-         Width           =   8775
       End
       Begin VB.CommandButton Command6 
          Height          =   255
          Left            =   7890
+         Picture         =   "aempresa.frx":070E
          Style           =   1  'Graphical
          TabIndex        =   27
          Top             =   5580
@@ -213,8 +226,8 @@ Begin VB.Form aempresa
          EndProperty
          Height          =   375
          Left            =   -70680
-         TabIndex        =   3
-         Top             =   3120
+         TabIndex        =   4
+         Top             =   3240
          Width           =   2895
       End
       Begin VB.TextBox txtresp 
@@ -230,8 +243,8 @@ Begin VB.Form aempresa
          EndProperty
          Height          =   375
          Left            =   -70680
-         TabIndex        =   7
-         Top             =   4560
+         TabIndex        =   8
+         Top             =   4680
          Width           =   2895
       End
       Begin VB.TextBox txtcar 
@@ -247,8 +260,8 @@ Begin VB.Form aempresa
          EndProperty
          Height          =   375
          Left            =   -70680
-         TabIndex        =   6
-         Top             =   4200
+         TabIndex        =   7
+         Top             =   4320
          Width           =   2895
       End
       Begin VB.TextBox txtsus 
@@ -264,8 +277,8 @@ Begin VB.Form aempresa
          EndProperty
          Height          =   375
          Left            =   -70680
-         TabIndex        =   5
-         Top             =   3840
+         TabIndex        =   6
+         Top             =   3960
          Width           =   2895
       End
       Begin VB.TextBox txttel 
@@ -290,8 +303,8 @@ Begin VB.Form aempresa
          EndProperty
          Height          =   375
          Left            =   -70680
-         TabIndex        =   4
-         Top             =   3480
+         TabIndex        =   5
+         Top             =   3600
          Width           =   2895
       End
       Begin VB.TextBox txtdom 
@@ -307,14 +320,14 @@ Begin VB.Form aempresa
          EndProperty
          Height          =   375
          Left            =   -70680
-         TabIndex        =   2
-         Top             =   2760
+         TabIndex        =   3
+         Top             =   2880
          Width           =   2895
       End
       Begin MSComctlLib.TreeView trdisponibles 
          Height          =   6255
          Left            =   -74880
-         TabIndex        =   8
+         TabIndex        =   9
          Top             =   480
          Width           =   8775
          _ExtentX        =   15478
@@ -337,12 +350,6 @@ Begin VB.Form aempresa
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-      End
-      Begin VB.Timer Timer1 
-         Enabled         =   0   'False
-         Interval        =   500
-         Left            =   11760
-         Top             =   120
       End
       Begin MSComctlLib.ListView lstactividades 
          Height          =   4575
@@ -372,6 +379,38 @@ Begin VB.Form aempresa
             Strikethrough   =   0   'False
          EndProperty
          NumItems        =   0
+      End
+      Begin Project1.UserControl1 txtcodigo 
+         Height          =   375
+         Left            =   -70680
+         TabIndex        =   0
+         Top             =   1800
+         Width           =   2895
+         _extentx        =   5106
+         _extenty        =   661
+         info            =   "Ingresar código de empresa. F3: buscar"
+         tabla           =   "empresas"
+         campo           =   "nom_emp"
+         clave           =   "cod_emp"
+         busq            =   "nom_emp"
+      End
+      Begin VB.Label labcodigo 
+         Alignment       =   1  'Right Justify
+         Caption         =   "Cód.empresa"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   255
+         Left            =   -73200
+         TabIndex        =   31
+         Top             =   1920
+         Width           =   2295
       End
       Begin VB.Label labactividad 
          Appearance      =   0  'Flat
@@ -507,8 +546,8 @@ Begin VB.Form aempresa
          EndProperty
          Height          =   255
          Left            =   -73200
-         TabIndex        =   18
-         Top             =   4680
+         TabIndex        =   19
+         Top             =   4800
          Width           =   2295
       End
       Begin VB.Label Label23 
@@ -525,8 +564,8 @@ Begin VB.Form aempresa
          EndProperty
          Height          =   255
          Left            =   -73200
-         TabIndex        =   17
-         Top             =   4320
+         TabIndex        =   18
+         Top             =   4440
          Width           =   2295
       End
       Begin VB.Label Label22 
@@ -543,8 +582,8 @@ Begin VB.Form aempresa
          EndProperty
          Height          =   255
          Left            =   -73200
-         TabIndex        =   16
-         Top             =   3960
+         TabIndex        =   17
+         Top             =   4080
          Width           =   2295
       End
       Begin VB.Label Label21 
@@ -561,8 +600,8 @@ Begin VB.Form aempresa
          EndProperty
          Height          =   255
          Left            =   -73200
-         TabIndex        =   15
-         Top             =   3600
+         TabIndex        =   16
+         Top             =   3720
          Width           =   2295
       End
       Begin VB.Label Label20 
@@ -579,8 +618,8 @@ Begin VB.Form aempresa
          EndProperty
          Height          =   255
          Left            =   -73200
-         TabIndex        =   14
-         Top             =   3240
+         TabIndex        =   15
+         Top             =   3360
          Width           =   2295
       End
       Begin VB.Label Label19 
@@ -597,8 +636,8 @@ Begin VB.Form aempresa
          EndProperty
          Height          =   255
          Left            =   -73200
-         TabIndex        =   13
-         Top             =   2880
+         TabIndex        =   14
+         Top             =   3000
          Width           =   2295
       End
       Begin VB.Label Label18 
@@ -615,8 +654,8 @@ Begin VB.Form aempresa
          EndProperty
          Height          =   255
          Left            =   -73200
-         TabIndex        =   12
-         Top             =   2520
+         TabIndex        =   13
+         Top             =   2640
          Width           =   2295
       End
       Begin VB.Label Label17 
@@ -633,75 +672,77 @@ Begin VB.Form aempresa
          EndProperty
          Height          =   255
          Left            =   -73200
-         TabIndex        =   11
-         Top             =   2160
+         TabIndex        =   12
+         Top             =   2280
          Width           =   2295
       End
    End
 End
-Attribute VB_Name = "aempresa"
+Attribute VB_Name = "abmempresa"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-Dim act As Integer
+Option Explicit
+Private act As Integer, adoemp As ADODB.Recordset
+Public alta As Boolean
 
 Private Sub cmdguardar_Click()
+  Dim n As Node, i As Label
   On Error GoTo E
-  Dim co As Integer, n As Node
-  With tabl("empresas")
-    .AddNew Array("cuit_emp", "nom_emp", "dom_emp", "loc_emp", "tel_emp", "sus_emp", "car_emp", "resp_emp"), _
-            Array(txtcuit, txtnom, txtdom, txtloc, txttel, txtsus, txtcar, txtresp)
-    .Update
-    co = !cod_emp
-  End With
+  If alta Then
+    Set adoemp = tabl("empresas")
+    adoemp.AddNew Array("cuit_emp", "nom_emp", "dom_emp", "loc_emp", "tel_emp", "sus_emp", "car_emp", "resp_emp"), _
+                  Array(txtcuit, txtnom, txtdom, txtloc, txttel, txtsus, txtcar, txtresp)
+    adoemp.Update
+  Else
+    assert Not adoemp Is Nothing, NOCAMP, "Falta elegir empresa"
+    C.Execute "delete from emp_act where cod_emp=" & txtcodigo
+    C.Execute "delete from emp_cue where cod_emp=" & txtcodigo
+    adoemp.Update Array("cuit_emp", "nom_emp", "dom_emp", "loc_emp", "tel_emp", "sus_emp", "car_emp", "resp_emp"), _
+                  Array(txtcuit, txtnom, txtdom, txtloc, txttel, txtsus, txtcar, txtresp)
+  End If
+  txtcodigo = adoemp!cod_emp
+  If alta Then
+    crearingresos txtcodigo
+    crearegresos txtcodigo
+  End If
   With tabl("emp_act")
     For Each i In labactividad
       If i <> "" Then
-        .AddNew Array("cod_emp", "cod_act"), Array(co, i.Tag)
+        .AddNew Array("cod_emp", "cod_act"), Array(txtcodigo, i.tag):
         .Update
       End If
     Next
   End With
   With tabl("emp_cue")
     For Each n In trdisponibles.Nodes
-      If n.Checked And n.Children = 0 Then
-        .AddNew Array("cod_emp", "cod_cue"), Array(co, Mid(n.key, 2))
+      If n.Checked And n.Children = 0 And Mid(n.key, 2) > 4 Then
+        .AddNew Array("cod_emp", "cod_cue"), Array(txtcodigo, Mid(n.key, 2))
         .Update
       End If
     Next
   End With
-  If tablaexiste("ingresos" & co & "_copia") And tablaexiste("egresos" & co & "_copia") Then
-    If MsgBox("Ya existen tablas de compras y ventas con esta empresa." & vbNewLine & _
-              "¿Desea usar las que existen?", vbYesNo) = vbYes Then
-      C.Execute "alter table ingresos" & co & "_copia rename to ingresos" & co
-      C.Execute "alter table egresos" & co & "_copia rename to egresos" & co
-      C.Execute "alter table dingresos" & co & "_copia rename to dingresos" & co
-      C.Execute "alter table degresos" & co & "_copia rename to degresos" & co
-    Else
-      C.Execute "drop table ingresos" & co & "_copia"
-      C.Execute "drop table egresos" & co & "_copia"
-      C.Execute "drop table dingresos" & co & "_copia"
-      C.Execute "drop table degresos" & co & "_copia"
-      crearingresos co: crearegresos co
-    End If
-  End If
-  StatusBar1.SimpleText = "Empresa agregada"
+  StatusBar1.SimpleText = "Cambios guardados"
   Exit Sub
 E: StatusBar1.SimpleText = Err.Description
 End Sub
 
 Private Sub Command6_Click()
   labactividad(act) = ""
-  labactividad(act).Tag = ""
+  labactividad(act).tag = ""
 End Sub
 
 Private Sub Form_Load()
-  initlst lstActividades, Array("Codigo", "Actividad", "Observaciones"), Array(0.1, 0.4, 0.4)
-  llenarlst lstActividades, "select * from actividades", Array("cod_act", "nom_act", "obs_act"), "cod_act"
-  llenarNivel trdisponibles, "select * from cuentas", "nom_cue", "cod_cue", "cod_pad"
+  initlst lstactividades, Array("Codigo", "Actividad", "Observaciones"), Array(0.1, 0.4, 0.4)
+  llenarlst lstactividades, "select * from actividades", Array("cod_act", "nom_act", "obs_act"), "cod_act"
+  llenarnivel trdisponibles, "select * from cuentas", "nom_cue", "cod_cue", "cod_pad"
   labactividad_Click 0
   SSTab1.Tab = 0
+  txtcodigo.Visible = Not alta
+  labcodigo.Visible = Not alta
+  cmdeliminar.Visible = Not alta
+  enable alta
 End Sub
 
 Private Sub labactividad_Click(Index As Integer)
@@ -714,21 +755,97 @@ Private Sub labactividad_Click(Index As Integer)
 End Sub
 
 Private Sub lstactividades_DblClick()
-  labactividad(act) = lstActividades.SelectedItem.SubItems(1)
-  labactividad(act).Tag = lstActividades.SelectedItem
-End Sub
-
-Private Sub Timer1_Timer()
-  Timer1.Enabled = False
-  llenarlst lstActividades, "select * from actividades where nom_act like '%" & txtbuscar & "%'", Array("cod_act", "nom_act", "obs_act"), "cod_act"
+  labactividad(act) = lstactividades.SelectedItem.SubItems(1)
+  labactividad(act).tag = lstactividades.SelectedItem
 End Sub
 
 Private Sub trdisponibles_NodeCheck(ByVal Node As Node)
-  tildarAbajo Node
-  tildarArriba Node
+  tildarabajo Node
+  tildararriba Node
 End Sub
 
-Private Sub txtbuscar_Change()
-  Timer1.Enabled = True
-  Timer1.Interval = 500
+Private Sub txtbuscar_buscar()
+  llenarlst lstactividades, "select * from actividades where nom_act like '%" & txtbuscar & "%'", Array("cod_act", "nom_act", "obs_act"), "cod_act"
 End Sub
+
+Private Sub cmdeliminar_Click()
+  'On Error GoTo E
+  assert Not adoemp Is Nothing, NOCAMP, "Ingresar empresa"
+  If vbYes = MsgBox("¿Realmente desea eliminar la empresa " & txtnom & "?", vbYesNo) Then
+    StatusBar1.SimpleText = "Las tablas de movimientos serán exportadas"
+    exportar tabl("ingresos" & txtcodigo), "ingresos" & txtcodigo & "-" & Format(Date, "dd-mm-yy")
+    exportar tabl("egresos" & txtcodigo), "egresos" & txtcodigo & "-" & Format(Date, "dd-mm-yy")
+    exportar tabl("dingresos" & txtcodigo), "dingresos" & txtcodigo & "-" & Format(Date, "dd-mm-yy")
+    exportar tabl("degresos" & txtcodigo), "degresos" & txtcodigo & "-" & Format(Date, "dd-mm-yy")
+    C.Execute "delete from ingresos" & txtcodigo
+    C.Execute "delete from egresos" & txtcodigo
+    C.Execute "delete from dingresos" & txtcodigo
+    C.Execute "delete from degresos" & txtcodigo
+    adoemp!regvalid = False
+    adoemp.Update
+    StatusBar1.SimpleText = "Empresa eliminada"
+  End If
+E: StatusBar1.SimpleText = Err.Description
+End Sub
+
+Private Sub txtcodigo_finbusqueda(llave As String, valor As String)
+  txtcodigo = llave
+  txtnom = valor
+  llenaremp
+  enable True
+  txtcuit.SetFocus
+End Sub
+
+Private Sub txtcodigo_vacio()
+  txtnom = ""
+  enable False
+End Sub
+
+Private Sub llenaremp()
+  Dim i As Integer
+  Set adoemp = busc("select * from empresas where cod_emp=" & txtcodigo)
+  With adoemp
+    txtcuit = !cuit_emp
+    txtdom = !dom_emp
+    txtloc = !loc_emp
+    txttel = !tel_emp
+    txtsus = !sus_emp
+    txtcar = !car_emp
+    txtresp = !resp_emp
+  End With
+  With busc("select * from emp_cue where cod_emp=" & txtcodigo)
+    Do While Not .EOF
+      Dim n As Node: Set n = trdisponibles.Nodes("k" & !cod_cue)
+      n.Checked = True
+      Do While Not n Is Nothing
+        tildararriba n
+        Set n = n.Parent
+      Loop: .MoveNext
+    Loop
+  End With
+  With busc("select actividades.cod_act, actividades.nom_act from actividades " & _
+            "inner join emp_act on emp_act.cod_act=actividades.cod_act " & _
+            "where emp_act.cod_emp=" & txtcodigo)
+    i = 0
+    Do Until .EOF
+      labactividad(i) = !nom_act
+      labactividad(i).tag = !cod_act
+      .MoveNext: i = i + 1
+    Loop
+  End With
+End Sub
+
+Private Sub enable(b As Boolean)
+  txtcuit.enabled = b
+  txtnom.enabled = b
+  txtdom.enabled = b
+  txtloc.enabled = b
+  txttel.enabled = b
+  txtsus.enabled = b
+  txtcar.enabled = b
+  txtresp.enabled = b
+  SSTab1.TabEnabled(1) = b
+  SSTab1.TabEnabled(2) = b
+  If Not b Then SSTab1.Tab = 0
+End Sub
+

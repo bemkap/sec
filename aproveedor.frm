@@ -33,7 +33,7 @@ Begin VB.Form abmproveedor
    Begin Project1.UserControl1 txtcodigo 
       Height          =   375
       Left            =   3960
-      TabIndex        =   6
+      TabIndex        =   0
       Top             =   2925
       Width           =   2895
       _ExtentX        =   5106
@@ -57,7 +57,7 @@ Begin VB.Form abmproveedor
       EndProperty
       Height          =   375
       Left            =   3247
-      TabIndex        =   2
+      TabIndex        =   3
       Top             =   6480
       Width           =   1215
    End
@@ -77,7 +77,7 @@ Begin VB.Form abmproveedor
       Height          =   375
       IMEMode         =   3  'DISABLE
       Left            =   3960
-      TabIndex        =   1
+      TabIndex        =   2
       Top             =   3645
       Width           =   2895
    End
@@ -86,7 +86,7 @@ Begin VB.Form abmproveedor
       DataSource      =   "Adodc1"
       Height          =   375
       Left            =   3960
-      TabIndex        =   0
+      TabIndex        =   1
       Top             =   3285
       Width           =   2895
       _ExtentX        =   5106
@@ -122,7 +122,7 @@ Begin VB.Form abmproveedor
       EndProperty
       Height          =   255
       Left            =   2160
-      TabIndex        =   5
+      TabIndex        =   6
       Top             =   3045
       Width           =   1575
    End
@@ -140,7 +140,7 @@ Begin VB.Form abmproveedor
       EndProperty
       Height          =   255
       Left            =   2160
-      TabIndex        =   4
+      TabIndex        =   5
       Top             =   3765
       Width           =   1575
    End
@@ -158,7 +158,7 @@ Begin VB.Form abmproveedor
       EndProperty
       Height          =   255
       Left            =   2160
-      TabIndex        =   3
+      TabIndex        =   4
       Top             =   3405
       Width           =   1575
    End
@@ -168,6 +168,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+Option Explicit
 Public tmp As Boolean, alta As Boolean
 Private adoprov As ADODB.Recordset
 
@@ -175,8 +176,10 @@ Private Sub cmdeliminar_Click()
   On Error GoTo E
   assert txtcodigo <> "" And Not adoprov Is Nothing, NOCAMP, "Falta ingresar proveedor"
   If MsgBox("¿Realmente desea eliminar el proveedor " & txtnombre & "?", vbYesNo, "") = vbYes Then
-    adoprov.Delete
+    adoprov!regvalid = False
+    adoprov!nom_prov = adoprov!nom_prov & "(ELIMINADO)"
     adoprov.Update
+    Set adoprov = Nothing
     StatusBar1.SimpleText = "Proveedor eliminado"
     txtcodigo = "": txtcuit = "": txtnombre = ""
     txtcodigo.SetFocus
@@ -213,6 +216,9 @@ Private Sub Form_Load()
   txtcodigo.Visible = Not alta
   cmdeliminar.Visible = Not alta
   labcodigo.Visible = Not alta
+  txtcodigo.enabled = Not alta
+  txtnombre.enabled = alta
+  txtcuit.enabled = alta
 End Sub
 
 Private Sub txtcodigo_finbusqueda(llave As String, valor As String)
@@ -220,14 +226,13 @@ Private Sub txtcodigo_finbusqueda(llave As String, valor As String)
   txtcodigo = llave
   txtnombre = valor
   txtcuit = coalesce(adoprov!cuit_prov, "")
+  txtnombre.enabled = True
+  txtcuit.enabled = True
+  txtcuit.SetFocus
 End Sub
 
-Private Sub txtcodigo_Validate(Cancel As Boolean)
-  If txtcodigo <> "" Then Cancel = validarprov(txtcodigo, txtnombre)
-  If Not Cancel And txtcodigo <> "" Then
-    Set adoprov = busc("select * from proveedores where cod_prov=" & txtcodigo)
-    txtcuit = coalesce(adoprov!cuit_prov, "")
-  Else
-    txtcuit = "": txtnombre = ""
-  End If
+Private Sub txtcodigo_vacio()
+  txtcodigo = "": txtcodigo.enabled = False
+  txtnombre = "": txtnombre.enabled = False
+  txtcuit = "": txtcuit.enabled = False
 End Sub

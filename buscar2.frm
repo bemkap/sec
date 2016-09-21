@@ -28,8 +28,8 @@ Begin VB.Form buscar2
    End
    Begin VB.Timer Timer1 
       Enabled         =   0   'False
-      Left            =   8520
-      Top             =   120
+      Left            =   0
+      Top             =   0
    End
    Begin VB.TextBox txtbuscar 
       Appearance      =   0  'Flat
@@ -78,10 +78,10 @@ Begin VB.Form buscar2
       Height          =   255
       Left            =   120
       TabIndex        =   2
-      Top             =   120
+      Top             =   360
       Visible         =   0   'False
-      Width           =   8775
-      _ExtentX        =   15478
+      Width           =   7455
+      _ExtentX        =   13150
       _ExtentY        =   450
       _Version        =   393217
       HideSelection   =   0   'False
@@ -108,6 +108,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+Option Explicit
 Public codemp As String, tabla As String, columna As String, clave As String, padre As String
 Public Cancel As Boolean
 Public val As Variant, key As Variant
@@ -122,14 +123,14 @@ Public val As Variant, key As Variant
 
 Private Sub Form_Load()
   centrar Me
-  llenarNivel tr, "select * from cuentas where n_hijos>0", columna, clave, padre
-  llenarNivel tr, "select emp_cue.cod_cue,emp_cue.cod_emp,cuentas.nom_cue,cuentas.cod_pad " & _
+  llenarnivel tr, "select * from cuentas where n_hijos>0", columna, clave, padre
+  llenarnivel tr, "select emp_cue.cod_cue,emp_cue.cod_emp,cuentas.nom_cue,cuentas.cod_pad " & _
                   "from emp_cue inner join cuentas on emp_cue.cod_cue=cuentas.cod_cue " & _
                   "where emp_cue.cod_emp=" & codemp, _
                   columna, clave, padre, False
   'se tienen 2 arboles para la busqueda
-  llenarNivel tr1, "select * from cuentas where n_hijos>0", columna, clave, padre
-  llenarNivel tr1, "select emp_cue.cod_cue,emp_cue.cod_emp,cuentas.nom_cue,cuentas.cod_pad " & _
+  llenarnivel tr1, "select * from cuentas where n_hijos>0", columna, clave, padre
+  llenarnivel tr1, "select emp_cue.cod_cue,emp_cue.cod_emp,cuentas.nom_cue,cuentas.cod_pad " & _
                    "from emp_cue inner join cuentas on emp_cue.cod_cue=cuentas.cod_cue " & _
                    "where emp_cue.cod_emp=" & codemp, _
                    columna, clave, padre, False
@@ -150,8 +151,9 @@ Private Sub tr_KeyDown(KeyCode As Integer, Shift As Integer)
 End Sub
 
 Private Sub Timer1_Timer()
+  Dim n As Node
   If columna <> "" And clave <> "" And tabla <> "" And padre <> "" Then
-    Timer1.Enabled = False
+    Timer1.enabled = False
     tr.Nodes.Clear
     For Each n In tr1.Nodes
       If n.Children > 0 Or InStr(1, n, txtbuscar, 1) > 0 Then
@@ -163,7 +165,7 @@ End Sub
 
 Private Sub txtbuscar_Change()
   Timer1.Interval = 500
-  Timer1.Enabled = True
+  Timer1.enabled = True
 End Sub
 
 Private Sub txtbuscar_KeyDown(KeyCode As Integer, Shift As Integer)

@@ -1,6 +1,6 @@
 VERSION 5.00
-Object = "{C932BA88-4374-101B-A56C-00AA003668DC}#1.1#0"; "msmask32.ocx"
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
+Object = "{C932BA88-4374-101B-A56C-00AA003668DC}#1.1#0"; "msmask32.ocx"
 Begin VB.Form gcombustible 
    BorderStyle     =   1  'Fixed Single
    ClientHeight    =   6945
@@ -14,22 +14,39 @@ Begin VB.Form gcombustible
    ScaleHeight     =   6945
    ScaleWidth      =   8985
    WindowState     =   2  'Maximized
-   Begin VB.TextBox txtemp 
-      Appearance      =   0  'Flat
-      BeginProperty Font 
-         Name            =   "MS Sans Serif"
-         Size            =   9.75
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
+   Begin Project1.UserControl2 txtbuscarcue 
       Height          =   375
-      Left            =   1845
+      Left            =   4440
+      TabIndex        =   5
+      Top             =   6000
+      Width           =   4095
+      _ExtentX        =   7223
+      _ExtentY        =   661
+      enabled         =   0   'False
+   End
+   Begin Project1.UserControl2 txtbuscarprov 
+      Height          =   375
+      Left            =   120
+      TabIndex        =   4
+      Top             =   6000
+      Width           =   3975
+      _ExtentX        =   7011
+      _ExtentY        =   661
+      enabled         =   0   'False
+   End
+   Begin Project1.UserControl1 txtemp 
+      Height          =   375
+      Left            =   1800
       TabIndex        =   0
       Top             =   240
       Width           =   1695
+      _ExtentX        =   2990
+      _ExtentY        =   661
+      info            =   "Ingresar código de empresa. F3: buscar"
+      tabla           =   "empresas"
+      campo           =   "nom_emp"
+      clave           =   "cod_emp"
+      busq            =   "nom_emp"
    End
    Begin VB.PictureBox Picture2 
       Appearance      =   0  'Flat
@@ -50,7 +67,7 @@ Begin VB.Form gcombustible
       ForeColor       =   &H80000008&
       Height          =   375
       Left            =   4080
-      Picture         =   "gcombustible.frx":061A
+      Picture         =   "gcombustible.frx":06BA
       ScaleHeight     =   345
       ScaleWidth      =   345
       TabIndex        =   13
@@ -59,6 +76,8 @@ Begin VB.Form gcombustible
    End
    Begin VB.CommandButton cmdgenerar 
       Caption         =   "Generar"
+      CausesValidation=   0   'False
+      Enabled         =   0   'False
       BeginProperty Font 
          Name            =   "MS Sans Serif"
          Size            =   9.75
@@ -70,35 +89,9 @@ Begin VB.Form gcombustible
       EndProperty
       Height          =   375
       Left            =   6480
-      TabIndex        =   5
+      TabIndex        =   3
       Top             =   6480
       Width           =   1215
-   End
-   Begin VB.Timer Timer3 
-      Enabled         =   0   'False
-      Left            =   8040
-      Top             =   120
-   End
-   Begin VB.Timer Timer2 
-      Enabled         =   0   'False
-      Left            =   8520
-      Top             =   120
-   End
-   Begin VB.TextBox txtbuscarcue 
-      Appearance      =   0  'Flat
-      Height          =   375
-      Left            =   4440
-      TabIndex        =   2
-      Top             =   6000
-      Width           =   4095
-   End
-   Begin VB.TextBox txtbuscarprov 
-      Appearance      =   0  'Flat
-      Height          =   375
-      Left            =   120
-      TabIndex        =   1
-      Top             =   6000
-      Width           =   3975
    End
    Begin MSComctlLib.TreeView trcuentas 
       Height          =   5175
@@ -166,13 +159,14 @@ Begin VB.Form gcombustible
       Height          =   375
       Index           =   0
       Left            =   1800
-      TabIndex        =   3
+      TabIndex        =   1
       Top             =   6480
       Width           =   1335
       _ExtentX        =   2355
       _ExtentY        =   661
       _Version        =   393216
       Appearance      =   0
+      Enabled         =   0   'False
       MaxLength       =   10
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Courier"
@@ -199,13 +193,14 @@ Begin VB.Form gcombustible
       Height          =   375
       Index           =   1
       Left            =   3960
-      TabIndex        =   4
+      TabIndex        =   2
       Top             =   6480
       Width           =   1335
       _ExtentX        =   2355
       _ExtentY        =   661
       _Version        =   393216
       Appearance      =   0
+      Enabled         =   0   'False
       MaxLength       =   10
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Courier"
@@ -221,12 +216,12 @@ Begin VB.Form gcombustible
    End
    Begin MSComctlLib.ListView lstproveedores1 
       Height          =   375
-      Left            =   7320
+      Left            =   8520
       TabIndex        =   10
       Top             =   6480
       Visible         =   0   'False
-      Width           =   1575
-      _ExtentX        =   2778
+      Width           =   375
+      _ExtentX        =   661
       _ExtentY        =   661
       View            =   3
       LabelWrap       =   -1  'True
@@ -238,7 +233,7 @@ Begin VB.Form gcombustible
       BorderStyle     =   1
       Appearance      =   0
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "Terminus"
+         Name            =   "Arial"
          Size            =   12
          Charset         =   0
          Weight          =   400
@@ -250,12 +245,12 @@ Begin VB.Form gcombustible
    End
    Begin MSComctlLib.TreeView trcuentas1 
       Height          =   375
-      Left            =   7320
+      Left            =   8520
       TabIndex        =   11
       Top             =   6480
       Visible         =   0   'False
-      Width           =   1575
-      _ExtentX        =   2778
+      Width           =   375
+      _ExtentX        =   661
       _ExtentY        =   661
       _Version        =   393217
       Style           =   7
@@ -263,7 +258,7 @@ Begin VB.Form gcombustible
       BorderStyle     =   1
       Appearance      =   0
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "Terminus"
+         Name            =   "Arial"
          Size            =   12
          Charset         =   0
          Weight          =   400
@@ -280,14 +275,14 @@ Begin VB.Form gcombustible
          Name            =   "MS Sans Serif"
          Size            =   9.75
          Charset         =   0
-         Weight          =   400
+         Weight          =   700
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H80000008&
       Height          =   375
-      Left            =   3525
+      Left            =   3480
       TabIndex        =   16
       Top             =   240
       Width           =   4815
@@ -304,7 +299,7 @@ Begin VB.Form gcombustible
          Strikethrough   =   0   'False
       EndProperty
       Height          =   255
-      Left            =   645
+      Left            =   720
       TabIndex        =   15
       Top             =   360
       Width           =   975
@@ -366,14 +361,18 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+Option Explicit
+  
 Private Sub cmdgenerar_Click()
+  Dim i As ListItem, j As Node, h As Integer
+  Dim sprov As String, scue As String, selecte As String
   On Error GoTo E
   assert txtemp <> "", NOCAMP, "Falta ingresar empresa"
   crearingresos txtemp: crearegresos txtemp
   Dim cprov As New Collection
   'cadena sql para proveedores
   For Each i In lstproveedores.ListItems
-    If i.Checked Then cprov.Add Mid(i.Tag, 2)
+    If i.Checked Then cprov.Add Mid(i.tag, 2)
   Next
   sprov = borden(cjoin(cprov, ","), "(", ")")
   'cadena sql para cuentas
@@ -408,12 +407,12 @@ Private Sub Form_Load()
   llenarlst lstproveedores1, "select * from proveedores", Array("nom_prov"), "cod_prov"
 End Sub
 
-Private Sub lstproveedores_Click()
-  lstproveedores1.ListItems(lstproveedores.SelectedItem.Index).Checked = lstproveedores.SelectedItem.Checked
+Private Sub lstproveedores_ItemCheck(ByVal item As MSComctlLib.ListItem)
+  lstproveedores1.ListItems(item.key).Checked = item.Checked
 End Sub
 
-Private Sub Timer3_Timer()
-  Timer3.Enabled = False
+Private Sub txtbuscarcue_buscar()
+  Dim n As Node, i As Node
   trcuentas.Nodes.Clear
   For Each n In trcuentas1.Nodes
     If n.Children > 0 Or InStr(1, n, txtbuscarcue, 1) > 0 Then
@@ -424,44 +423,38 @@ Private Sub Timer3_Timer()
 End Sub
 
 Private Sub trcuentas_NodeCheck(ByVal Node As Node)
-  tildarAbajo Node
-  tildarArriba Node
+  Dim i As Node
+  tildarabajo Node
+  tildararriba Node
   For Each i In trcuentas.Nodes: trcuentas1.Nodes(i.key).Checked = i.Checked: Next
 End Sub
 
-Private Sub txtbuscarprov_Change()
-  Timer2.Enabled = True
-  Timer2.Interval = 500
-End Sub
-
-Private Sub txtbuscarcue_Change()
-  Timer3.Enabled = True
-  Timer3.Interval = 500
-End Sub
-
-Private Sub Timer2_Timer()
+Private Sub txtbuscarprov_buscar()
+  Dim i As ListItem
   llenarlst lstproveedores, "select * from proveedores where nom_prov like '%" & txtbuscarprov & "%'", Array("nom_prov"), "cod_prov"
-  Timer2.Enabled = False
-  For Each i In lstproveedores.ListItems: i.Checked = lstproveedores1.ListItems(i.Index).Checked: Next
+  For Each i In lstproveedores.ListItems: i.Checked = lstproveedores1.ListItems(i.key).Checked: Next
 End Sub
 
-Private Sub txtemp_GotFocus()
-  StatusBar1.SimpleText = "Ingresar código de empresa. F3: buscar"
+Private Sub txtemp_finbusqueda(llave As String, valor As String)
+  Dim co As Control
+  txtemp = llave
+  labnom = valor
+  cargar
+  txtbuscarprov.enabled = True
+  txtbuscarcue.enabled = True
+  txtfecha(0).enabled = True
+  txtfecha(1).enabled = True
+  cmdgenerar.enabled = True
 End Sub
 
-Private Sub txtemp_KeyDown(KeyCode As Integer, Shift As Integer)
-  If KeyCode = vbKeyF3 Then
-    If teclaemp(txtemp, labnom) Then cargar
-  End If
-End Sub
-
-Private Sub txtemp_Validate(Cancel As Boolean)
-  If txtemp <> "" Then Cancel = validaremp(txtemp, labnom) Else labnom = ""
-  If Not Cancel And txtemp <> "" Then cargar
-End Sub
-
-Private Sub txtemp_LostFocus()
-  StatusBar1.SimpleText = ""
+Private Sub txtemp_vacio()
+  Dim co As Control
+  labnom = ""
+  txtbuscarprov.enabled = False
+  txtbuscarcue.enabled = False
+  txtfecha(0).enabled = False
+  txtfecha(1).enabled = False
+  cmdgenerar.enabled = False
 End Sub
 
 Private Sub txtfecha_GotFocus(Index As Integer)
@@ -472,14 +465,14 @@ End Sub
 Private Sub cargar()
   crearingresos txtemp: crearegresos txtemp
   With busc("select nom_emp from empresas where cod_emp=" & txtemp)
-    llenarNivel trcuentas, "select * from cuentas where n_hijos>0", "nom_cue", "cod_cue", "cod_pad"
-    llenarNivel trcuentas, "select emp_cue.cod_cue,emp_cue.cod_emp,cuentas.nom_cue,cuentas.cod_pad " & _
+    llenarnivel trcuentas, "select * from cuentas where n_hijos>0", "nom_cue", "cod_cue", "cod_pad"
+    llenarnivel trcuentas, "select emp_cue.cod_cue,emp_cue.cod_emp,cuentas.nom_cue,cuentas.cod_pad " & _
                              "from emp_cue inner join cuentas on emp_cue.cod_cue=cuentas.cod_cue " & _
                              "where emp_cue.cod_emp=" & txtemp, _
                              "nom_cue", "cod_cue", "cod_pad", False
     'se tienen 2 arboles para la busqueda
-    llenarNivel trcuentas1, "select * from cuentas where n_hijos>0", "nom_cue", "cod_cue", "cod_pad"
-    llenarNivel trcuentas1, "select emp_cue.cod_cue,emp_cue.cod_emp,cuentas.nom_cue,cuentas.cod_pad " & _
+    llenarnivel trcuentas1, "select * from cuentas where n_hijos>0", "nom_cue", "cod_cue", "cod_pad"
+    llenarnivel trcuentas1, "select emp_cue.cod_cue,emp_cue.cod_emp,cuentas.nom_cue,cuentas.cod_pad " & _
                               "from emp_cue inner join cuentas on emp_cue.cod_cue=cuentas.cod_cue " & _
                               "where emp_cue.cod_emp=" & txtemp, _
                               "nom_cue", "cod_cue", "cod_pad", False

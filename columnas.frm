@@ -63,9 +63,11 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+Option Explicit
 Public v As Collection
 
 Private Sub Command1_Click()
+  Dim i As ListItem
   Set v = Nothing: Set v = New Collection
   For Each i In lstcolumnas.ListItems: v.Add i.Checked: Next
   Unload Me

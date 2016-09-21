@@ -13,23 +13,6 @@ Begin VB.Form plingbrutos
    ScaleHeight     =   9825
    ScaleWidth      =   14220
    StartUpPosition =   3  'Windows Default
-   Begin VB.TextBox txtemp 
-      Appearance      =   0  'Flat
-      BeginProperty Font 
-         Name            =   "MS Sans Serif"
-         Size            =   9.75
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   375
-      Left            =   3683
-      TabIndex        =   0
-      Top             =   240
-      Width           =   1695
-   End
    Begin VB.CommandButton cmdvolver 
       Caption         =   "Volver"
       BeginProperty Font 
@@ -70,7 +53,7 @@ Begin VB.Form plingbrutos
       BackColor       =   &H80000005&
       FillStyle       =   0  'Solid
       BeginProperty Font 
-         Name            =   "Arial Narrow"
+         Name            =   "Arial"
          Size            =   8.25
          Charset         =   0
          Weight          =   400
@@ -113,6 +96,20 @@ Begin VB.Form plingbrutos
       Mask            =   "####"
       PromptChar      =   " "
    End
+   Begin Project1.UserControl1 txtemp 
+      Height          =   375
+      Left            =   3720
+      TabIndex        =   0
+      Top             =   240
+      Width           =   1695
+      _ExtentX        =   2990
+      _ExtentY        =   661
+      info            =   "Ingresar código de empresa. F3: buscar"
+      tabla           =   "empresas"
+      campo           =   "nom_emp"
+      clave           =   "cod_emp"
+      busq            =   "nom_emp"
+   End
    Begin VB.Label labnom 
       Alignment       =   2  'Center
       Appearance      =   0  'Flat
@@ -121,14 +118,14 @@ Begin VB.Form plingbrutos
          Name            =   "MS Sans Serif"
          Size            =   9.75
          Charset         =   0
-         Weight          =   400
+         Weight          =   700
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
       ForeColor       =   &H80000008&
       Height          =   375
-      Left            =   5370
+      Left            =   5400
       TabIndex        =   7
       Top             =   240
       Width           =   4695
@@ -174,6 +171,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+Option Explicit
 Private Declare Function DrawText Lib "user32" Alias "DrawTextA" _
   (ByVal hdc As Long, ByVal lpStr As String, ByVal nCount As Long, lpRect As RECT, ByVal wFormat As Long) As Long
 Private Type RECT
@@ -190,10 +188,13 @@ End Sub
 Private Sub Command2_Click()
   On Error GoTo E
   assert txtano <> "" And txtemp <> "", NOCAMP, "Campos obligatorios: empresa y año"
-  Printer.Orientation = vbPRORLandscape
-  Printer.PaperSize = vbPRPSLegal
-  Printer.PaintPicture pcp.Image, 0, 0, Printer.Width, pcp.Height / pcp.Width * Printer.Width
-  Printer.EndDoc
+  selimpr.Show vbModal
+  If Not selimpr.Cancel Then
+    Printer.Orientation = vbPRORLandscape
+    Printer.PaperSize = vbPRPSLegal
+    Printer.PaintPicture pcp.Image, 0, 0, Printer.Width, pcp.Height / pcp.Width * Printer.Width
+    Printer.EndDoc
+  End If
   Exit Sub
 E: MsgBox Err.Description: Printer.KillDoc
 End Sub
@@ -213,6 +214,7 @@ Private Sub escribir(left As Long, top As Long, ByVal str As String, p As Pictur
 End Sub
 
 Private Sub pcp_Paint()
+  Dim vv(), vh(), hh0, hh1, i As Integer
   pcp.FontBold = True
   pcp.FontSize = 12
   escribir 8, 8, "IMPUESTO INGRESOS BRUTOS - AÑO ", pcp
@@ -223,7 +225,7 @@ Private Sub pcp_Paint()
   escribir 500, 30, "Act.primaria", pcp
   escribir 500, 46, "Act.secundaria", pcp
   escribir 500, 62, "Act.terciaria", pcp
-  pcp.FontSize = 8
+  pcp.FontSize = 6
   vv = Array("Per.", "Ene.", "Feb.", "Mar.", "Abr.", "May.", "Jun.", "Jul.", "Ago.", "Sep.", "Oct.", "Nov.", "Dic.", "Total")
   vh = Array(0, 60, 60, 60, 55, 50, 40, 55, 55, 55, 45, 60, 68, 40, 40, 40, 40)
   hh0 = Array("Monto impon.", "Monto impon.", "Monto impon.", "Impuesto", "Diferencia", "Subtotal", "Saldo a", "Retenciones", "Percep. del", "D.R.I.", "Saldo a", "Saldo a pagar", "Alícuota", "Alícuota", "Subtotal", "Alícuota", "Saldo a pagar")
@@ -258,18 +260,15 @@ Private Sub txtano_LostFocus()
   pcp.Cls: pcp_Paint: llenardat
 End Sub
 
-Private Sub txtemp_KeyDown(KeyCode As Integer, Shift As Integer)
-  If KeyCode = vbKeyF3 Then teclaemp txtemp, labnom
-End Sub
-
-Private Sub txtemp_Validate(Cancel As Boolean)
-  If txtemp <> "" Then Cancel = validaremp(txtemp, labnom) Else labnom = ""
-  If Not Cancel Then
-    pcp.Cls: pcp_Paint: llenardat
-  End If
+Private Sub txtemp_finbusqueda(llave As String, valor As String)
+  txtemp = llave
+  labnom = valor
+  pcp.Cls: pcp_Paint: llenardat
+  txtano.SetFocus
 End Sub
 
 Private Sub llenardat()
+  Dim i As Integer
   If txtemp <> "" Then
     With busc("select * from empresas where cod_emp=" & txtemp)
       pcp.FontBold = True
@@ -295,7 +294,12 @@ Private Sub llenardat()
   End If
   pcp.FontSize = 12
   pcp.FontBold = True
-  escribir 255, 8, txtano, pcp
+  escribir 310, 8, txtano, pcp
   pcp.FontBold = False
   pcp.FontSize = 8
+End Sub
+
+Private Sub txtemp_vacio()
+  labnom = ""
+  pcp.Cls
 End Sub

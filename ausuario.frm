@@ -327,18 +327,20 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+Option Explicit
 Public alta As Boolean
 Private Hash As New MD5Hash, bytBlock() As Byte, adousu As ADODB.Recordset
 
 Private Sub cmdeliminar_Click()
+  Dim i As Integer
   On Error GoTo E
   assert Not adousu Is Nothing, NOCAMP, "Ingresar usuario"
-  assert txtusuario <> "admin", INVOP, "admin no se puede eliminar"
-  If MsgBox("¿Realmente desea eliminar el usuario " & txtusuario & "?", vbYesNo, "") = vbYes Then
+  assert txtnombre <> "admin", INVOP, "admin no se puede eliminar"
+  If MsgBox("¿Realmente desea eliminar el usuario " & txtnombre & "?", vbYesNo, "") = vbYes Then
     adousu.Delete
     adousu.Update
     StatusBar1.SimpleText = "Usuario eliminado"
-    txtusuario = "": txtusuario.SetFocus
+    txtnombre = "": txtnombre.SetFocus
     For i = 0 To chkpermisos.UBound: chkpermisos(i).Value = vbUnchecked: Next
   End If
   Exit Sub
@@ -346,12 +348,13 @@ E: StatusBar1.SimpleText = Err.Description
 End Sub
 
 Private Sub cmdguardar_Click()
+  Dim i As Integer
   'los permisos se guardan como una suma de potencias de 2
   'son 7: el numero maximo es 1+2+4+8+16+32+64=127
   On Error GoTo E
   Dim perm As Byte
   If alta Then
-    assert txtnombre <> "", NOCAMP, "Campos obligatorios: nombre"
+    assert txtnombre <> "" And txtclave <> "", NOCAMP, "Campos obligatorios: nombre y clave"
     assert txtclave = txtrepetir, INVDAT, "Las contraseñas no coinciden"
     bytBlock = txtclave
     Set adousu = tabl("usuarios")
@@ -364,21 +367,17 @@ Private Sub cmdguardar_Click()
     StatusBar1.SimpleText = "Cambios guardados"
   End If
   For i = 0 To chkpermisos.UBound: perm = perm + chkpermisos(i).Value * 2 ^ i: Next
-  adousu!perm = perm
+  adousu!permisos = perm
   adousu!nombre = txtnombre
   adousu.Update
-  txtnombre = "": txtnombre.SetFocus
+  txtclave = "": txtrepetir = "": txtnombre = "": txtnombre.SetFocus
   For i = 0 To chkpermisos.UBound: chkpermisos(i).Value = vbUnchecked: Next
   Exit Sub
 E: StatusBar1.SimpleText = Err.Description
 End Sub
 
 Private Sub Form_Load()
-  txtclave.Visible = Not alta
-  txtrepetir.Visible = Not alta
   cmdeliminar.Visible = Not alta
-  labclave.Visible = Not alta
-  labrepetir.Visible = Not alta
 End Sub
 
 Private Sub txtnombre_KeyDown(KeyCode As Integer, Shift As Integer)
@@ -386,18 +385,19 @@ Private Sub txtnombre_KeyDown(KeyCode As Integer, Shift As Integer)
 End Sub
 
 Private Sub txtnombre_Validate(Cancel As Boolean)
+  Dim i As CheckBox, j As Integer
   If alta Then
     Cancel = busc("select * from usuarios where nombre='" & txtnombre & "'").RecordCount > 0
     StatusBar1.SimpleText = IIf(Cancel, "El usuario ya existe", "")
   Else
     Dim perm As Byte
-    Set adousu = busc("select nombre,permisos from usuarios where nombre='" & txtusuario & "'")
+    Set adousu = busc("select nombre,permisos from usuarios where nombre='" & txtnombre & "'")
     Cancel = adousu.RecordCount <= 0
     StatusBar1.SimpleText = IIf(Cancel, "Usuario inexistente", "")
     If Cancel Then
       For Each i In chkpermisos: i.Value = vbUnchecked: Next
     Else
-      For i = 0 To chkpermisos.UBound: chkpermisos(i).Value = ((adousu!permisos And (2 ^ i)) > 0): Next
+      For j = 0 To chkpermisos.UBound: chkpermisos(j).Value = ((adousu!permisos And (2 ^ j)) > 0): Next
     End If
   End If
 End Sub

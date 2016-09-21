@@ -1,4 +1,6 @@
 Attribute VB_Name = "registro"
+Option Explicit
+
 Public Function busc(sql As String) As ADODB.Recordset
   Set busc = New ADODB.Recordset
   busc.CursorLocation = adUseClient
@@ -23,7 +25,7 @@ Public Sub llenarcmb(cmb As ComboBox, sql As String, fnom As String, Optional fd
 End Sub
 
 Public Sub llenarlst(lst As ListView, sql As String, campo As Variant, Optional ByVal llave As String = "", Optional vaciar As Boolean = True, Optional pref As String = "k")
-  Dim n As Integer
+  Dim i As Integer, n As Integer, k As String
   If vaciar Then lst.ListItems.Clear
   With busc(sql)
     Do Until .EOF
@@ -45,9 +47,10 @@ Public Sub llenarlst(lst As ListView, sql As String, campo As Variant, Optional 
 End Sub
 
 Public Sub initlst(lst As ListView, col As Variant, anc As Variant)
+  Dim i As Integer
   For i = 0 To UBound(col)
     With lst.ColumnHeaders.Add()
-      .Text = ascampo(col(i))
+      .text = ascampo(col(i))
       .Width = anc(i) * lst.Width
     End With
   Next

@@ -1,9 +1,11 @@
 Attribute VB_Name = "tabla"
+Option Explicit
 Public C As ADODB.Connection
 Public U As String
 Public p As Byte
 
 Public Sub crearbd()
+  Dim spath As String
   spath = App.Path & IIf(right(App.Path, 1) = "\", "", "\") & "db1.mdb;"
   With New ADOX.Catalog
     .Create "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" & spath
@@ -49,6 +51,7 @@ Public Sub crearempresas()
   If Not tablaexiste("empresas") Then
     C.Execute "create table empresas (" & _
                 "cod_emp identity primary key," & _
+                "regvalid bit default true," & _
                 "cuit_emp float," & _
                 "nom_emp varchar(64)," & _
                 "dom_emp varchar(64)," & _
@@ -96,7 +99,7 @@ Public Sub crearcuentas()
   End If
 End Sub
 
-Public Sub crearingresos(emp As Integer)
+Public Sub crearingresos(ByVal emp As Integer)
   crearempresas
   crearclientes
   crearcuentas
@@ -118,12 +121,13 @@ Public Sub crearingresos(emp As Integer)
                 "interno double default 0," & _
                 "ret_iva double default 0," & _
                 "ret_ib double default 0," & _
-                "cod_cue integer constraint ing_cue" & emp & " references cuentas(cod_cue))"
+                "cod_cue integer constraint ing_cue" & emp & " references cuentas(cod_cue)," & _
+                "periodo integer)"
     C.Execute "select * into dingresos" & emp & " from ingresos" & emp & " where 1=2"
   End If
 End Sub
 
-Public Sub crearegresos(emp As Integer)
+Public Sub crearegresos(ByVal emp As Integer)
   crearempresas
   crearproveedores
   crearcuentas
@@ -146,7 +150,8 @@ Public Sub crearegresos(emp As Integer)
                 "litros float default 0," & _
                 "perc_iva float default 0," & _
                 "perc_ib float default 0," & _
-                "cod_cue integer constraint egr_cue" & emp & " references cuentas(cod_cue))"
+                "cod_cue integer constraint egr_cue" & emp & " references cuentas(cod_cue)," & _
+                "periodo integer)"
     C.Execute "select * into degresos" & emp & " from egresos" & emp & " where 1=2"
   End If
 End Sub
@@ -155,6 +160,7 @@ Public Sub crearclientes()
   If Not tablaexiste("clientes") Then
     C.Execute "create table clientes (" & _
                 "cod_cli identity primary key," & _
+                "regvalid bit default true," & _
                 "cuit_cli float," & _
                 "nom_cli varchar(64))"
   End If
@@ -164,6 +170,7 @@ Public Sub crearproveedores()
   If Not tablaexiste("proveedores") Then
     C.Execute "create table proveedores (" & _
                 "cod_prov identity primary key," & _
+                "regvalid bit default true," & _
                 "cuit_prov float," & _
                 "nom_prov varchar(64))"
   End If

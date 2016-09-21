@@ -15,66 +15,11 @@ Begin VB.Form inicio
    ScaleHeight     =   7590
    ScaleWidth      =   12435
    StartUpPosition =   3  'Windows Default
-   Begin VB.PictureBox Frame1 
-      Appearance      =   0  'Flat
-      ForeColor       =   &H80000008&
-      Height          =   6975
-      Left            =   3360
-      ScaleHeight     =   6945
-      ScaleWidth      =   8985
-      TabIndex        =   3
-      Top             =   120
-      Width           =   9015
-   End
-   Begin MSComctlLib.TreeView trinicio 
-      Height          =   6495
-      Left            =   120
-      TabIndex        =   2
-      Top             =   600
-      Width           =   3135
-      _ExtentX        =   5530
-      _ExtentY        =   11456
-      _Version        =   393217
-      HideSelection   =   0   'False
-      Indentation     =   226
-      LabelEdit       =   1
-      LineStyle       =   1
-      Style           =   7
-      BorderStyle     =   1
-      Appearance      =   0
-      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "MS Sans Serif"
-         Size            =   9.75
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-   End
-   Begin VB.CommandButton cmdvolver 
-      Caption         =   "SALIR"
-      BeginProperty Font 
-         Name            =   "MS Sans Serif"
-         Size            =   9.75
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   375
-      Left            =   120
-      Style           =   1  'Graphical
-      TabIndex        =   0
-      Top             =   120
-      Width           =   3135
-   End
    Begin MSComctlLib.StatusBar gstatus 
       Align           =   2  'Align Bottom
       Height          =   375
       Left            =   0
-      TabIndex        =   1
+      TabIndex        =   3
       Top             =   7215
       Width           =   12435
       _ExtentX        =   21934
@@ -96,24 +41,80 @@ Begin VB.Form inicio
          Strikethrough   =   0   'False
       EndProperty
    End
+   Begin VB.PictureBox Frame1 
+      Appearance      =   0  'Flat
+      ForeColor       =   &H80000008&
+      Height          =   6975
+      Left            =   3360
+      ScaleHeight     =   6945
+      ScaleWidth      =   8985
+      TabIndex        =   1
+      Top             =   120
+      Width           =   9015
+   End
+   Begin VB.CommandButton cmdvolver 
+      Caption         =   "SALIR"
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   375
+      Left            =   120
+      Style           =   1  'Graphical
+      TabIndex        =   0
+      Top             =   120
+      Width           =   3135
+   End
+   Begin MSComctlLib.TreeView trinicio 
+      Height          =   6495
+      Left            =   120
+      TabIndex        =   2
+      Top             =   600
+      Width           =   3135
+      _ExtentX        =   5530
+      _ExtentY        =   11456
+      _Version        =   393217
+      HideSelection   =   0   'False
+      Indentation     =   90
+      LabelEdit       =   1
+      LineStyle       =   1
+      Style           =   6
+      BorderStyle     =   1
+      Appearance      =   0
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "MS Sans Serif"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+   End
 End
 Attribute VB_Name = "inicio"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+Option Explicit
+
 Private Sub cmdvolver_Click()
+  Dim f As Form
   If Not hijo Is Nothing Then Unload hijo
   Set StatusBar1 = Nothing
   For Each f In Forms: Unload f: Next
   login.Show
 End Sub
 
-Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
-  If KeyCode = vbKeyF5 Then Shell "calc"
-End Sub
-
 Private Sub Form_Load()
+  Dim pusu As Boolean, pact As Boolean, pecp As Boolean, pcom As Boolean
+  Dim plis As Boolean, ppla As Boolean, pcue As Boolean
   centrar Me
   Set StatusBar1 = gstatus
   pusu = p And 2 ^ 0
@@ -159,8 +160,9 @@ Private Sub Form_Load()
       .Add "t5", tvwChild, "t51", "IVA"
     End If
     .Add , , "t4", "CAMBIAR CONTRASEÑA"
-    If pcom Then .Add , , "t6", "CÁLCULO DE TOTALES"
+    If pcom Then .Add , , "t6", "TOTALES / PERIODOS"
     If pcom Then .Add , , "t3", "CONTROL DE DUPLICIDAD"
+    If pcom Then .Add , , "t8", "IMPORTAR / EXPORTAR"
   End With
 End Sub
 
@@ -170,14 +172,14 @@ Private Sub trinicio_NodeClick(ByVal Node As Node)
   Case "t01": abmcliente.alta = True: abrir Frame1, abmcliente
   Case "t02": abmegreso.alta = True: abrir Frame1, abmegreso
   Case "t03": abrir Frame1, abmcuenta
-  Case "t04": abrir Frame1, aempresa
+  Case "t04": abmempresa.alta = True: abrir Frame1, abmempresa
   Case "t06": abmproveedor.alta = True: abrir Frame1, abmproveedor
   Case "t07": abmusuario.alta = True: abrir Frame1, abmusuario
   Case "t08": abmingreso.alta = True: abrir Frame1, abmingreso
   Case "t10": abmcliente.alta = False: abrir Frame1, abmcliente
   Case "t11": abmegreso.alta = False: abrir Frame1, abmegreso
   Case "t12": abrir Frame1, abmcuenta
-  Case "t13": abrir Frame1, mempresa
+  Case "t13": abmempresa.alta = False: abrir Frame1, abmempresa
   Case "t14": abmproveedor.alta = False: abrir Frame1, abmproveedor
   Case "t15": abmusuario.alta = False: abrir Frame1, abmusuario
   Case "t16": abmingreso.alta = False: abrir Frame1, abmingreso
@@ -190,6 +192,7 @@ Private Sub trinicio_NodeClick(ByVal Node As Node)
   Case "t50": plingbrutos.Show vbModal
   Case "t51": pliva.Show vbModal
   Case "t6": abrir Frame1, calculo
+  Case "t8": abrir Frame1, impexp
   Case "t70": buscard.excla = ""
     formbuscard Frame1, "clientes", _
       "nom_cli", "cod_cli", "nom_cli", _

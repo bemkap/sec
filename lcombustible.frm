@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
 Begin VB.Form lcombustible 
    BorderStyle     =   1  'Fixed Single
    ClientHeight    =   9465
@@ -13,23 +13,6 @@ Begin VB.Form lcombustible
    ScaleHeight     =   9465
    ScaleWidth      =   14220
    StartUpPosition =   3  'Windows Default
-   Begin VB.CommandButton cmdvolver 
-      Caption         =   "Volver"
-      BeginProperty Font 
-         Name            =   "MS Sans Serif"
-         Size            =   9.75
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   375
-      Left            =   7178
-      TabIndex        =   1
-      Top             =   9000
-      Width           =   1215
-   End
    Begin VB.CommandButton Command2 
       Caption         =   "Imprimir"
       BeginProperty Font 
@@ -44,6 +27,23 @@ Begin VB.Form lcombustible
       Height          =   375
       Left            =   5828
       TabIndex        =   0
+      Top             =   9000
+      Width           =   1215
+   End
+   Begin VB.CommandButton cmdvolver 
+      Caption         =   "Volver"
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   375
+      Left            =   7178
+      TabIndex        =   1
       Top             =   9000
       Width           =   1215
    End
@@ -131,6 +131,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+Option Explicit
 Private ws() As Variant, parcial(2) As Double
 
 Private Sub cmdvolver_Click()
@@ -138,6 +139,7 @@ Private Sub cmdvolver_Click()
 End Sub
 
 Private Sub Form_Load()
+  Dim i As Integer
   centrar Me
   ws = Array(12, 15, 23, 16, 17, 17)
   
@@ -163,31 +165,36 @@ Private Sub Form_Load()
 End Sub
 
 Private Sub Command2_Click()
+  Dim i As Integer, j As Integer, k As Integer, t As String
   On Error GoTo E
-  k = 0: titulo k
-  For i = 1 To lstlistado.ListItems.Count
-    t = left2(lstlistado.ListItems(i), ws(0)) & " "
-    For j = 1 To lstlistado.ListItems(i).ListSubItems.Count
-      t = t & IIf(j >= 4, right2(Format(lstlistado.ListItems(i).ListSubItems(j), "0.00"), ws(j)), _
-                          left2(lstlistado.ListItems(i).ListSubItems(j), ws(j))) & " "
+  selimpr.Show vbModal
+  If Not selimpr.cancel Then
+    k = 0: titulo k
+    For i = 1 To lstlistado.ListItems.Count
+      t = left2(lstlistado.ListItems(i), ws(0)) & " "
+      For j = 1 To lstlistado.ListItems(i).ListSubItems.Count
+        t = t & IIf(j >= 4, right2(Format(lstlistado.ListItems(i).ListSubItems(j), "0.00"), ws(j)), _
+                            left2(lstlistado.ListItems(i).ListSubItems(j), ws(j))) & " "
+      Next
+      For j = 4 To 5: parcial(j - 4) = parcial(j - 4) + lstlistado.ListItems(i).ListSubItems(j): Next
+      yx i + 6, 4, t
+      If i > Printer.ScaleHeight - 3 Then
+        parciales Printer.ScaleHeight - 3
+        Printer.NewPage
+        k = k + 1
+        titulo k
+        parciales 4
+      End If
     Next
-    For j = 4 To 5: parcial(j - 4) = parcial(j - 4) + lstlistado.ListItems(i).ListSubItems(j): Next
-    yx i + 6, 4, t
-    If i > Printer.ScaleHeight - 3 Then
-      parciales Printer.ScaleHeight - 3
-      Printer.NewPage
-      k = k + 1
-      titulo k
-      parciales 4
-    End If
-  Next
-  parciales Printer.ScaleHeight - 3
-  Printer.EndDoc
+    parciales Printer.ScaleHeight - 3
+    Printer.EndDoc
+  End If
   Exit Sub
 E: MsgBox "Error en la impresión: " & Err.Description, vbCritical, ""
 End Sub
 
 Public Sub titulo(ByVal p As Integer)
+  Dim i As Integer, t As String, co As ColumnHeader
   yx 1, 4, "HOJA " & (p + 1)
   centro UCase(gcombustible.labnom)
   If gcombustible.txtfecha(0) <> "  /  /    " Then t = t & " DESDE EL " & givacompras.txtfecha(0)
@@ -203,6 +210,7 @@ Public Sub titulo(ByVal p As Integer)
 End Sub
 
 Public Sub parciales(ByVal l As Integer)
+  Dim i As Integer, t As String
   Printer.Line (4, l)-(Printer.ScaleWidth - 4, l)
   t = String(ws(2) + ws(1) + ws(0) - 9, " ") & "   PARCIALES" & String(ws(3), " ") & " "
   For i = 0 To 1: t = t & right2(Format(parcial(i), "0.00"), ws(i + 4)) & " ": Next

@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
 Begin VB.Form livacompras 
    BorderStyle     =   1  'Fixed Single
    ClientHeight    =   9465
@@ -179,6 +179,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+Option Explicit
 Private mostrar() As Variant, ws() As Variant, parcial(9) As Double, parcial1(4) As Double
 
 Private Sub cmdvolver_Click()
@@ -186,6 +187,7 @@ Private Sub cmdvolver_Click()
 End Sub
 
 Private Sub Command1_Click()
+  Dim i As Integer, n As Integer, cw As Double
   With columnas.lstcolumnas
     For i = 1 To lstlistado.ColumnHeaders.Count: .ListItems.Add , , lstlistado.ColumnHeaders(i): Next
     For i = 1 To .ListItems.Count: .ListItems(i).Checked = CBool(mostrar(i - 1)): Next
@@ -200,6 +202,7 @@ Private Sub Command1_Click()
 End Sub
 
 Private Sub Form_Load()
+  Dim i As Integer, col1(), col2()
   centrar Me
   ws = Array(10, 5, 14, 15, 13, 8, 12, 8, 9, 8)
   
@@ -228,7 +231,7 @@ Private Sub Form_Load()
     Array("fecha", "exento", "no_gravado", "interno", "perc_ib", "gravado", "giva", "iva21", "iva105", "iva27")
   
   Dim ve As ADODB.Recordset, tasas(2) As ADODB.Recordset
-  Set ve = busc("select sum(subtotal),sum(exento+no_gravado+interno),sum(perc_iva+perc_ib),sum(gravado),sum(format(iva21+iva105+iva27,'0.00')),sum(exento),sum(no_gravado),sum(interno),sum(perc_ib) from vegresos")
+  Set ve = busc("select sum(subtotal),sum(exento+no_gravado+interno),sum(perc_iva+perc_ib),sum(gravado),format(sum(iva21+iva105+iva27),'0.00'),sum(exento),sum(no_gravado),sum(interno),sum(perc_ib) from vegresos")
   Set tasas(0) = busc("select 0.21,sum(format(iva21,'0.00')) from vegresos")
   Set tasas(1) = busc("select 0.27,sum(format(iva27,'0.00')) from vegresos")
   Set tasas(2) = busc("select 0.105,sum(format(iva105,'0.00')) from vegresos")
@@ -253,50 +256,55 @@ Private Sub Form_Load()
   
   mostrar = Array(True, True, True, True, True, True, True, True, True, True)
   For i = 1 To lstlistado.ColumnHeaders.Count
-    cw = lstlistado.Width * ws(i - 1) / sum(ws)
     If Not mostrar(i - 1) Then lstlistado.ColumnHeaders(i).Width = 0
   Next
 End Sub
 
 Private Sub Command2_Click()
+  Dim i As Integer, j As Integer, k As Integer, linea As Integer, t As String
+  Dim li As ListItem, li1 As ListItem, lij As String
   On Error GoTo E
-  For i = 0 To UBound(parcial): parcial(i) = 0: Next
-  For i = 0 To UBound(parcial1): parcial1(i) = 0: Next
-  k = 0: titulo k: linea = 11
-  For i = 1 To lstlistado.ListItems.Count
-    t = ""
-    Set li = lstlistado.ListItems(i)
-    Set li1 = lstlistado1.ListItems(i)
-    t = t & right2(IIf(mostrar(0), li, " "), ws(0)) & " "
-    For j = 1 To li.ListSubItems.Count
-      Set lij = li.ListSubItems(j)
-      If j >= 5 Then 'numero
-        t = t & right2(IIf(mostrar(j), Format(lij, "0.00"), " "), ws(j)) & " "
-      Else 'letras
-        t = t & left2(IIf(mostrar(j), lij, " "), ws(j)) & " "
+  selimpr.Show vbModal
+  If Not selimpr.cancel Then
+    For i = 0 To UBound(parcial): parcial(i) = 0: Next
+    For i = 0 To UBound(parcial1): parcial1(i) = 0: Next
+    k = 0: titulo k: linea = 11
+    For i = 1 To lstlistado.ListItems.Count
+      t = ""
+      Set li = lstlistado.ListItems(i)
+      Set li1 = lstlistado1.ListItems(i)
+      t = t & right2(IIf(mostrar(0), li, " "), ws(0)) & " "
+      For j = 1 To li.ListSubItems.Count
+        lij = li.ListSubItems(j)
+        If j >= 5 Then 'numero
+          t = t & right2(IIf(mostrar(j), Format(lij, "0.00"), " "), ws(j)) & " "
+        Else 'letras
+          t = t & left2(IIf(mostrar(j), lij, " "), ws(j)) & " "
+        End If
+      Next
+      For j = 1 To 4: parcial(j - 1) = parcial(j - 1) + li1.ListSubItems(j): Next
+      For j = 5 To 9: parcial1(j - 5) = parcial1(j - 5) + li.ListSubItems(j): Next
+      parcial(5) = parcial(5) + li1.ListSubItems(7)
+      parcial(7) = parcial(7) + li1.ListSubItems(8)
+      parcial(9) = parcial(9) + li1.ListSubItems(9)
+      yx linea, 1, t
+      linea = linea + 1
+      If linea > Printer.ScaleHeight - 8 Then
+        parciales Printer.ScaleHeight - 7
+        Printer.NewPage
+        linea = 11
+        k = k + 1: titulo k
       End If
     Next
-    For j = 1 To 4: parcial(j - 1) = parcial(j - 1) + li1.ListSubItems(j): Next
-    For j = 5 To 9: parcial1(j - 5) = parcial1(j - 5) + li.ListSubItems(j): Next
-    parcial(5) = parcial(5) + li1.ListSubItems(7)
-    parcial(7) = parcial(7) + li1.ListSubItems(8)
-    parcial(9) = parcial(9) + li1.ListSubItems(9)
-    yx linea, 1, t
-    linea = linea + 1
-    If linea > Printer.ScaleHeight - 8 Then
-      parciales Printer.ScaleHeight - 7
-      Printer.NewPage
-      linea = 11
-      k = k + 1: titulo k
-    End If
-  Next
-  parciales Printer.ScaleHeight - 7
-  Printer.EndDoc
+    parciales Printer.ScaleHeight - 7
+    Printer.EndDoc
+  End If
   Exit Sub
 E: MsgBox "Error en la impresión: " & Err.Description, vbCritical, ""
 End Sub
 
 Public Sub titulo(ByVal p As Integer)
+  Dim t As String, co As ColumnHeader, i As Integer
   yx 1, 1, "HOJA " & (p + 1)
   centro "SUBDIARIO DE IVA COMPRAS DE " & UCase(givacompras.labnom)
   If givacompras.txtfecha(0) <> "  /  /    " Then t = t & " DESDE EL " & givacompras.txtfecha(0)
@@ -313,6 +321,7 @@ Public Sub titulo(ByVal p As Integer)
 End Sub
 
 Public Sub parciales(ByVal l As Integer)
+  Dim iva(), tit(), i As Integer, t As String
   Printer.Line (1, l)-(Printer.ScaleWidth - 1, l)
   iva = Array(0.21, 0.27, 0.105)
   tit = Array("PARCIAL EXENTO", "PARCIAL NO GRAVADO", "PARCIAL INTERNOS", "PARCIAL PERC.ING.BTOS", "AL 21%", "AL 27%", "AL 10.5%")
