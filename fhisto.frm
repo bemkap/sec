@@ -117,28 +117,36 @@ Private Sub Form_Load()
   pch_Paint
 End Sub
 
-Private Sub pch_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
-  Dim i As Integer
+Private Sub pch_MouseMove(Button As Integer, Shift As Integer, x As Single, y As Single)
+  Dim i As Integer, cuad As IPictureDisp
+  Dim ex As Double, ey As Double, fs As String
   pch.Cls
   pch_Paint
+  pch.ForeColor = vbWhite
+  Set cuad = LoadPicture("iconos/rect.bmp")
   For i = 0 To UBound(isaldos) - 1
-    If X > escalarx(i) - 10 And X < escalarx(i) + 10 And Y > escalary(isaldos(i)) - 10 And Y < escalary(isaldos(i)) + 10 Then
-      pch.ForeColor = vbBlack
-      escribir escalarx(i), escalary(isaldos(i)) - 20, Format(isaldos(i), "0.00")
+    ex = escalarx(i)
+    ey = escalary(isaldos(i))
+    fs = "$" & Format(isaldos(i), "0.00")
+    If x > ex - 10 And x < ex + 10 And y > ey - 10 And y < ey + 10 Then
+      pch.PaintPicture cuad, ex, ey - 20, pch.TextWidth(fs), pch.TextHeight(fs)
+      escribir ex, ey - 20, fs
     End If
   Next
   For i = 0 To UBound(esaldos) - 1
-    If X > escalarx(i) - 10 And X < escalarx(i) + 10 And Y > escalary(esaldos(i)) - 10 And Y < escalary(esaldos(i)) + 10 Then
-      pch.ForeColor = vbBlack
-      pch.DrawWidth = 30
-      pch.Line (10, 10)-(50, 50)
-      escribir escalarx(i), escalary(esaldos(i)) - 20, Format(esaldos(i), "0.00")
+    ex = escalarx(i)
+    ey = escalary(esaldos(i))
+    fs = "$" & Format(esaldos(i), "0.00")
+    If x > ex - 10 And x < ex + 10 And y > ey - 10 And y < ey + 10 Then
+      pch.PaintPicture cuad, ex, ey - 20, pch.TextWidth(fs), pch.TextHeight(fs)
+      escribir ex, ey - 20, fs
     End If
   Next
 End Sub
 
 Private Sub pch_Paint()
-  Dim i As Double, X As Double, Y As Double, xx As Double, yy As Double
+  Dim i As Double, x As Double, y As Double, xx As Double, yy As Double
+  Dim ex As Double, ex1 As Double, ey As Double, ey1 As Double
   Dim sch As Integer, scw As Integer
   pch.Font = "Courier"
   pch.FontSize = 10
@@ -161,15 +169,19 @@ Private Sub pch_Paint()
   pch.DrawWidth = 3
   'lineas ingreso
   For i = 0 To UBound(isaldos) - 1
-    pch.Line (escalarx(i), escalary(isaldos(i)))-(escalarx(i + 1), escalary(isaldos(i + 1))), &H119900
-    pch.Circle (escalarx(i), escalary(isaldos(i))), 3, &H119900
-    pch.Circle (escalarx(i), escalary(isaldos(i))), 1, vbWhite
+    ex = escalarx(i): ex1 = escalarx(i + 1)
+    ey = escalary(isaldos(i)): ey1 = escalary(isaldos(i + 1))
+    pch.Line (ex, ey)-(ex1, ey1), &H119900
+    pch.Circle (ex, ey), 3, &H119900
+    pch.Circle (ex, ey), 1, vbWhite
   Next
   'lineas egreso
   For i = 0 To UBound(esaldos) - 1
-    pch.Line (escalarx(i), escalary(esaldos(i)))-(escalarx(i + 1), escalary(esaldos(i + 1))), vbRed
-    pch.Circle (escalarx(i), escalary(esaldos(i))), 3, vbRed
-    pch.Circle (escalarx(i), escalary(esaldos(i))), 1, vbWhite
+    ex = escalarx(i): ex1 = escalarx(i + 1)
+    ey = escalary(esaldos(i)): ey1 = escalary(esaldos(i + 1))
+    pch.Line (ex, ey)-(ex1, ey1), vbRed
+    pch.Circle (ex, ey), 3, vbRed
+    pch.Circle (ex, ey), 1, vbWhite
   Next
   'periodos
   pch.FontBold = True
@@ -182,9 +194,9 @@ Private Sub pch_Paint()
   'totales anuales
   pch.FontSize = 12
   pch.ForeColor = &H119900
-  escribir 200, 10, "Total ventas : " & Format(busc("select sum(sgravado+sno_gravado+siva+sexento+sinterno+sret_iva+sret_ib) from vti").Fields(0), "0.00")
+  escribir 200, 10, "Total ventas  " & Format(busc("select sum(sgravado+sno_gravado+siva+sexento+sinterno+sret_iva+sret_ib) from vti").Fields(0), "0.00")
   pch.ForeColor = vbRed
-  escribir 200, 32, "Total compras: " & Format(busc("select sum(sgravado+sno_gravado+siva+sexento+sinterno+sperc_iva+sperc_ib+slitros) from vte").Fields(0), "0.00")
+  escribir 200, 32, "Total compras " & Format(busc("select sum(sgravado+sno_gravado+siva+sexento+sinterno+sperc_iva+sperc_ib+slitros) from vte").Fields(0), "0.00")
 End Sub
 
 Private Sub escribir(ByVal left As Long, ByVal top As Long, ByVal str As String)
@@ -196,24 +208,24 @@ Private Sub escribir(ByVal left As Long, ByVal top As Long, ByVal str As String)
   DrawText pch.hdc, str, Len(str), r, &H0
 End Sub
 
-Private Function escalar(ByVal X As Double, ByVal a_de As Double, ByVal b_de As Double, ByVal a_a As Double, ByVal b_a As Double) As Double
-  escalar = a_a + (X - a_de) / IIf(b_de = a_de, 1, b_de - a_de) * (b_a - a_a)
+Private Function escalar(ByVal x As Double, ByVal a_de As Double, ByVal b_de As Double, ByVal a_a As Double, ByVal b_a As Double) As Double
+  escalar = a_a + (x - a_de) / IIf(b_de = a_de, 1, b_de - a_de) * (b_a - a_a)
 End Function
 
-Private Function escalarx(ByVal X As Double) As Double
-  escalarx = escalar(X, 0, 11, off, pch.ScaleWidth - off)
+Private Function escalarx(ByVal x As Double) As Double
+  escalarx = escalar(x, 0, 11, off, pch.ScaleWidth - off)
 End Function
 
-Private Function escalary(ByVal X As Double) As Double
-  escalary = escalar(X, s0, s1, pch.ScaleHeight - off, off)
+Private Function escalary(ByVal x As Double) As Double
+  escalary = escalar(x, s0, s1, pch.ScaleHeight - off, off)
 End Function
 
-Private Function lagrange(ByVal X As Double, ByVal n As Integer, xs() As Integer, ys() As Double) As Double
+Private Function lagrange(ByVal x As Double, ByVal n As Integer, xs() As Integer, ys() As Double) As Double
   Dim i As Integer, j As Integer, t As Integer
   For i = 0 To 11
     t = 1
     For j = 0 To 11
-      If j <> i Then t = t * (X - xs(j)) / (xs(i) - xs(j))
+      If j <> i Then t = t * (x - xs(j)) / (xs(i) - xs(j))
     Next
     lagrange = lagrange + t * ys(i)
   Next
