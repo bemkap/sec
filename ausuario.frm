@@ -378,6 +378,10 @@ End Sub
 
 Private Sub Form_Load()
   cmdeliminar.Visible = Not alta
+  txtclave.Visible = alta
+  txtrepetir.Visible = alta
+  labclave.Visible = alta
+  labrepetir.Visible = alta
 End Sub
 
 Private Sub txtnombre_KeyDown(KeyCode As Integer, Shift As Integer)
@@ -391,13 +395,24 @@ Private Sub txtnombre_Validate(Cancel As Boolean)
     StatusBar1.SimpleText = IIf(Cancel, "El usuario ya existe", "")
   Else
     Dim perm As Byte
-    Set adousu = busc("select nombre,permisos from usuarios where nombre='" & txtnombre & "'")
+    Set adousu = busc("select * from usuarios where nombre='" & txtnombre & "'")
     Cancel = adousu.RecordCount <= 0
     StatusBar1.SimpleText = IIf(Cancel, "Usuario inexistente", "")
     If Cancel Then
-      For Each i In chkpermisos: i.Value = vbUnchecked: Next
+      For Each i In chkpermisos
+        i.Value = vbUnchecked
+        i.enabled = True
+      Next
+    ElseIf adousu!nombre = "admin" Then
+      For Each i In chkpermisos
+        i.Value = vbChecked
+        i.enabled = False
+      Next
     Else
-      For j = 0 To chkpermisos.UBound: chkpermisos(j).Value = ((adousu!permisos And (2 ^ j)) > 0): Next
+      For j = 0 To chkpermisos.UBound
+        chkpermisos(j).Value = IIf(((adousu!permisos And (2 ^ j)) > 0), vbChecked, vbUnchecked)
+        chkpermisos(j).enabled = True
+      Next
     End If
   End If
 End Sub

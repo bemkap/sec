@@ -8,7 +8,6 @@ Begin VB.Form givaventas
    ClientTop       =   15
    ClientWidth     =   8985
    ControlBox      =   0   'False
-   Enabled         =   0   'False
    LinkTopic       =   "Form19"
    MaxButton       =   0   'False
    MinButton       =   0   'False
@@ -47,8 +46,8 @@ Begin VB.Form givaventas
       TabIndex        =   6
       Top             =   6000
       Width           =   4095
-      _ExtentX        =   7223
-      _ExtentY        =   661
+      _extentx        =   7223
+      _extenty        =   661
       enabled         =   0   'False
    End
    Begin Project1.UserControl2 txtbuscarcli 
@@ -57,8 +56,8 @@ Begin VB.Form givaventas
       TabIndex        =   5
       Top             =   6000
       Width           =   3975
-      _ExtentX        =   7011
-      _ExtentY        =   661
+      _extentx        =   7011
+      _extenty        =   661
       enabled         =   0   'False
    End
    Begin VB.ComboBox cmbletra 

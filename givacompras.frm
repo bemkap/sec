@@ -8,7 +8,6 @@ Begin VB.Form givacompras
    ClientTop       =   15
    ClientWidth     =   8985
    ControlBox      =   0   'False
-   Enabled         =   0   'False
    LinkTopic       =   "Form19"
    MaxButton       =   0   'False
    MinButton       =   0   'False

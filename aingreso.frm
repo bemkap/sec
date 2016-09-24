@@ -13,11 +13,33 @@ Begin VB.Form abmingreso
    ScaleHeight     =   6945
    ScaleWidth      =   8985
    WindowState     =   2  'Maximized
+   Begin VB.CheckBox chkcalc 
+      Alignment       =   1  'Right Justify
+      Appearance      =   0  'Flat
+      Caption         =   "Calcular IVA"
+      Enabled         =   0   'False
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H80000008&
+      Height          =   255
+      Left            =   6360
+      TabIndex        =   38
+      Top             =   1320
+      Value           =   1  'Checked
+      Width           =   1455
+   End
    Begin Project1.UserControl3 txtcuenta 
       Height          =   375
       Left            =   5880
       TabIndex        =   37
-      Top             =   4080
+      Top             =   4200
       Width           =   1935
       _ExtentX        =   3413
       _ExtentY        =   661
@@ -114,7 +136,7 @@ Begin VB.Form abmingreso
       Left            =   5880
       TabIndex        =   10
       Text            =   "0.00"
-      Top             =   2640
+      Top             =   2760
       Width           =   1935
    End
    Begin VB.ComboBox cmbletra 
@@ -201,7 +223,7 @@ Begin VB.Form abmingreso
       Left            =   5880
       TabIndex        =   7
       Text            =   "0.00"
-      Top             =   1560
+      Top             =   1680
       Width           =   1935
    End
    Begin VB.TextBox txtn 
@@ -231,7 +253,7 @@ Begin VB.Form abmingreso
       Left            =   5880
       TabIndex        =   9
       Text            =   "0.00"
-      Top             =   2280
+      Top             =   2400
       Width           =   1935
    End
    Begin VB.TextBox txtn 
@@ -261,7 +283,7 @@ Begin VB.Form abmingreso
       Left            =   5880
       TabIndex        =   11
       Text            =   "0.00"
-      Top             =   3000
+      Top             =   3120
       Width           =   1935
    End
    Begin VB.TextBox txtn 
@@ -291,7 +313,7 @@ Begin VB.Form abmingreso
       Left            =   5880
       TabIndex        =   12
       Text            =   "0.00"
-      Top             =   3360
+      Top             =   3480
       Width           =   1935
    End
    Begin VB.TextBox txtn 
@@ -321,7 +343,7 @@ Begin VB.Form abmingreso
       Left            =   5880
       TabIndex        =   13
       Text            =   "0.00"
-      Top             =   3720
+      Top             =   3840
       Width           =   1935
    End
    Begin VB.TextBox txtsubtotal 
@@ -350,7 +372,7 @@ Begin VB.Form abmingreso
       Left            =   5880
       TabIndex        =   17
       Text            =   "0.00"
-      Top             =   4800
+      Top             =   4920
       Width           =   1935
    End
    Begin VB.TextBox txtn 
@@ -380,7 +402,7 @@ Begin VB.Form abmingreso
       Left            =   5880
       TabIndex        =   8
       Text            =   "0.00"
-      Top             =   1920
+      Top             =   2040
       Width           =   1935
    End
    Begin Project1.UserControl1 txtcliente 
@@ -512,7 +534,7 @@ Begin VB.Form abmingreso
       Height          =   375
       Left            =   5880
       TabIndex        =   33
-      Top             =   4440
+      Top             =   4560
       Width           =   1935
    End
    Begin VB.Label labiva 
@@ -533,7 +555,7 @@ Begin VB.Form abmingreso
       Height          =   375
       Left            =   7800
       TabIndex        =   32
-      Top             =   2640
+      Top             =   2760
       Width           =   855
    End
    Begin VB.Label Label6 
@@ -641,7 +663,7 @@ Begin VB.Form abmingreso
       Height          =   255
       Left            =   4320
       TabIndex        =   26
-      Top             =   4920
+      Top             =   5040
       Width           =   1335
    End
    Begin VB.Label Label14 
@@ -659,7 +681,7 @@ Begin VB.Form abmingreso
       Height          =   255
       Left            =   4320
       TabIndex        =   25
-      Top             =   4200
+      Top             =   4320
       Width           =   1335
    End
    Begin VB.Label Label13 
@@ -677,7 +699,7 @@ Begin VB.Form abmingreso
       Height          =   255
       Left            =   4320
       TabIndex        =   24
-      Top             =   3840
+      Top             =   3960
       Width           =   1335
    End
    Begin VB.Label Label12 
@@ -695,7 +717,7 @@ Begin VB.Form abmingreso
       Height          =   255
       Left            =   4320
       TabIndex        =   23
-      Top             =   3480
+      Top             =   3600
       Width           =   1335
    End
    Begin VB.Label Label11 
@@ -713,7 +735,7 @@ Begin VB.Form abmingreso
       Height          =   255
       Left            =   4320
       TabIndex        =   22
-      Top             =   3120
+      Top             =   3240
       Width           =   1335
    End
    Begin VB.Label Label10 
@@ -731,7 +753,7 @@ Begin VB.Form abmingreso
       Height          =   255
       Left            =   4320
       TabIndex        =   21
-      Top             =   2400
+      Top             =   2520
       Width           =   1335
    End
    Begin VB.Label Label9 
@@ -749,7 +771,7 @@ Begin VB.Form abmingreso
       Height          =   255
       Left            =   4320
       TabIndex        =   20
-      Top             =   2760
+      Top             =   2880
       Width           =   1335
    End
    Begin VB.Label Label8 
@@ -767,7 +789,7 @@ Begin VB.Form abmingreso
       Height          =   255
       Left            =   4320
       TabIndex        =   19
-      Top             =   1680
+      Top             =   1800
       Width           =   1335
    End
    Begin VB.Label Label7 
@@ -785,7 +807,7 @@ Begin VB.Form abmingreso
       Height          =   255
       Left            =   4320
       TabIndex        =   18
-      Top             =   2040
+      Top             =   2160
       Width           =   1335
    End
 End
@@ -802,6 +824,7 @@ Private Sub cmbletra_Click()
   Dim i As Integer
   For i = 0 To txtn.UBound: txtn(i).enabled = (cmbletra.ListIndex > -1): Next
   txtcuenta.enabled = (cmbletra.ListIndex > -1)
+  chkcalc.enabled = (cmbletra.ListIndex > -1)
   If cmbletra.ListIndex > -1 Then ivadisc = cmbletra.ItemData(cmbletra.ListIndex)
   For i = 0 To txtn.UBound: txtn(i) = "0.00": Next
   idc = 0: porcs(0, 1) = 0: porcs(1, 1) = 0: porcs(2, 1) = 0
@@ -948,14 +971,16 @@ End Sub
 Private Sub txtn_LostFocus(Index As Integer)
   Select Case Index
   Case 0: 'gravado
-    If ivadisc Then
-      porcs(0, 1) = val(txtn(0)) * 0.21
-    Else
-      txtn(0).tag = txtn(0)
-      txtn(0) = Format(val(txtn(0)) / 1.21, "0.00")
-      porcs(0, 1) = val(txtn(0).tag) - val(txtn(0))
+    If chkcalc.Value = vbChecked Then
+      If ivadisc Then
+        porcs(0, 1) = val(txtn(0)) * 0.21
+      Else
+        txtn(0).tag = txtn(0)
+        txtn(0) = Format(val(txtn(0)) / 1.21, "0.00")
+        porcs(0, 1) = val(txtn(0).tag) - val(txtn(0))
+      End If
+      If idc = 0 Then txtn(3) = Format(porcs(0, 1), "0.00")
     End If
-    If idc = 0 Then txtn(3) = Format(porcs(0, 1), "0.00")
   Case 3: 'iva
     porcs(idc, 1) = val(txtn(3))
     StatusBar1.SimpleText = ""

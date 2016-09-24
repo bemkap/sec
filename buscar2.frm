@@ -147,7 +147,12 @@ Private Sub tr_DblClick()
 End Sub
 
 Private Sub tr_KeyDown(KeyCode As Integer, Shift As Integer)
-  tr_DblClick
+  If KeyCode = vbkeyesc Then
+    Cancel = True
+    Unload Me
+  Else
+    tr_DblClick
+  End If
 End Sub
 
 Private Sub Timer1_Timer()

@@ -71,14 +71,14 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
-Private Declare Function DrawText Lib "user32" Alias "DrawTextA" _
-  (ByVal hdc As Long, ByVal lpStr As String, ByVal nCount As Long, lpRect As RECT, ByVal wFormat As Long) As Long
 Private Type RECT
   left As Long
   top As Long
   right As Long
   bottom As Long
 End Type
+Private Declare Function DrawText Lib "user32" Alias "DrawTextA" _
+  (ByVal hdc As Long, ByVal lpStr As String, ByVal nCount As Long, lpRect As RECT, ByVal wFormat As Long) As Long
 Private imeses(11) As Integer, emeses(11) As Integer, isaldos(11) As Double, esaldos(11) As Double
 Private s0 As Double, s1 As Double, off As Long, ne As Integer, ni As Integer
 Public aa As Double
@@ -194,9 +194,12 @@ Private Sub pch_Paint()
   'totales anuales
   pch.FontSize = 12
   pch.ForeColor = &H119900
-  escribir 200, 10, "Total ventas  " & Format(busc("select sum(sgravado+sno_gravado+siva+sexento+sinterno+sret_iva+sret_ib) from vti").Fields(0), "0.00")
+  escribir_centro 10, "Total ventas  " & Format(busc("select sum(sgravado+sno_gravado+siva+sexento+sinterno+sret_iva+sret_ib) from vti").Fields(0), "0.00")
   pch.ForeColor = vbRed
-  escribir 200, 32, "Total compras " & Format(busc("select sum(sgravado+sno_gravado+siva+sexento+sinterno+sperc_iva+sperc_ib+slitros) from vte").Fields(0), "0.00")
+  escribir_centro 32, "Total compras " & Format(busc("select sum(sgravado+sno_gravado+siva+sexento+sinterno+sperc_iva+sperc_ib+slitros) from vte").Fields(0), "0.00")
+  'año
+  pch.ForeColor = vbBlack
+  escribir_centro pch.ScaleHeight - off / 2, "Año " & aa
 End Sub
 
 Private Sub escribir(ByVal left As Long, ByVal top As Long, ByVal str As String)
@@ -206,6 +209,10 @@ Private Sub escribir(ByVal left As Long, ByVal top As Long, ByVal str As String)
   r.top = top
   r.bottom = top + pch.TextHeight(str) + 4
   DrawText pch.hdc, str, Len(str), r, &H0
+End Sub
+
+Private Sub escribir_centro(ByVal top As String, ByVal str As String)
+  escribir (pch.ScaleWidth - pch.TextWidth(str)) / 2, top, str
 End Sub
 
 Private Function escalar(ByVal x As Double, ByVal a_de As Double, ByVal b_de As Double, ByVal a_a As Double, ByVal b_a As Double) As Double
@@ -218,16 +225,5 @@ End Function
 
 Private Function escalary(ByVal x As Double) As Double
   escalary = escalar(x, s0, s1, pch.ScaleHeight - off, off)
-End Function
-
-Private Function lagrange(ByVal x As Double, ByVal n As Integer, xs() As Integer, ys() As Double) As Double
-  Dim i As Integer, j As Integer, t As Integer
-  For i = 0 To 11
-    t = 1
-    For j = 0 To 11
-      If j <> i Then t = t * (x - xs(j)) / (xs(i) - xs(j))
-    Next
-    lagrange = lagrange + t * ys(i)
-  Next
 End Function
 
