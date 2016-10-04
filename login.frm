@@ -170,9 +170,9 @@ Private Sub txtclave_KeyDown(KeyCode As Integer, Shift As Integer)
   assert txtusuario <> "" And txtclave <> "", NOCAMP, ""
   If KeyCode = vbKeyReturn Then
     bytBlock = txtclave
-    Set reg = busc("select clave,permisos from usuarios where nombre='" & txtusuario & "'")
-    If reg.Fields("clave") = Hash.HashBytes(bytBlock) Then
-      p = reg.Fields("permisos")
+    Set reg = query("usuarios", "clave,permisos", "nombre='" & txtusuario & "'")
+    If reg.fields("clave") = Hash.HashBytes(bytBlock) Then
+      p = reg.fields("permisos")
       U = txtusuario
       inicio.Show
       Unload Me

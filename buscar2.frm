@@ -23,6 +23,7 @@ Begin VB.Form buscar2
       ScaleHeight     =   345
       ScaleWidth      =   345
       TabIndex        =   3
+      TabStop         =   0   'False
       Top             =   6480
       Width           =   375
    End
@@ -138,7 +139,7 @@ End Sub
 
 Private Sub tr_DblClick()
   'no se pueden elegir nodos que tengan subnodos
-  If busc("select * from cuentas where cod_cue=" & Mid(tr.SelectedItem.key, 2)).Fields("n_hijos") = 0 Then
+  If query("cuentas", , "cod_cue=" & Mid(tr.SelectedItem.key, 2)).fields("n_hijos") = 0 Then
     val = tr.SelectedItem
     key = Mid(tr.SelectedItem.key, 2)
     Cancel = False
@@ -147,7 +148,7 @@ Private Sub tr_DblClick()
 End Sub
 
 Private Sub tr_KeyDown(KeyCode As Integer, Shift As Integer)
-  If KeyCode = vbkeyesc Then
+  If KeyCode = vbKeyEscape Then
     Cancel = True
     Unload Me
   Else

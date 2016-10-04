@@ -46,8 +46,8 @@ Begin VB.Form givaventas
       TabIndex        =   6
       Top             =   6000
       Width           =   4095
-      _extentx        =   7223
-      _extenty        =   661
+      _ExtentX        =   7223
+      _ExtentY        =   661
       enabled         =   0   'False
    End
    Begin Project1.UserControl2 txtbuscarcli 
@@ -56,8 +56,8 @@ Begin VB.Form givaventas
       TabIndex        =   5
       Top             =   6000
       Width           =   3975
-      _extentx        =   7011
-      _extenty        =   661
+      _ExtentX        =   7011
+      _ExtentY        =   661
       enabled         =   0   'False
    End
    Begin VB.ComboBox cmbletra 
@@ -282,6 +282,7 @@ Begin VB.Form givaventas
       campo           =   "nom_emp"
       clave           =   "cod_emp"
       busq            =   "nom_emp"
+      regvalid        =   "regvalid"
    End
    Begin VB.Label Label5 
       Alignment       =   1  'Right Justify
@@ -395,7 +396,7 @@ Private Sub cmdgenerar_Click()
   'cadena sql para cuentas
   Dim ccue As New Collection
   For Each j In trcuentas.Nodes
-    h = busc("select n_hijos from cuentas where cod_cue=" & Mid(j.key, 2))!n_hijos
+    h = query("cuentas", "n_hijos", "cod_cue=" & Mid(j.key, 2))!n_hijos
     If h = 0 And j.Checked Then ccue.Add Mid(j.key, 2)
   Next
   scue = borden(cjoin(ccue, ","), "(", ")")
@@ -488,7 +489,7 @@ End Sub
 
 Private Sub cargar()
   crearingresos txtemp: crearegresos txtemp
-  With busc("select nom_emp from empresas where cod_emp=" & txtemp)
+  With query("empresas", "nom_emp", "cod_emp=" & txtemp)
     llenarnivel trcuentas, "select * from cuentas where n_hijos>0", "nom_cue", "cod_cue", "cod_pad"
     llenarnivel trcuentas, "select emp_cue.cod_cue,emp_cue.cod_emp,cuentas.nom_cue,cuentas.cod_pad " & _
                              "from emp_cue inner join cuentas on emp_cue.cod_cue=cuentas.cod_cue " & _

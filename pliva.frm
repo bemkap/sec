@@ -109,6 +109,7 @@ Begin VB.Form pliva
       campo           =   "nom_emp"
       clave           =   "cod_emp"
       busq            =   "nom_emp"
+      regvalid        =   "regvalid"
    End
    Begin VB.Label labnom 
       Alignment       =   2  'Center
@@ -267,7 +268,7 @@ End Sub
 Private Sub llenardat()
   Dim i As Integer
   If txtemp <> "" Then
-    With busc("select * from empresas where cod_emp=" & txtemp)
+    With query("empresas", , "cod_emp=" & txtemp)
       pcp.FontBold = True
       pcp.FontSize = 12
       escribir 610, 8, UCase(!resp_emp), pcp
@@ -278,11 +279,10 @@ Private Sub llenardat()
       escribir 110, 46, StrConv(!dom_emp, VbStrConv.vbProperCase), pcp
       escribir 350, 30, Format(!cuit_emp, "00-00000000-0"), pcp
     End With
-    With busc("select * from emp_act as ea inner join actividades as a on ea.cod_act=a.cod_act " & _
-              "where cod_emp=" & txtemp)
+    With query("emp_act as ea inner join actividades as a on ea.cod_act=a.cod_act", , "cod_emp=" & txtemp)
       For i = 0 To .RecordCount - 1
         pcp.FontSize = 10
-        escribir 610, 30 + i * 16, .Fields("a.cod_act") & "-" & left2(!nom_act, 55), pcp
+        escribir 610, 30 + i * 16, .fields("a.cod_act") & "-" & left2(!nom_act, 55), pcp
         .MoveNext
       Next
     End With

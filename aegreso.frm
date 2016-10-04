@@ -38,7 +38,7 @@ Begin VB.Form abmegreso
    Begin Project1.UserControl3 txtcuenta 
       Height          =   375
       Left            =   5880
-      TabIndex        =   40
+      TabIndex        =   15
       Top             =   4560
       Width           =   1935
       _ExtentX        =   4048
@@ -59,6 +59,7 @@ Begin VB.Form abmegreso
       campo           =   "nom_emp"
       clave           =   "cod_emp"
       busq            =   "nom_emp"
+      regvalid        =   "regvalid"
    End
    Begin Project1.UserControl1 txtproveedor 
       Height          =   375
@@ -103,7 +104,7 @@ Begin VB.Form abmegreso
       EndProperty
       Height          =   375
       Left            =   4545
-      TabIndex        =   16
+      TabIndex        =   17
       Top             =   6480
       Width           =   1215
    End
@@ -191,7 +192,7 @@ Begin VB.Form abmegreso
       EndProperty
       Height          =   375
       Left            =   5880
-      TabIndex        =   36
+      TabIndex        =   37
       Text            =   "0.00"
       Top             =   5280
       Width           =   1935
@@ -447,7 +448,7 @@ Begin VB.Form abmegreso
       EndProperty
       Height          =   375
       Left            =   3225
-      TabIndex        =   15
+      TabIndex        =   16
       Top             =   6480
       Width           =   1215
    End
@@ -491,7 +492,7 @@ Begin VB.Form abmegreso
       ForeColor       =   &H80000008&
       Height          =   375
       Left            =   3480
-      TabIndex        =   33
+      TabIndex        =   34
       Top             =   480
       Width           =   4695
    End
@@ -508,7 +509,7 @@ Begin VB.Form abmegreso
       EndProperty
       Height          =   255
       Left            =   720
-      TabIndex        =   27
+      TabIndex        =   28
       Top             =   600
       Width           =   975
    End
@@ -526,7 +527,7 @@ Begin VB.Form abmegreso
       EndProperty
       Height          =   255
       Left            =   240
-      TabIndex        =   39
+      TabIndex        =   40
       Top             =   2160
       Width           =   1695
    End
@@ -545,7 +546,7 @@ Begin VB.Form abmegreso
       ForeColor       =   &H80000008&
       Height          =   375
       Left            =   5880
-      TabIndex        =   38
+      TabIndex        =   39
       Top             =   4920
       Width           =   1935
    End
@@ -564,7 +565,7 @@ Begin VB.Form abmegreso
       ForeColor       =   &H80000008&
       Height          =   375
       Left            =   2160
-      TabIndex        =   37
+      TabIndex        =   38
       Top             =   3840
       Width           =   1935
    End
@@ -585,7 +586,7 @@ Begin VB.Form abmegreso
       ForeColor       =   &H80000008&
       Height          =   375
       Left            =   7800
-      TabIndex        =   35
+      TabIndex        =   36
       Top             =   3480
       Width           =   855
    End
@@ -607,7 +608,7 @@ Begin VB.Form abmegreso
       ForeColor       =   &H80000008&
       Height          =   375
       Left            =   7800
-      TabIndex        =   34
+      TabIndex        =   35
       Top             =   3120
       Width           =   855
    End
@@ -625,7 +626,7 @@ Begin VB.Form abmegreso
       EndProperty
       Height          =   255
       Left            =   240
-      TabIndex        =   32
+      TabIndex        =   33
       Top             =   3600
       Width           =   1695
    End
@@ -643,7 +644,7 @@ Begin VB.Form abmegreso
       EndProperty
       Height          =   255
       Left            =   240
-      TabIndex        =   31
+      TabIndex        =   32
       Top             =   4320
       Width           =   1695
    End
@@ -661,7 +662,7 @@ Begin VB.Form abmegreso
       EndProperty
       Height          =   255
       Left            =   240
-      TabIndex        =   30
+      TabIndex        =   31
       Top             =   2520
       Width           =   1695
    End
@@ -679,7 +680,7 @@ Begin VB.Form abmegreso
       EndProperty
       Height          =   255
       Left            =   240
-      TabIndex        =   29
+      TabIndex        =   30
       Top             =   3240
       Width           =   1695
    End
@@ -697,7 +698,7 @@ Begin VB.Form abmegreso
       EndProperty
       Height          =   255
       Left            =   240
-      TabIndex        =   28
+      TabIndex        =   29
       Top             =   2880
       Width           =   1695
    End
@@ -715,7 +716,7 @@ Begin VB.Form abmegreso
       EndProperty
       Height          =   255
       Left            =   4320
-      TabIndex        =   26
+      TabIndex        =   27
       Top             =   5400
       Width           =   1335
    End
@@ -733,7 +734,7 @@ Begin VB.Form abmegreso
       EndProperty
       Height          =   255
       Left            =   4320
-      TabIndex        =   25
+      TabIndex        =   26
       Top             =   4680
       Width           =   1335
    End
@@ -751,7 +752,7 @@ Begin VB.Form abmegreso
       EndProperty
       Height          =   255
       Left            =   4320
-      TabIndex        =   24
+      TabIndex        =   25
       Top             =   4320
       Width           =   1335
    End
@@ -769,7 +770,7 @@ Begin VB.Form abmegreso
       EndProperty
       Height          =   255
       Left            =   4320
-      TabIndex        =   23
+      TabIndex        =   24
       Top             =   3960
       Width           =   1335
    End
@@ -787,7 +788,7 @@ Begin VB.Form abmegreso
       EndProperty
       Height          =   255
       Left            =   4320
-      TabIndex        =   22
+      TabIndex        =   23
       Top             =   2880
       Width           =   1335
    End
@@ -805,7 +806,7 @@ Begin VB.Form abmegreso
       EndProperty
       Height          =   255
       Left            =   4320
-      TabIndex        =   21
+      TabIndex        =   22
       Top             =   2520
       Width           =   1335
    End
@@ -823,7 +824,7 @@ Begin VB.Form abmegreso
       EndProperty
       Height          =   255
       Left            =   4320
-      TabIndex        =   20
+      TabIndex        =   21
       Top             =   3240
       Width           =   1335
    End
@@ -841,7 +842,7 @@ Begin VB.Form abmegreso
       EndProperty
       Height          =   255
       Left            =   4320
-      TabIndex        =   19
+      TabIndex        =   20
       Top             =   1800
       Width           =   1335
    End
@@ -859,7 +860,7 @@ Begin VB.Form abmegreso
       EndProperty
       Height          =   255
       Left            =   4320
-      TabIndex        =   18
+      TabIndex        =   19
       Top             =   2160
       Width           =   1335
    End
@@ -877,7 +878,7 @@ Begin VB.Form abmegreso
       EndProperty
       Height          =   255
       Left            =   4320
-      TabIndex        =   17
+      TabIndex        =   18
       Top             =   3600
       Width           =   1335
    End
@@ -923,7 +924,7 @@ Private Sub cmdguardar_Click()
   assert txtsucursal <> "" And txtcomp <> "" And txtfecha <> "  /  /    " And cmbletra.ListIndex <> -1, NOCAMP, "Campos obligatorios: sucursal, número, fecha y tipo"
   If alta Then
     'revisar duplicidad. el criterio para ser duplicado es tener el mismo proveedor, sucursal y numero
-    Set r = busc("select * from egresos" & txtemp & " where cod_prov=" & txtproveedor & " and sucursal=" & txtsucursal & " and n_comp=" & txtcomp)
+    Set r = query("egresos" & txtemp, , "cod_prov=" & txtproveedor & " and sucursal=" & txtsucursal & " and n_comp=" & txtcomp)
     msg = IIf(r.RecordCount > 0, "El comprobante ya existe. Se registra en la tabla duplicados", "Comprobante registrado")
     tbl = IIf(r.RecordCount > 0, "degresos", "egresos")
     Set adoegr = tabl(tbl & txtemp)
@@ -954,14 +955,14 @@ Private Sub Form_Load()
 End Sub
 
 Private Sub txtcodigo_finbusqueda(llave As String, valor As String)
-  Set adoegr = busc("select * from egresos" & txtemp & " where cod_egr=" & valor)
+  Set adoegr = query("egresos" & txtemp, , "cod_egr=" & valor)
   With adoegr
     txtcodigo = valor
     txtfecha = !fecha
     txtsucursal = !sucursal
     txtcomp = !n_comp
     txtproveedor = !cod_prov
-    labproveedor = busc("select nom_prov from proveedores where cod_prov=" & !cod_prov)!nom_prov
+    labproveedor = query("proveedores", "nom_prov", "cod_prov=" & !cod_prov)!nom_prov
     cmbletra.ListIndex = val(!letra)
     txtn(0) = Format(!gravado, "0.00")
     txtn(1) = Format(!no_gravado, "0.00")
@@ -976,7 +977,7 @@ Private Sub txtcodigo_finbusqueda(llave As String, valor As String)
     txtn(7) = Format(!perc_ib, "0.00")
     If Not IsNull(!cod_cue) Then
       txtcuenta = !cod_cue
-      labcodcue = busc("select nom_cue from cuentas where cod_cue=" & !cod_cue)!nom_cue
+      labcodcue = query("cuentas", "nom_cue", "cod_cue=" & !cod_cue)!nom_cue
     End If
   End With
   calcsubt

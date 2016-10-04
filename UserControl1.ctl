@@ -30,7 +30,8 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-Private p_info As String, p_tabla As String, p_campo As String, p_clave As String, p_busq As String
+Private p_info As String, p_tabla As String, p_campo As String, p_regvalid As String
+Private p_clave As String, p_busq As String, valido As Boolean
 Public Event finbusqueda(llave As String, valor As String)
 Public Event change()
 Public Event alta()
@@ -52,16 +53,19 @@ Private Sub Text1_KeyDown(KeyCode As Integer, Shift As Integer)
   If p_tabla <> "" And p_campo <> "" And p_clave <> "" And p_busq <> "" Then
     Select Case KeyCode
     Case vbKeyF3:
-      formbuscar p_tabla, p_campo, p_clave, p_busq
+      formbuscar p_tabla, p_campo, p_clave, p_busq, p_regvalid
+      valido = Not buscar.Cancel
       If Not buscar.Cancel Then RaiseEvent finbusqueda(buscar.key, buscar.val)
     Case vbKeyF4:
       RaiseEvent alta
     Case vbKeyReturn:
       assert IsNumeric(Text1), INVDAT, "Tipo de código inválido"
-      With busc("select * from " & p_tabla & " where " & p_clave & "=" & Text1)
+      With query(p_tabla, , p_clave & "=" & Text1)
         If .RecordCount > 0 Then
-          If !regvalid Then RaiseEvent finbusqueda(.Fields(p_clave), .Fields(p_campo))
+          valido = True
+          If !regvalid Then RaiseEvent finbusqueda(.fields(p_clave), .fields(p_campo))
         Else
+          valido = False
           StatusBar1.SimpleText = "Código inexistente"
           RaiseEvent vacio
         End If
@@ -74,6 +78,7 @@ E:
 End Sub
 
 Private Sub Text1_LostFocus()
+  If Not valido Then Text1 = ""
   If Not StatusBar1 Is Nothing Then StatusBar1.SimpleText = ""
 End Sub
 
@@ -81,6 +86,15 @@ Private Sub UserControl_Resize()
   Text1.Height = UserControl.ScaleHeight
   Text1.Width = UserControl.ScaleWidth
 End Sub
+
+Public Property Get regvalid() As Variant
+  regvalid = p_regvalid
+End Property
+
+Public Property Let regvalid(ByVal vNewValue As Variant)
+  p_regvalid = vNewValue
+  PropertyChanged "regvalid"
+End Property
 
 Public Property Get info() As Variant
   info = p_info
@@ -153,6 +167,7 @@ Private Sub UserControl_ReadProperties(PropBag As PropertyBag)
   p_campo = PropBag.ReadProperty("campo", "")
   p_clave = PropBag.ReadProperty("clave", "")
   p_busq = PropBag.ReadProperty("busq", "")
+  p_regvalid = PropBag.ReadProperty("regvalid", "")
   Text1.text = PropBag.ReadProperty("text", "")
   Text1.enabled = PropBag.ReadProperty("enabled", True)
 End Sub
@@ -163,6 +178,7 @@ Private Sub UserControl_WriteProperties(PropBag As PropertyBag)
   PropBag.WriteProperty "campo", p_campo, ""
   PropBag.WriteProperty "clave", p_clave, ""
   PropBag.WriteProperty "busq", p_busq, ""
+  PropBag.WriteProperty "regvalid", p_regvalid, ""
   PropBag.WriteProperty "text", Text1.text, ""
   PropBag.WriteProperty "enabled", Text1.enabled, True
 End Sub

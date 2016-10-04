@@ -180,23 +180,24 @@ Public Sub crearcomprobantes()
   If Not tablaexiste("comprobantes") Then
     C.Execute "create table comprobantes (" & _
                 "cod_comp identity primary key," & _
+                "cod_comp_siap integer," & _
                 "nom_comp varchar(5)," & _
                 "ivadisc_comp bit)"
-    C.Execute "insert into comprobantes values ( 0,'FAC A',True)"
-    C.Execute "insert into comprobantes values ( 1,'FAC B',False)"
-    C.Execute "insert into comprobantes values ( 2,'FAC C',False)"
-    C.Execute "insert into comprobantes values ( 3,'REC A',True)"
-    C.Execute "insert into comprobantes values ( 4,'REC B',False)"
-    C.Execute "insert into comprobantes values ( 5,'REC C',False)"
-    C.Execute "insert into comprobantes values ( 6,'NCR A',True)"
-    C.Execute "insert into comprobantes values ( 7,'NCR B',False)"
-    C.Execute "insert into comprobantes values ( 8,'NCR C',False)"
-    C.Execute "insert into comprobantes values ( 9,'NDB A',True)"
-    C.Execute "insert into comprobantes values (10,'NDB B',False)"
-    C.Execute "insert into comprobantes values (11,'NDB C',False)"
-    C.Execute "insert into comprobantes values (12,'TIC Z',False)"
-    C.Execute "insert into comprobantes values (13,'TIC A',True)"
-    C.Execute "insert into comprobantes values (14,'TIC B',False)"
-    C.Execute "insert into comprobantes values (15,'TIC C',False)"
+    C.Execute "insert into comprobantes (nom_comp,ivadisc_comp) values ('FAC A',1,True)"
+    C.Execute "insert into comprobantes (nom_comp,ivadisc_comp) values ('FAC B',6,False)"
+    C.Execute "insert into comprobantes (nom_comp,ivadisc_comp) values ('FAC C',11,False)"
+    C.Execute "insert into comprobantes (nom_comp,ivadisc_comp) values ('REC A',4,True)"
+    C.Execute "insert into comprobantes (nom_comp,ivadisc_comp) values ('REC B',9,False)"
+    C.Execute "insert into comprobantes (nom_comp,ivadisc_comp) values ('REC C',15,False)"
+    C.Execute "insert into comprobantes (nom_comp,ivadisc_comp) values ('NCR A',3,True)"
+    C.Execute "insert into comprobantes (nom_comp,ivadisc_comp) values ('NCR B',8,False)"
+    C.Execute "insert into comprobantes (nom_comp,ivadisc_comp) values ('NCR C',13,False)"
+    C.Execute "insert into comprobantes (nom_comp,ivadisc_comp) values ('NDB A',2,True)"
+    C.Execute "insert into comprobantes (nom_comp,ivadisc_comp) values ('NDB B',7,False)"
+    C.Execute "insert into comprobantes (nom_comp,ivadisc_comp) values ('NDB C',12,False)"
+    C.Execute "insert into comprobantes (nom_comp,ivadisc_comp) values ('TIC Z',83,False)"
+    C.Execute "insert into comprobantes (nom_comp,ivadisc_comp) values ('TIC A',81,True)"
+    C.Execute "insert into comprobantes (nom_comp,ivadisc_comp) values ('TIC B',82,False)"
+    C.Execute "insert into comprobantes (nom_comp,ivadisc_comp) values ('TIC C',83,False)"
   End If
 End Sub

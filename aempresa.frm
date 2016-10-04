@@ -24,7 +24,6 @@ Begin VB.Form abmempresa
       _ExtentX        =   15901
       _ExtentY        =   12303
       _Version        =   393216
-      Tab             =   2
       TabHeight       =   520
       BackColor       =   13160660
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -38,25 +37,43 @@ Begin VB.Form abmempresa
       EndProperty
       TabCaption(0)   =   "DATOS"
       TabPicture(0)   =   "aempresa.frx":0000
-      Tab(0).ControlEnabled=   0   'False
-      Tab(0).Control(0)=   "txtnom"
-      Tab(0).Control(1)=   "txtcuit"
-      Tab(0).Control(2)=   "txtloc"
-      Tab(0).Control(3)=   "txtresp"
-      Tab(0).Control(4)=   "txtcar"
-      Tab(0).Control(5)=   "txtsus"
-      Tab(0).Control(6)=   "txttel"
-      Tab(0).Control(7)=   "txtdom"
-      Tab(0).Control(8)=   "txtcodigo"
-      Tab(0).Control(9)=   "labcodigo"
-      Tab(0).Control(10)=   "Label24"
-      Tab(0).Control(11)=   "Label23"
-      Tab(0).Control(12)=   "Label22"
-      Tab(0).Control(13)=   "Label21"
-      Tab(0).Control(14)=   "Label20"
-      Tab(0).Control(15)=   "Label19"
-      Tab(0).Control(16)=   "Label18"
-      Tab(0).Control(17)=   "Label17"
+      Tab(0).ControlEnabled=   -1  'True
+      Tab(0).Control(0)=   "Label17"
+      Tab(0).Control(0).Enabled=   0   'False
+      Tab(0).Control(1)=   "Label18"
+      Tab(0).Control(1).Enabled=   0   'False
+      Tab(0).Control(2)=   "Label19"
+      Tab(0).Control(2).Enabled=   0   'False
+      Tab(0).Control(3)=   "Label20"
+      Tab(0).Control(3).Enabled=   0   'False
+      Tab(0).Control(4)=   "Label21"
+      Tab(0).Control(4).Enabled=   0   'False
+      Tab(0).Control(5)=   "Label22"
+      Tab(0).Control(5).Enabled=   0   'False
+      Tab(0).Control(6)=   "Label23"
+      Tab(0).Control(6).Enabled=   0   'False
+      Tab(0).Control(7)=   "Label24"
+      Tab(0).Control(7).Enabled=   0   'False
+      Tab(0).Control(8)=   "labcodigo"
+      Tab(0).Control(8).Enabled=   0   'False
+      Tab(0).Control(9)=   "txtcodigo"
+      Tab(0).Control(9).Enabled=   0   'False
+      Tab(0).Control(10)=   "txtdom"
+      Tab(0).Control(10).Enabled=   0   'False
+      Tab(0).Control(11)=   "txttel"
+      Tab(0).Control(11).Enabled=   0   'False
+      Tab(0).Control(12)=   "txtsus"
+      Tab(0).Control(12).Enabled=   0   'False
+      Tab(0).Control(13)=   "txtcar"
+      Tab(0).Control(13).Enabled=   0   'False
+      Tab(0).Control(14)=   "txtresp"
+      Tab(0).Control(14).Enabled=   0   'False
+      Tab(0).Control(15)=   "txtloc"
+      Tab(0).Control(15).Enabled=   0   'False
+      Tab(0).Control(16)=   "txtcuit"
+      Tab(0).Control(16).Enabled=   0   'False
+      Tab(0).Control(17)=   "txtnom"
+      Tab(0).Control(17).Enabled=   0   'False
       Tab(0).ControlCount=   18
       TabCaption(1)   =   "PLAN DE CUENTAS"
       TabPicture(1)   =   "aempresa.frx":001C
@@ -65,33 +82,20 @@ Begin VB.Form abmempresa
       Tab(1).ControlCount=   1
       TabCaption(2)   =   "ACTIVIDADES"
       TabPicture(2)   =   "aempresa.frx":0038
-      Tab(2).ControlEnabled=   -1  'True
-      Tab(2).Control(0)=   "Label3"
-      Tab(2).Control(0).Enabled=   0   'False
-      Tab(2).Control(1)=   "Label4"
-      Tab(2).Control(1).Enabled=   0   'False
-      Tab(2).Control(2)=   "Label5"
-      Tab(2).Control(2).Enabled=   0   'False
-      Tab(2).Control(3)=   "labactividad(0)"
-      Tab(2).Control(3).Enabled=   0   'False
-      Tab(2).Control(4)=   "labactividad(1)"
-      Tab(2).Control(4).Enabled=   0   'False
-      Tab(2).Control(5)=   "labactividad(2)"
-      Tab(2).Control(5).Enabled=   0   'False
+      Tab(2).ControlEnabled=   0   'False
+      Tab(2).Control(0)=   "cmdeliminar"
+      Tab(2).Control(1)=   "txtbuscar"
+      Tab(2).Control(2)=   "Picture2"
+      Tab(2).Control(3)=   "Picture1"
+      Tab(2).Control(4)=   "cmdguardar"
+      Tab(2).Control(5)=   "Command6"
       Tab(2).Control(6)=   "lstactividades"
-      Tab(2).Control(6).Enabled=   0   'False
-      Tab(2).Control(7)=   "Command6"
-      Tab(2).Control(7).Enabled=   0   'False
-      Tab(2).Control(8)=   "cmdguardar"
-      Tab(2).Control(8).Enabled=   0   'False
-      Tab(2).Control(9)=   "Picture1"
-      Tab(2).Control(9).Enabled=   0   'False
-      Tab(2).Control(10)=   "Picture2"
-      Tab(2).Control(10).Enabled=   0   'False
-      Tab(2).Control(11)=   "txtbuscar"
-      Tab(2).Control(11).Enabled=   0   'False
-      Tab(2).Control(12)=   "cmdeliminar"
-      Tab(2).Control(12).Enabled=   0   'False
+      Tab(2).Control(7)=   "labactividad(2)"
+      Tab(2).Control(8)=   "labactividad(1)"
+      Tab(2).Control(9)=   "labactividad(0)"
+      Tab(2).Control(10)=   "Label5"
+      Tab(2).Control(11)=   "Label4"
+      Tab(2).Control(12)=   "Label3"
       Tab(2).ControlCount=   13
       Begin VB.CommandButton cmdeliminar 
          Caption         =   "Eliminar"
@@ -105,14 +109,14 @@ Begin VB.Form abmempresa
             Strikethrough   =   0   'False
          EndProperty
          Height          =   375
-         Left            =   4560
+         Left            =   -70440
          TabIndex        =   32
          Top             =   6480
          Width           =   1215
       End
       Begin Project1.UserControl2 txtbuscar 
          Height          =   360
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   30
          Top             =   5040
          Width           =   8415
@@ -124,7 +128,7 @@ Begin VB.Form abmempresa
          BackColor       =   &H80000005&
          ForeColor       =   &H80000008&
          Height          =   360
-         Left            =   8520
+         Left            =   -66480
          Picture         =   "aempresa.frx":0054
          ScaleHeight     =   22
          ScaleMode       =   3  'Pixel
@@ -138,7 +142,7 @@ Begin VB.Form abmempresa
          BackColor       =   &H80000005&
          ForeColor       =   &H80000008&
          Height          =   360
-         Left            =   11760
+         Left            =   -63240
          ScaleHeight     =   330
          ScaleWidth      =   345
          TabIndex        =   28
@@ -157,14 +161,14 @@ Begin VB.Form abmempresa
             Strikethrough   =   0   'False
          EndProperty
          Height          =   375
-         Left            =   -70680
+         Left            =   4320
          TabIndex        =   2
          Top             =   2520
          Width           =   2895
       End
       Begin MSMask.MaskEdBox txtcuit 
          Height          =   375
-         Left            =   -70680
+         Left            =   4320
          TabIndex        =   1
          Top             =   2160
          Width           =   2895
@@ -199,14 +203,14 @@ Begin VB.Form abmempresa
             Strikethrough   =   0   'False
          EndProperty
          Height          =   375
-         Left            =   3240
+         Left            =   -71760
          TabIndex        =   10
          Top             =   6480
          Width           =   1215
       End
       Begin VB.CommandButton Command6 
          Height          =   255
-         Left            =   7890
+         Left            =   -67110
          Picture         =   "aempresa.frx":070E
          Style           =   1  'Graphical
          TabIndex        =   27
@@ -225,7 +229,7 @@ Begin VB.Form abmempresa
             Strikethrough   =   0   'False
          EndProperty
          Height          =   375
-         Left            =   -70680
+         Left            =   4320
          TabIndex        =   4
          Top             =   3240
          Width           =   2895
@@ -242,7 +246,7 @@ Begin VB.Form abmempresa
             Strikethrough   =   0   'False
          EndProperty
          Height          =   375
-         Left            =   -70680
+         Left            =   4320
          TabIndex        =   8
          Top             =   4680
          Width           =   2895
@@ -259,7 +263,7 @@ Begin VB.Form abmempresa
             Strikethrough   =   0   'False
          EndProperty
          Height          =   375
-         Left            =   -70680
+         Left            =   4320
          TabIndex        =   7
          Top             =   4320
          Width           =   2895
@@ -276,7 +280,7 @@ Begin VB.Form abmempresa
             Strikethrough   =   0   'False
          EndProperty
          Height          =   375
-         Left            =   -70680
+         Left            =   4320
          TabIndex        =   6
          Top             =   3960
          Width           =   2895
@@ -302,7 +306,7 @@ Begin VB.Form abmempresa
             Strikethrough   =   0   'False
          EndProperty
          Height          =   375
-         Left            =   -70680
+         Left            =   4320
          TabIndex        =   5
          Top             =   3600
          Width           =   2895
@@ -319,7 +323,7 @@ Begin VB.Form abmempresa
             Strikethrough   =   0   'False
          EndProperty
          Height          =   375
-         Left            =   -70680
+         Left            =   4320
          TabIndex        =   3
          Top             =   2880
          Width           =   2895
@@ -353,7 +357,7 @@ Begin VB.Form abmempresa
       End
       Begin MSComctlLib.ListView lstactividades 
          Height          =   4575
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   20
          Top             =   480
          Width           =   8775
@@ -382,7 +386,7 @@ Begin VB.Form abmempresa
       End
       Begin Project1.UserControl1 txtcodigo 
          Height          =   375
-         Left            =   -70680
+         Left            =   4320
          TabIndex        =   0
          Top             =   1800
          Width           =   2895
@@ -393,6 +397,7 @@ Begin VB.Form abmempresa
          campo           =   "nom_emp"
          clave           =   "cod_emp"
          busq            =   "nom_emp"
+         regvalid        =   "regvalid"
       End
       Begin VB.Label labcodigo 
          Alignment       =   1  'Right Justify
@@ -407,7 +412,7 @@ Begin VB.Form abmempresa
             Strikethrough   =   0   'False
          EndProperty
          Height          =   255
-         Left            =   -73200
+         Left            =   1800
          TabIndex        =   31
          Top             =   1920
          Width           =   2295
@@ -427,7 +432,7 @@ Begin VB.Form abmempresa
          ForeColor       =   &H80000008&
          Height          =   255
          Index           =   2
-         Left            =   2370
+         Left            =   -72630
          TabIndex        =   26
          Top             =   6060
          Width           =   5775
@@ -447,7 +452,7 @@ Begin VB.Form abmempresa
          ForeColor       =   &H80000008&
          Height          =   255
          Index           =   1
-         Left            =   2370
+         Left            =   -72630
          TabIndex        =   25
          Top             =   5820
          Width           =   5775
@@ -467,7 +472,7 @@ Begin VB.Form abmempresa
          ForeColor       =   &H80000008&
          Height          =   255
          Index           =   0
-         Left            =   2370
+         Left            =   -72630
          TabIndex        =   24
          Top             =   5580
          Width           =   5775
@@ -487,7 +492,7 @@ Begin VB.Form abmempresa
          EndProperty
          ForeColor       =   &H80000008&
          Height          =   255
-         Left            =   1050
+         Left            =   -73950
          TabIndex        =   23
          Top             =   6060
          Width           =   1335
@@ -507,7 +512,7 @@ Begin VB.Form abmempresa
          EndProperty
          ForeColor       =   &H80000008&
          Height          =   255
-         Left            =   1050
+         Left            =   -73950
          TabIndex        =   22
          Top             =   5820
          Width           =   1335
@@ -527,7 +532,7 @@ Begin VB.Form abmempresa
          EndProperty
          ForeColor       =   &H80000008&
          Height          =   255
-         Left            =   1050
+         Left            =   -73950
          TabIndex        =   21
          Top             =   5580
          Width           =   1335
@@ -545,7 +550,7 @@ Begin VB.Form abmempresa
             Strikethrough   =   0   'False
          EndProperty
          Height          =   255
-         Left            =   -73200
+         Left            =   1800
          TabIndex        =   19
          Top             =   4800
          Width           =   2295
@@ -563,7 +568,7 @@ Begin VB.Form abmempresa
             Strikethrough   =   0   'False
          EndProperty
          Height          =   255
-         Left            =   -73200
+         Left            =   1800
          TabIndex        =   18
          Top             =   4440
          Width           =   2295
@@ -581,7 +586,7 @@ Begin VB.Form abmempresa
             Strikethrough   =   0   'False
          EndProperty
          Height          =   255
-         Left            =   -73200
+         Left            =   1800
          TabIndex        =   17
          Top             =   4080
          Width           =   2295
@@ -599,7 +604,7 @@ Begin VB.Form abmempresa
             Strikethrough   =   0   'False
          EndProperty
          Height          =   255
-         Left            =   -73200
+         Left            =   1800
          TabIndex        =   16
          Top             =   3720
          Width           =   2295
@@ -617,7 +622,7 @@ Begin VB.Form abmempresa
             Strikethrough   =   0   'False
          EndProperty
          Height          =   255
-         Left            =   -73200
+         Left            =   1800
          TabIndex        =   15
          Top             =   3360
          Width           =   2295
@@ -635,7 +640,7 @@ Begin VB.Form abmempresa
             Strikethrough   =   0   'False
          EndProperty
          Height          =   255
-         Left            =   -73200
+         Left            =   1800
          TabIndex        =   14
          Top             =   3000
          Width           =   2295
@@ -653,7 +658,7 @@ Begin VB.Form abmempresa
             Strikethrough   =   0   'False
          EndProperty
          Height          =   255
-         Left            =   -73200
+         Left            =   1800
          TabIndex        =   13
          Top             =   2640
          Width           =   2295
@@ -671,7 +676,7 @@ Begin VB.Form abmempresa
             Strikethrough   =   0   'False
          EndProperty
          Height          =   255
-         Left            =   -73200
+         Left            =   1800
          TabIndex        =   12
          Top             =   2280
          Width           =   2295
@@ -769,14 +774,14 @@ Private Sub txtbuscar_buscar()
 End Sub
 
 Private Sub cmdeliminar_Click()
-  'On Error GoTo E
+  On Error GoTo E
   assert Not adoemp Is Nothing, NOCAMP, "Ingresar empresa"
   If vbYes = MsgBox("¿Realmente desea eliminar la empresa " & txtnom & "?", vbYesNo) Then
     StatusBar1.SimpleText = "Las tablas de movimientos serán exportadas"
-    exportar tabl("ingresos" & txtcodigo), "ingresos" & txtcodigo & "-" & Format(Date, "dd-mm-yy")
-    exportar tabl("egresos" & txtcodigo), "egresos" & txtcodigo & "-" & Format(Date, "dd-mm-yy")
-    exportar tabl("dingresos" & txtcodigo), "dingresos" & txtcodigo & "-" & Format(Date, "dd-mm-yy")
-    exportar tabl("degresos" & txtcodigo), "degresos" & txtcodigo & "-" & Format(Date, "dd-mm-yy")
+    exportar tabl("ingresos" & txtcodigo), "ingresos" & txtcodigo & "-" & Format(Date, "dd-mm-yy"), SEC
+    exportar tabl("egresos" & txtcodigo), "egresos" & txtcodigo & "-" & Format(Date, "dd-mm-yy"), SEC
+    exportar tabl("dingresos" & txtcodigo), "dingresos" & txtcodigo & "-" & Format(Date, "dd-mm-yy"), SEC
+    exportar tabl("degresos" & txtcodigo), "degresos" & txtcodigo & "-" & Format(Date, "dd-mm-yy"), SEC
     C.Execute "delete from ingresos" & txtcodigo
     C.Execute "delete from egresos" & txtcodigo
     C.Execute "delete from dingresos" & txtcodigo
@@ -803,7 +808,7 @@ End Sub
 
 Private Sub llenaremp()
   Dim i As Integer
-  Set adoemp = busc("select * from empresas where cod_emp=" & txtcodigo)
+  Set adoemp = query("empresas", , "cod_emp=" & txtcodigo)
   With adoemp
     txtcuit = !cuit_emp
     txtdom = !dom_emp
@@ -813,7 +818,7 @@ Private Sub llenaremp()
     txtcar = !car_emp
     txtresp = !resp_emp
   End With
-  With busc("select * from emp_cue where cod_emp=" & txtcodigo)
+  With query("emp_cue", , "cod_emp=" & txtcodigo)
     Do While Not .EOF
       Dim n As Node: Set n = trdisponibles.Nodes("k" & !cod_cue)
       n.Checked = True
@@ -823,9 +828,8 @@ Private Sub llenaremp()
       Loop: .MoveNext
     Loop
   End With
-  With busc("select actividades.cod_act, actividades.nom_act from actividades " & _
-            "inner join emp_act on emp_act.cod_act=actividades.cod_act " & _
-            "where emp_act.cod_emp=" & txtcodigo)
+  With query("actividades inner join emp_act on emp_act.cod_act=actividades.cod_act", _
+             "actividades.cod_act,actividades.nom_act", "emp_act.cod_emp=" & txtcodigo)
     i = 0
     Do Until .EOF
       labactividad(i) = !nom_act

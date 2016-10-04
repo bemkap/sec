@@ -204,7 +204,7 @@ Private Hash As New MD5Hash
 Private bytBlock() As Byte
 
 Private Sub Command2_Click()
-  With busc("select * from usuarios where nombre='" & U & "'")
+  With query("usuarios", , "nombre='" & U & "'")
     bytBlock = txtanterior
     If !clave = Hash.HashBytes(bytBlock) And txtnueva = txtrepetir Then
       bytBlock = txtnueva

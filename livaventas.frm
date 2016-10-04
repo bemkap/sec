@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
 Begin VB.Form livaventas 
    BorderStyle     =   1  'Fixed Single
    ClientHeight    =   9465
@@ -229,15 +229,15 @@ Private Sub Form_Load()
     Array("fecha", "exento", "no_gravado", "interno", "gravado", "giva", "iva21", "iva105", "iva27")
   
   Dim ve As ADODB.Recordset, tasas(2) As ADODB.Recordset
-  Set ve = busc("select sum(subtotal),sum(exento),sum(ret_iva),sum(gravado)," & _
-  "format(sum(iva21+iva105+iva27),'0.00'),sum(exento),sum(no_gravado),sum(interno) from vingresos")
-  Set tasas(0) = busc("select 0.21,sum(format(iva21,'0.00')) from vingresos")
-  Set tasas(1) = busc("select 0.27,sum(format(iva27,'0.00')) from vingresos")
-  Set tasas(2) = busc("select 0.105,sum(format(iva105,'0.00')) from vingresos")
+  Set ve = query("vingresos", "sum(subtotal),sum(exento),sum(ret_iva),sum(gravado)," & _
+                 "format(sum(iva21+iva105+iva27),'0.00'),sum(exento),sum(no_gravado),sum(interno)")
+  Set tasas(0) = query("vingresos", "0.21,sum(format(iva21,'0.00'))")
+  Set tasas(1) = query("vingresos", "0.27,sum(format(iva27,'0.00'))")
+  Set tasas(2) = query("vingresos", "0.105,sum(format(iva105,'0.00'))")
 
   With lsttotales.ListItems.Add
     .ListSubItems.Add
-    For i = 0 To 4: .ListSubItems.Add , , Format(coalesce(ve.Fields(i), 0), "0.00"): Next
+    For i = 0 To 4: .ListSubItems.Add , , Format(coalesce(ve.fields(i), 0), "0.00"): Next
   End With
 
   col1 = Array("TOTAL EXENTO", "TOTAL NO GRAVADO", "TOTAL INTERNOS")
@@ -246,10 +246,10 @@ Private Sub Form_Load()
     With lsttotales.ListItems.Add
       .ListSubItems.Add , , col1(i)
       .ListSubItems.Add
-      .ListSubItems.Add , , Format(coalesce(ve.Fields(i + 5), 0), "0.00")
+      .ListSubItems.Add , , Format(coalesce(ve.fields(i + 5), 0), "0.00")
       .ListSubItems.Add , , col2(i)
-      .ListSubItems.Add , , Format(coalesce(tasas(i).Fields(1) / tasas(i).Fields(0), 0), "0.00")
-      .ListSubItems.Add , , Format(coalesce(tasas(i).Fields(1), 0), "0.00")
+      .ListSubItems.Add , , Format(coalesce(tasas(i).fields(1) / tasas(i).fields(0), 0), "0.00")
+      .ListSubItems.Add , , Format(coalesce(tasas(i).fields(1), 0), "0.00")
     End With
   Next
   
@@ -264,7 +264,7 @@ Private Sub Command2_Click()
   Dim li As ListItem, li1 As ListItem, lij As String
   On Error GoTo E
   selimpr.Show vbModal
-  If Not selimpr.cancel Then
+  If Not selimpr.Cancel Then
     For i = 0 To UBound(parcial): parcial(i) = 0: Next
     For i = 0 To UBound(parcial1): parcial1(i) = 0: Next
     k = 0: titulo k: linea = 11

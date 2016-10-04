@@ -51,25 +51,27 @@ Private Sub Text1_KeyDown(KeyCode As Integer, Shift As Integer)
   Select Case KeyCode
   Case vbKeyF3:
     formbuscar2 p_empresa, "cuentas", "nom_cue", "cod_cue", "cod_pad"
+    valido = Not buscar2.Cancel
     If Not buscar2.Cancel Then RaiseEvent finbusqueda(buscar2.key, buscar2.val)
   Case vbKeyReturn:
     assert IsNumeric(Text1), INVDAT, "Tipo de código inválido"
-    With busc("select * from cuentas where cod_cue=" & Text1)
+    With query("cuentas", , "cod_cue=" & Text1)
       If .RecordCount > 0 Then
         If !n_hijos > 0 Then
           StatusBar1.SimpleText = "La cuenta no es usable"
-          RaiseEvent vacio
           valido = False
-        ElseIf busc("select * from emp_cue where cod_cue=" & Text1 & " and cod_emp=" & p_empresa).RecordCount = 0 Then
+          RaiseEvent vacio
+        ElseIf query("emp_cue", , "cod_cue=" & Text1 & " and cod_emp=" & p_empresa).RecordCount = 0 Then
           StatusBar1.SimpleText = "La cuenta no está incluída en el plan de cuentas"
-          RaiseEvent vacio
           valido = False
+          RaiseEvent vacio
         Else
-          RaiseEvent finbusqueda(Text1, !nom_cue)
-          valido = True
           StatusBar1.SimpleText = ""
+          valido = True
+          RaiseEvent finbusqueda(Text1, !nom_cue)
         End If
       Else
+        valido = False
         StatusBar1.SimpleText = "Cuenta inexistente"
         RaiseEvent vacio
       End If

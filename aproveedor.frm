@@ -43,6 +43,7 @@ Begin VB.Form abmproveedor
       campo           =   "nom_prov"
       clave           =   "cod_prov"
       busq            =   "nom_prov"
+      regvalid        =   "regvalid"
    End
    Begin VB.CommandButton Command2 
       Caption         =   "Registrar"
@@ -202,8 +203,8 @@ Private Sub Command2_Click()
   adoprov!nom_prov = txtnombre
   adoprov!cuit_prov = IIf(txtcuit.ClipText = "", Null, txtcuit)
   adoprov.Update
-  txtcuit.SetFocus
-  txtcuit = "": txtnombre = ""
+  If alta Then txtcuit.SetFocus Else txtcodigo.SetFocus
+  txtcodigo = "": txtcuit = "": txtnombre = ""
   If tmp Then
     tmp = False
     Unload Me
@@ -222,7 +223,7 @@ Private Sub Form_Load()
 End Sub
 
 Private Sub txtcodigo_finbusqueda(llave As String, valor As String)
-  Set adoprov = busc("select * from proveedores where cod_prov=" & llave)
+  Set adoprov = query("proveedores", , "cod_prov=" & llave)
   txtcodigo = llave
   txtnombre = valor
   txtcuit = coalesce(adoprov!cuit_prov, "")
@@ -232,7 +233,7 @@ Private Sub txtcodigo_finbusqueda(llave As String, valor As String)
 End Sub
 
 Private Sub txtcodigo_vacio()
-  txtcodigo = "": txtcodigo.enabled = False
+  Set adoprov = Nothing
   txtnombre = "": txtnombre.enabled = False
   txtcuit = "": txtcuit.enabled = False
 End Sub

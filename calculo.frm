@@ -178,6 +178,7 @@ Begin VB.Form calculo
       campo           =   "nom_emp"
       clave           =   "cod_emp"
       busq            =   "nom_emp"
+      regvalid        =   "regvalid"
    End
    Begin VB.Label labnom 
       Alignment       =   2  'Center
@@ -314,17 +315,17 @@ End Sub
 Private Sub llenar(ByVal j As Integer)
   Dim n As Double, m As Double, i As Integer
   n = 0: m = 0
-  With busc("select * from vte where periodo=" & txtperiodo * 12 + cmbperiodos)
+  With query("vte", , "periodo=" & txtperiodo * 12 + cmbperiodos)
     For i = 1 To flx1.Rows - 2
       flx1.TextMatrix(i, 1) = "0.00"
-      If .RecordCount > 0 Then flx1.TextMatrix(i, 1) = Format(coalesce(.Fields(i - 1), 0), "0.00")
+      If .RecordCount > 0 Then flx1.TextMatrix(i, 1) = Format(coalesce(.fields(i - 1), 0), "0.00")
       n = n + val(flx1.TextMatrix(i, 1))
     Next
   End With
-  With busc("select * from vti where periodo=" & txtperiodo * 12 + cmbperiodos)
+  With query("vti", , "periodo=" & txtperiodo * 12 + cmbperiodos)
     For i = 1 To flx1.Rows - 2
       flx1.TextMatrix(i, 2) = "0.00"
-      If .RecordCount > 0 Then flx1.TextMatrix(i, 2) = Format(coalesce(.Fields(i - 1), 0), "0.00")
+      If .RecordCount > 0 Then flx1.TextMatrix(i, 2) = Format(coalesce(.fields(i - 1), 0), "0.00")
       m = m + val(flx1.TextMatrix(i, 2))
     Next
   End With

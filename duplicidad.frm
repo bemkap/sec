@@ -37,6 +37,7 @@ Begin VB.Form duplicidad
          campo           =   "nom_emp"
          clave           =   "cod_emp"
          busq            =   "nom_emp"
+         regvalid        =   "regvalid"
       End
       Begin VB.Label Label7 
          Caption         =   "Cód.emp"

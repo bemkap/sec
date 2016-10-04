@@ -91,23 +91,23 @@ Private Sub Form_Load()
   Dim i As Integer
   centrar Me
   s0 = 0: s1 = 0
-  With busc("select periodo,sgravado+sno_gravado+siva+sexento+sinterno+sperc_iva+sperc_ib+slitros" & _
-    " from vte order by periodo asc")
+  With query("vte", "periodo,sgravado+sno_gravado+siva+sexento+sinterno+sperc_iva+sperc_ib+slitros", , _
+             "periodo asc")
     ne = .RecordCount
     For i = 0 To .RecordCount - 1
-      esaldos(.Fields(0) - aa * 12) = .Fields(1)
-      s0 = min(s0, .Fields(1))
-      s1 = max(s1, .Fields(1))
+      esaldos(.fields(0) - aa * 12) = .fields(1)
+      s0 = min(s0, .fields(1))
+      s1 = max(s1, .fields(1))
       .MoveNext
     Next
   End With
-  With busc("select periodo,sgravado+sno_gravado+siva+sexento+sinterno+sret_iva+sret_ib" & _
-    " from vti order by periodo asc")
+  With query("vti", "periodo,sgravado+sno_gravado+siva+sexento+sinterno+sret_iva+sret_ib", , _
+             "periodo asc")
     ni = .RecordCount
     For i = 0 To .RecordCount - 1
-      isaldos(.Fields(0) - aa * 12) = .Fields(1)
-      s0 = min(s0, .Fields(1))
-      s1 = max(s1, .Fields(1))
+      isaldos(.fields(0) - aa * 12) = .fields(1)
+      s0 = min(s0, .fields(1))
+      s1 = max(s1, .fields(1))
       .MoveNext
     Next
   End With
@@ -194,9 +194,11 @@ Private Sub pch_Paint()
   'totales anuales
   pch.FontSize = 12
   pch.ForeColor = &H119900
-  escribir_centro 10, "Total ventas  " & Format(busc("select sum(sgravado+sno_gravado+siva+sexento+sinterno+sret_iva+sret_ib) from vti").Fields(0), "0.00")
+  escribir_centro 10, "Total ventas  " & _
+    Format(query("vti", "sum(sgravado+sno_gravado+siva+sexento+sinterno+sret_iva+sret_ib)").fields(0), "0.00")
   pch.ForeColor = vbRed
-  escribir_centro 32, "Total compras " & Format(busc("select sum(sgravado+sno_gravado+siva+sexento+sinterno+sperc_iva+sperc_ib+slitros) from vte").Fields(0), "0.00")
+  escribir_centro 32, "Total compras " & _
+    Format(query("vte", "sum(sgravado+sno_gravado+siva+sexento+sinterno+sperc_iva+sperc_ib+slitros)").fields(0), "0.00")
   'año
   pch.ForeColor = vbBlack
   escribir_centro pch.ScaleHeight - off / 2, "Año " & aa

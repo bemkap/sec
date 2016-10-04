@@ -160,9 +160,11 @@ Private Sub Form_Load()
       .Add "t5", tvwChild, "t51", "IVA"
     End If
     .Add , , "t4", "CAMBIAR CONTRASEÑA"
-    If pcom Then .Add , , "t6", "TOTALES / PERIODOS"
-    If pcom Then .Add , , "t3", "CONTROL DE DUPLICIDAD"
-    If pcom Then .Add , , "t8", "IMPORTAR / EXPORTAR"
+    If pcom Then
+      .Add , , "t6", "TOTALES / PERIODOS"
+      .Add , , "t3", "CONTROL DE DUPLICIDAD"
+      .Add , , "t8", "IMPORTAR / EXPORTAR"
+    End If
   End With
 End Sub
 

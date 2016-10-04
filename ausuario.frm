@@ -391,11 +391,11 @@ End Sub
 Private Sub txtnombre_Validate(Cancel As Boolean)
   Dim i As CheckBox, j As Integer
   If alta Then
-    Cancel = busc("select * from usuarios where nombre='" & txtnombre & "'").RecordCount > 0
+    Cancel = query("usuarios", , "nombre='" & txtnombre & "'").RecordCount > 0
     StatusBar1.SimpleText = IIf(Cancel, "El usuario ya existe", "")
   Else
     Dim perm As Byte
-    Set adousu = busc("select * from usuarios where nombre='" & txtnombre & "'")
+    Set adousu = query("usuarios", , "nombre='" & txtnombre & "'")
     Cancel = adousu.RecordCount <= 0
     StatusBar1.SimpleText = IIf(Cancel, "Usuario inexistente", "")
     If Cancel Then

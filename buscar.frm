@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
 Begin VB.Form buscar 
    BorderStyle     =   1  'Fixed Single
    ClientHeight    =   6945
@@ -31,14 +31,15 @@ Begin VB.Form buscar
       Picture         =   "buscar.frx":0000
       ScaleHeight     =   345
       ScaleWidth      =   345
-      TabIndex        =   1
+      TabIndex        =   2
+      TabStop         =   0   'False
       Top             =   6480
       Width           =   375
    End
    Begin MSComctlLib.ListView lst 
       Height          =   6375
       Left            =   120
-      TabIndex        =   2
+      TabIndex        =   1
       Top             =   120
       Width           =   8775
       _ExtentX        =   15478
@@ -71,10 +72,10 @@ Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
-Public tabla As String, columna As String, clave As String, busq As String
+Public tabla As String, columna As String, clave As String, busq As String, valido As String
 Public Cancel As Boolean
 Public val As Variant, key As Variant
-Private sc() As String, sqlc As String
+Private sc() As String, sqlc As String, sql As String
 
 'tabla es donde se buscan los registros
 'columna contiene los campos a mostrar en formato sql y separados con el caracter '|'
@@ -84,13 +85,14 @@ Private sc() As String, sqlc As String
 'key es la clave del registro seleccionado
 
 Private Sub Form_Load()
-  Dim i As Integer, anc As String
+  Dim i As Integer, anc As String, sql As String
   centrar Me
   sc = Split(columna, "|")
   sqlc = Replace(columna, "|", ",")
   For i = 0 To UBound(sc): anc = anc + "|" + CStr(1 / (UBound(sc) + 1)): Next
   initlst lst, sc, Split(Mid(anc, 2), "|")
-  llenarlst lst, "select " & clave & "," & sqlc & " from " & tabla & " where regvalid", sc, clave
+  sql = "select " & clave & "," & sqlc & " from " & tabla & " where " & IIf(valido <> "", valido, "true")
+  llenarlst lst, sql, sc, clave
 End Sub
 
 Private Sub lst_DblClick()
@@ -110,7 +112,7 @@ Private Sub lst_KeyDown(KeyCode As Integer, Shift As Integer)
 End Sub
 
 Private Sub txtbuscar_buscar()
-  llenarlst lst, "select " & clave & "," & sqlc & " from " & tabla & " where regvalid and " & busq & " like '%" & txtbuscar & "%'", sc, clave
+  llenarlst lst, sql & " and " & busq & " like '%" & txtbuscar & "%'", sc, clave
 End Sub
 
 Private Sub txtbuscar_KeyDown(KeyCode As Integer, Shift As Integer)

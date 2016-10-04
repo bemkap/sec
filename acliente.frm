@@ -26,6 +26,7 @@ Begin VB.Form abmcliente
       campo           =   "nom_cli"
       clave           =   "cod_cli"
       busq            =   "nom_cli"
+      regvalid        =   "regvalid"
    End
    Begin VB.CommandButton cmdeliminar 
       Caption         =   "Eliminar"
@@ -218,7 +219,7 @@ Private Sub Form_Load()
 End Sub
 
 Private Sub txtcodigo_finbusqueda(llave As String, valor As String)
-  Set adocli = busc("select * from clientes where cod_cli=" & llave)
+  Set adocli = query("clientes", , "cod_cli=" & llave)
   txtcodigo = llave
   txtnombre = valor
   txtcuit = coalesce(adocli!cuit_cli, "")

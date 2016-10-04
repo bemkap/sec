@@ -103,8 +103,8 @@ Option Explicit
 Private Sub cmdagregar_Click()
   On Error GoTo E
   assert txtnombre <> "" And trcuentas.SelectedItem <> "", NOCAMP, "Campos obligatorios: nombre y cuenta"
-  assert busc("select * from cuentas where nom_cue='" & txtnombre & "' and cod_pad=" & Mid(trcuentas.SelectedItem.key, 2)).RecordCount = 0, CAMPEX, "La cuenta ya existe"
-  With busc("select * from cuentas where cod_cue=" & Mid(trcuentas.SelectedItem.key, 2))
+  assert query("cuentas", , "nom_cue='" & txtnombre & "' and cod_pad=" & Mid(trcuentas.SelectedItem.key, 2)).RecordCount = 0, CAMPEX, "La cuenta ya existe"
+  With query("cuentas", , "cod_cue=" & Mid(trcuentas.SelectedItem.key, 2))
     !n_hijos = !n_hijos + 1
     .Update
   End With
@@ -128,7 +128,7 @@ Private Sub cmdeliminar_Click()
   On Error GoTo E
   assert Not trcuentas.SelectedItem Is Nothing, NOCAMP, "Falta seleccionar cuenta"
   If MsgBox("¿Confirma eliminar la cuenta " & trcuentas.SelectedItem & " y todas sus subcuentas?", vbYesNo, "") = vbYes Then
-    With busc("select * from cuentas where cod_cue=" & Mid(trcuentas.SelectedItem.key, 2))
+    With query("cuentas", , "cod_cue=" & Mid(trcuentas.SelectedItem.key, 2))
       C.Execute "update cuentas set n_hijos=n_hijos-1 where cod_cue=" & !cod_pad
       .Delete: .Update
     End With
@@ -140,7 +140,7 @@ E: StatusBar1.SimpleText = Err.Description
 End Sub
 
 Private Sub trcuentas_AfterLabelEdit(Cancel As Integer, NewString As String)
-  With busc("select * from cuentas where cod_cue=" & Mid(trcuentas.SelectedItem.key, 2))
+  With query("cuentas", , "cod_cue=" & Mid(trcuentas.SelectedItem.key, 2))
     !nom_cue = NewString
     .Update
   End With

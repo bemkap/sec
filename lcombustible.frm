@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
 Begin VB.Form lcombustible 
    BorderStyle     =   1  'Fixed Single
    ClientHeight    =   9465
@@ -158,9 +158,9 @@ Private Sub Form_Load()
     Array("fecha", "numero", "nom_prov", "cuit_prov", "litros", "litros27"), "cod_egr"
   
   Dim ve As ADODB.Recordset
-  Set ve = busc("select iif(isnull(sum(litros)),0,sum(litros)),iif(isnull(sum(litros27)),0,sum(litros27)) from vegresos")
+  Set ve = query("vegresos", "iif(isnull(sum(litros)),0,sum(litros)),iif(isnull(sum(litros27)),0,sum(litros27))")
   With lsttotales.ListItems.Add
-    For i = 0 To 1: .ListSubItems.Add , , ve.Fields(i): Next
+    For i = 0 To 1: .ListSubItems.Add , , ve.fields(i): Next
   End With
 End Sub
 
@@ -168,7 +168,7 @@ Private Sub Command2_Click()
   Dim i As Integer, j As Integer, k As Integer, t As String
   On Error GoTo E
   selimpr.Show vbModal
-  If Not selimpr.cancel Then
+  If Not selimpr.Cancel Then
     k = 0: titulo k
     For i = 1 To lstlistado.ListItems.Count
       t = left2(lstlistado.ListItems(i), ws(0)) & " "

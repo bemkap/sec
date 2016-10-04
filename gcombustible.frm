@@ -47,6 +47,7 @@ Begin VB.Form gcombustible
       campo           =   "nom_emp"
       clave           =   "cod_emp"
       busq            =   "nom_emp"
+      regvalid        =   "regvalid"
    End
    Begin VB.PictureBox Picture2 
       Appearance      =   0  'Flat
@@ -378,7 +379,7 @@ Private Sub cmdgenerar_Click()
   'cadena sql para cuentas
   Dim ccue As New Collection
   For Each j In trcuentas.Nodes
-    h = busc("select n_hijos from cuentas where cod_cue=" & Mid(j.key, 2))!n_hijos
+    h = query("cuentas", "n_hijos", "cod_cue=" & Mid(j.key, 2))!n_hijos
     If h = 0 And j.Checked Then ccue.Add Mid(j.key, 2)
   Next
   scue = borden(cjoin(ccue, ","), "(", ")")
@@ -464,7 +465,7 @@ End Sub
 
 Private Sub cargar()
   crearingresos txtemp: crearegresos txtemp
-  With busc("select nom_emp from empresas where cod_emp=" & txtemp)
+  With query("empresas", "nom_emp", "cod_emp=" & txtemp)
     llenarnivel trcuentas, "select * from cuentas where n_hijos>0", "nom_cue", "cod_cue", "cod_pad"
     llenarnivel trcuentas, "select emp_cue.cod_cue,emp_cue.cod_emp,cuentas.nom_cue,cuentas.cod_pad " & _
                              "from emp_cue inner join cuentas on emp_cue.cod_cue=cuentas.cod_cue " & _

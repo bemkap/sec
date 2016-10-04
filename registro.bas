@@ -1,10 +1,10 @@
 Attribute VB_Name = "registro"
 Option Explicit
 
-Public Function busc(sql As String) As ADODB.Recordset
-  Set busc = New ADODB.Recordset
-  busc.CursorLocation = adUseClient
-  busc.Open sql, C, adOpenStatic, adLockOptimistic, adCmdText
+Public Function exec(sql As String) As ADODB.Recordset
+  Set exec = New ADODB.Recordset
+  exec.CursorLocation = adUseClient
+  exec.Open sql, C, adOpenStatic, adLockOptimistic, adCmdText
 End Function
 
 Public Function tabl(tbl As String) As ADODB.Recordset
@@ -13,12 +13,23 @@ Public Function tabl(tbl As String) As ADODB.Recordset
   tabl.Open tbl, C, adOpenStatic, adLockOptimistic, adCmdTable
 End Function
 
+Public Function query(ByVal from As String, Optional ByVal fields As String = "*", Optional ByVal where As String = "", Optional ByVal orderby As String = "", Optional ByVal groupby As String = "") As ADODB.Recordset
+  Dim s As String
+  Set query = New ADODB.Recordset
+  query.CursorLocation = adUseClient
+  s = "select " & fields & " from " & from
+  If where <> "" Then s = s & " where " & where
+  If orderby <> "" Then s = s & " order by " & orderby
+  If groupby <> "" Then s = s & " group by " & groupby
+  query.Open s, C, adOpenStatic, adLockOptimistic, adCmdText
+End Function
+
 Public Sub llenarcmb(cmb As ComboBox, sql As String, fnom As String, Optional fdat As String = "")
   cmb.Clear
-  With busc(sql)
+  With exec(sql)
     Do Until .EOF
-      cmb.AddItem .Fields(fnom)
-      If fdat <> "" Then cmb.ItemData(cmb.NewIndex) = .Fields(fdat)
+      cmb.AddItem .fields(fnom)
+      If fdat <> "" Then cmb.ItemData(cmb.NewIndex) = .fields(fdat)
       .MoveNext
     Loop
   End With
@@ -27,16 +38,16 @@ End Sub
 Public Sub llenarlst(lst As ListView, sql As String, campo As Variant, Optional ByVal llave As String = "", Optional vaciar As Boolean = True, Optional pref As String = "k")
   Dim i As Integer, n As Integer, k As String
   If vaciar Then lst.ListItems.Clear
-  With busc(sql)
+  With exec(sql)
     Do Until .EOF
       Dim item As ListItem
-      If llave = "" Then k = pref & n Else k = pref & .Fields(llave)
+      If llave = "" Then k = pref & n Else k = pref & .fields(llave)
       n = n + 1
-      Set item = lst.ListItems.Add(, k, .Fields(ascampo(campo(0))))
-      item.Tag = k
+      Set item = lst.ListItems.Add(, k, .fields(ascampo(campo(0))))
+      item.tag = k
       For i = 1 To UBound(campo)
-        If campo(i) <> "" And Not IsNull(.Fields(ascampo(campo(i)))) Then
-          item.ListSubItems.Add , , .Fields(ascampo(campo(i)))
+        If campo(i) <> "" And Not IsNull(.fields(ascampo(campo(i)))) Then
+          item.ListSubItems.Add , , .fields(ascampo(campo(i)))
         Else
           item.ListSubItems.Add , , ""
         End If
@@ -56,11 +67,12 @@ Public Sub initlst(lst As ListView, col As Variant, anc As Variant)
   Next
 End Sub
 
-Public Sub formbuscar(tabla As String, campo As String, clave As String, busq As String)
+Public Sub formbuscar(tabla As String, campo As String, clave As String, busq As String, valido As String)
   buscar.tabla = tabla
   buscar.columna = campo
   buscar.clave = clave
   buscar.busq = busq
+  buscar.valido = valido
   buscar.Show vbModal
 End Sub
 

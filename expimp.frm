@@ -164,6 +164,54 @@ Begin VB.Form impexp
       TabIndex        =   4
       Top             =   1200
       Width           =   4215
+      Begin VB.Frame Frame5 
+         Appearance      =   0  'Flat
+         ForeColor       =   &H80000008&
+         Height          =   400
+         Left            =   1200
+         TabIndex        =   26
+         Top             =   3480
+         Width           =   2775
+         Begin VB.CheckBox chkborrar 
+            Appearance      =   0  'Flat
+            BackColor       =   &H80000005&
+            Caption         =   "Borrar registros"
+            BeginProperty Font 
+               Name            =   "MS Sans Serif"
+               Size            =   9.75
+               Charset         =   0
+               Weight          =   400
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            ForeColor       =   &H80000008&
+            Height          =   255
+            Left            =   30
+            TabIndex        =   27
+            Top             =   120
+            Width           =   2715
+         End
+      End
+      Begin VB.ComboBox cmbfmt 
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   360
+         ItemData        =   "expimp.frx":0000
+         Left            =   1200
+         List            =   "expimp.frx":000A
+         Style           =   2  'Dropdown List
+         TabIndex        =   24
+         Top             =   1200
+         Width           =   2775
+      End
       Begin VB.Frame Frame2 
          Appearance      =   0  'Flat
          ForeColor       =   &H80000008&
@@ -340,6 +388,24 @@ Begin VB.Form impexp
          Mask            =   "##/####"
          PromptChar      =   " "
       End
+      Begin VB.Label Label1 
+         Alignment       =   1  'Right Justify
+         Caption         =   "Formato"
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   9.75
+            Charset         =   0
+            Weight          =   700
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   255
+         Left            =   120
+         TabIndex        =   25
+         Top             =   1305
+         Width           =   855
+      End
       Begin VB.Label Label9 
          Caption         =   "Periodo"
          BeginProperty Font 
@@ -433,6 +499,7 @@ Begin VB.Form impexp
          campo           =   "nom_emp"
          clave           =   "cod_emp"
          busq            =   "nom_emp"
+         regvalid        =   "regvalid"
       End
       Begin VB.Label labnom 
          Alignment       =   2  'Center
@@ -499,8 +566,10 @@ E: StatusBar1.SimpleText = Err.Description
 End Sub
 
 Private Sub cmdexportar_Click()
+  On Error GoTo E
   Dim tag As String, fecha As String, rec As ADODB.Recordset
-  Dim tablas() As Variant, claves() As Variant, i As Integer
+  Dim tablas(), claves(), tipos(), i As Integer
+  assert cmbfmt.ListIndex > -1, NOCAMP, "Elegir formato"
   fecha = "true"
   If txtfecha(0) <> "  /    " Then fecha = fecha & " and periodo>=" & Month(CDate(txtfecha(0))) + 12 * Year(CDate(txtfecha(0)))
   If txtfecha(1) <> "  /    " Then fecha = fecha & " and periodo<=" & Month(CDate(txtfecha(1))) + 12 * Year(CDate(txtfecha(1)))
@@ -508,14 +577,16 @@ Private Sub cmdexportar_Click()
   claves = Array("cod_egr", "cod_egr", "cod_ing", "cod_ing")
   For i = 0 To 3
     If chktabla(i) Then
-      Set rec = busc("select * from " & tablas(i) & txtemp & " where " & fecha & " order by " & claves(i))
-      tag = rec.Fields(claves(i)): rec.MoveLast
-      tag = tag & "-" & rec.Fields(claves(i)): rec.MoveFirst
-      exportar rec, tablas(i) & txtemp & "-" & tag
-      C.Execute "delete from " & tablas(i) & txtemp
+      Set rec = query(tablas(i) & txtemp, , fecha, claves(i))
+      tag = rec.fields(claves(i)): rec.MoveLast
+      tag = tag & "-" & rec.fields(claves(i)): rec.MoveFirst
+      exportar rec, tablas(i) & txtemp & "-" & tag, cmbfmt.ListIndex - CInt(i > 1)
+      If chkborrar.Value = vbChecked Then C.Execute "delete from " & tablas(i) & txtemp & " where " & fecha
     End If
   Next
   StatusBar1.SimpleText = "Tablas exportadas"
+  Exit Sub
+E: StatusBar1.SimpleText = Err.Description
 End Sub
 
 Private Sub Command1_Click()

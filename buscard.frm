@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "mscomctl.ocx"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.2#0"; "MSCOMCTL.OCX"
 Begin VB.Form buscard 
    BorderStyle     =   1  'Fixed Single
    ClientHeight    =   6945
@@ -115,9 +115,9 @@ End Sub
 Private Sub lst_DblClick()
   Dim i As Integer
   lstd.ListItems.Clear
-  With busc("select " & Replace(detalle, "|", ",") & " from " & tabla & " where " & clave & "=" & Mid(lst.SelectedItem.key, 2))
+  With query(tabla, Replace(detalle, "|", ","), clave & "=" & Mid(lst.SelectedItem.key, 2))
     For i = 0 To UBound(dt)
-      lstd.ListItems.Add(, , ascampo(dt(i))).ListSubItems.Add , , .Fields(ascampo(dt(i)))
+      lstd.ListItems.Add(, , ascampo(dt(i))).ListSubItems.Add , , .fields(ascampo(dt(i)))
     Next
   End With
   lstd.ListItems.Add
