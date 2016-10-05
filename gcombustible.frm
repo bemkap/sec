@@ -404,8 +404,8 @@ Private Sub Form_Load()
   'se tienen 2 listas para mantener mantener los items tildados
   initlst lstproveedores, Array("Proveedores"), Array(0.95)
   initlst lstproveedores1, Array("Proveedores"), Array(0.95)
-  llenarlst lstproveedores, "select * from proveedores", Array("nom_prov"), "cod_prov"
-  llenarlst lstproveedores1, "select * from proveedores", Array("nom_prov"), "cod_prov"
+  llenarlst lstproveedores, "select * from proveedores where regvalid", Array("nom_prov"), "cod_prov"
+  llenarlst lstproveedores1, "select * from proveedores where regvalid", Array("nom_prov"), "cod_prov"
 End Sub
 
 Private Sub lstproveedores_ItemCheck(ByVal item As MSComctlLib.ListItem)

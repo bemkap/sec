@@ -178,7 +178,6 @@ Private Sub cmdeliminar_Click()
   assert txtcodigo <> "" And Not adoprov Is Nothing, NOCAMP, "Falta ingresar proveedor"
   If MsgBox("¿Realmente desea eliminar el proveedor " & txtnombre & "?", vbYesNo, "") = vbYes Then
     adoprov!regvalid = False
-    adoprov!nom_prov = adoprov!nom_prov & "(ELIMINADO)"
     adoprov.Update
     Set adoprov = Nothing
     StatusBar1.SimpleText = "Proveedor eliminado"

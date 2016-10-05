@@ -427,8 +427,8 @@ Private Sub Form_Load()
   'se tienen 2 listas para mantener mantener los items tildados
   initlst lstclientes, Array("Clientes"), Array(1)
   initlst lstclientes1, Array("Clientes"), Array(1)
-  llenarlst lstclientes, "select * from clientes", Array("nom_cli"), "cod_cli"
-  llenarlst lstclientes1, "select * from clientes", Array("nom_cli"), "cod_cli"
+  llenarlst lstclientes, "select * from clientes where regvalid", Array("nom_cli"), "cod_cli"
+  llenarlst lstclientes1, "select * from clientes where regvalid", Array("nom_cli"), "cod_cli"
   llenarcmb cmbletra, "select * from comprobantes", "nom_comp"
 End Sub
 

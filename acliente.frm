@@ -175,7 +175,6 @@ Private Sub cmdeliminar_Click()
   assert txtcodigo <> "" And Not adocli Is Nothing, NOCAMP, "Ingresar cliente"
   If MsgBox("¿Realmente desea eliminar el cliente " & txtnombre & "?", vbYesNo, "") = vbYes Then
     adocli!regvalid = False
-    adocli!nom_cli = adocli!nom_cli & "(ELIMINADO)"
     adocli.Update
     Set adocli = Nothing
     StatusBar1.SimpleText = "Cliente eliminado"

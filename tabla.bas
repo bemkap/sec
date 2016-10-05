@@ -52,7 +52,7 @@ Public Sub crearempresas()
     C.Execute "create table empresas (" & _
                 "cod_emp identity primary key," & _
                 "regvalid bit default true," & _
-                "cuit_emp float," & _
+                "cuit_emp double," & _
                 "nom_emp varchar(64)," & _
                 "dom_emp varchar(64)," & _
                 "loc_emp varchar(64)," & _
@@ -139,17 +139,17 @@ Public Sub crearegresos(ByVal emp As Integer)
                 "n_comp integer," & _
                 "fecha datetime," & _
                 "letra integer," & _
-                "cod_prov integer  constraint egr_prov" & emp & " references proveedores(cod_prov)," & _
-                "no_gravado float default 0," & _
-                "gravado float default 0," & _
+                "cod_prov integer constraint egr_prov" & emp & " references proveedores(cod_prov)," & _
+                "no_gravado double default 0," & _
+                "gravado double default 0," & _
                 "iva21 double," & _
                 "iva105 double," & _
                 "iva27 double," & _
-                "exento float default 0," & _
-                "interno float default 0," & _
-                "litros float default 0," & _
-                "perc_iva float default 0," & _
-                "perc_ib float default 0," & _
+                "exento double default 0," & _
+                "interno double default 0," & _
+                "litros double default 0," & _
+                "perc_iva double default 0," & _
+                "perc_ib double default 0," & _
                 "cod_cue integer constraint egr_cue" & emp & " references cuentas(cod_cue)," & _
                 "periodo integer)"
     C.Execute "select * into degresos" & emp & " from egresos" & emp & " where 1=2"
@@ -161,7 +161,7 @@ Public Sub crearclientes()
     C.Execute "create table clientes (" & _
                 "cod_cli identity primary key," & _
                 "regvalid bit default true," & _
-                "cuit_cli float," & _
+                "cuit_cli double," & _
                 "nom_cli varchar(64))"
   End If
 End Sub
@@ -171,7 +171,7 @@ Public Sub crearproveedores()
     C.Execute "create table proveedores (" & _
                 "cod_prov identity primary key," & _
                 "regvalid bit default true," & _
-                "cuit_prov float," & _
+                "cuit_prov double," & _
                 "nom_prov varchar(64))"
   End If
 End Sub
@@ -183,21 +183,21 @@ Public Sub crearcomprobantes()
                 "cod_comp_siap integer," & _
                 "nom_comp varchar(5)," & _
                 "ivadisc_comp bit)"
-    C.Execute "insert into comprobantes (nom_comp,ivadisc_comp) values ('FAC A',1,True)"
-    C.Execute "insert into comprobantes (nom_comp,ivadisc_comp) values ('FAC B',6,False)"
-    C.Execute "insert into comprobantes (nom_comp,ivadisc_comp) values ('FAC C',11,False)"
-    C.Execute "insert into comprobantes (nom_comp,ivadisc_comp) values ('REC A',4,True)"
-    C.Execute "insert into comprobantes (nom_comp,ivadisc_comp) values ('REC B',9,False)"
-    C.Execute "insert into comprobantes (nom_comp,ivadisc_comp) values ('REC C',15,False)"
-    C.Execute "insert into comprobantes (nom_comp,ivadisc_comp) values ('NCR A',3,True)"
-    C.Execute "insert into comprobantes (nom_comp,ivadisc_comp) values ('NCR B',8,False)"
-    C.Execute "insert into comprobantes (nom_comp,ivadisc_comp) values ('NCR C',13,False)"
-    C.Execute "insert into comprobantes (nom_comp,ivadisc_comp) values ('NDB A',2,True)"
-    C.Execute "insert into comprobantes (nom_comp,ivadisc_comp) values ('NDB B',7,False)"
-    C.Execute "insert into comprobantes (nom_comp,ivadisc_comp) values ('NDB C',12,False)"
-    C.Execute "insert into comprobantes (nom_comp,ivadisc_comp) values ('TIC Z',83,False)"
-    C.Execute "insert into comprobantes (nom_comp,ivadisc_comp) values ('TIC A',81,True)"
-    C.Execute "insert into comprobantes (nom_comp,ivadisc_comp) values ('TIC B',82,False)"
-    C.Execute "insert into comprobantes (nom_comp,ivadisc_comp) values ('TIC C',83,False)"
+    C.Execute "insert into comprobantes (cod_comp,nom_comp,cod_comp_siap,ivadisc_comp) values (0,'FAC A',1,True)"
+    C.Execute "insert into comprobantes (cod_comp,nom_comp,cod_comp_siap,ivadisc_comp) values (1,'FAC B',6,False)"
+    C.Execute "insert into comprobantes (cod_comp,nom_comp,cod_comp_siap,ivadisc_comp) values (2,'FAC C',11,False)"
+    C.Execute "insert into comprobantes (cod_comp,nom_comp,cod_comp_siap,ivadisc_comp) values (3,'REC A',4,True)"
+    C.Execute "insert into comprobantes (cod_comp,nom_comp,cod_comp_siap,ivadisc_comp) values (4,'REC B',9,False)"
+    C.Execute "insert into comprobantes (cod_comp,nom_comp,cod_comp_siap,ivadisc_comp) values (5,'REC C',15,False)"
+    C.Execute "insert into comprobantes (cod_comp,nom_comp,cod_comp_siap,ivadisc_comp) values (6,'NCR A',3,True)"
+    C.Execute "insert into comprobantes (cod_comp,nom_comp,cod_comp_siap,ivadisc_comp) values (7,'NCR B',8,False)"
+    C.Execute "insert into comprobantes (cod_comp,nom_comp,cod_comp_siap,ivadisc_comp) values (8,'NCR C',13,False)"
+    C.Execute "insert into comprobantes (cod_comp,nom_comp,cod_comp_siap,ivadisc_comp) values (9,'NDB A',2,True)"
+    C.Execute "insert into comprobantes (cod_comp,nom_comp,cod_comp_siap,ivadisc_comp) values (10,'NDB B',7,False)"
+    C.Execute "insert into comprobantes (cod_comp,nom_comp,cod_comp_siap,ivadisc_comp) values (11,'NDB C',12,False)"
+    C.Execute "insert into comprobantes (cod_comp,nom_comp,cod_comp_siap,ivadisc_comp) values (12,'TIC Z',83,False)"
+    C.Execute "insert into comprobantes (cod_comp,nom_comp,cod_comp_siap,ivadisc_comp) values (13,'TIC A',81,True)"
+    C.Execute "insert into comprobantes (cod_comp,nom_comp,cod_comp_siap,ivadisc_comp) values (14,'TIC B',82,False)"
+    C.Execute "insert into comprobantes (cod_comp,nom_comp,cod_comp_siap,ivadisc_comp) values (15,'TIC C',83,False)"
   End If
 End Sub

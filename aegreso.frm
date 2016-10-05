@@ -963,7 +963,7 @@ Private Sub txtcodigo_finbusqueda(llave As String, valor As String)
     txtcomp = !n_comp
     txtproveedor = !cod_prov
     labproveedor = query("proveedores", "nom_prov", "cod_prov=" & !cod_prov)!nom_prov
-    cmbletra.ListIndex = val(!letra)
+    cmbletra.ListIndex = CDbl(!letra)
     txtn(0) = Format(!gravado, "0.00")
     txtn(1) = Format(!no_gravado, "0.00")
     txtn(2) = Format(!exento, "0.00")
@@ -1016,7 +1016,7 @@ End Sub
 
 Private Sub txtn_KeyDown(Index As Integer, KeyCode As Integer, Shift As Integer)
   If Index = 4 And KeyCode = vbKeyF2 Then
-    porcs(idc, 1) = val(txtn(4))
+    porcs(idc, 1) = CDbl(txtn(4))
     idc = (idc + 1) Mod 3
     txtn(4) = Format(porcs(idc, 1), "0.00")
     labiva = porcs(idc, 0) * 100 & "%"
@@ -1031,22 +1031,22 @@ Private Sub txtn_LostFocus(Index As Integer)
   Case 0: 'gravado
     If chkcalc.Value = vbChecked Then
       If ivadisc Then
-        porcs(0, 1) = val(txtn(0)) * 0.21
+        porcs(0, 1) = CDbl(txtn(0)) * 0.21
       Else
         txtn(0).tag = txtn(0)
-        txtn(0) = Format(val(txtn(0)) / 1.21, "0.00")
-        porcs(0, 1) = val(txtn(0).tag) - val(txtn(0))
+        txtn(0) = Format(CDbl(txtn(0)) / 1.21, "0.00")
+        porcs(0, 1) = CDbl(txtn(0).tag) - CDbl(txtn(0))
       End If
       If idc = 0 Then txtn(4) = Format(porcs(0, 1), "0.00")
     End If
   Case 3: 'interno
     txtn(3).tag = txtn(3)
-    txtn(3) = val(txtn(3).tag) - val(lablitros)
+    txtn(3) = CDbl(txtn(3).tag) - CDbl(lablitros)
   Case 5: 'litros
-    lablitros = Format(val(txtn(5)) * 0.27, "0.00")
-    txtn(3) = val(txtn(3).tag) - val(lablitros)
+    lablitros = Format(CDbl(txtn(5)) * 0.27, "0.00")
+    txtn(3) = CDbl(txtn(3).tag) - CDbl(lablitros)
   Case 4: 'iva
-    porcs(idc, 1) = val(txtn(4))
+    porcs(idc, 1) = CDbl(txtn(4))
     StatusBar1.SimpleText = ""
   End Select
   calcsubt
@@ -1065,17 +1065,18 @@ End Sub
 Private Sub txtproveedor_finbusqueda(llave As String, valor As String)
   txtproveedor = llave
   labproveedor = left2(valor, 15)
+  cmbletra.SetFocus
 End Sub
 
 Private Sub calcsubt()
   Dim i As Integer
   txtsubtotal = 0
   For i = 0 To txtn.UBound
-    txtsubtotal = val(txtsubtotal) + IIf(i = 4 Or i = 5, 0, val(txtn(i)))
-    txtn(i) = Format(val(txtn(i)), "0.00")
+    txtsubtotal = CDbl(txtsubtotal) + IIf(i = 4 Or i = 5, 0, CDbl(txtn(i)))
+    txtn(i) = Format(CDbl(txtn(i)), "0.00")
   Next
-  txtsubtotal = val(txtsubtotal) + porcs(0, 1) + porcs(1, 1) + porcs(2, 1)
-  txtsubtotal = Format(val(txtsubtotal) + val(txtn(5)) * 0.27, "0.00")
+  txtsubtotal = CDbl(txtsubtotal) + porcs(0, 1) + porcs(1, 1) + porcs(2, 1)
+  txtsubtotal = Format(CDbl(txtsubtotal) + CDbl(txtn(5)) * 0.27, "0.00")
 End Sub
 
 Private Sub enable(b As Boolean)
@@ -1110,26 +1111,32 @@ Private Sub guardaregreso()
     !fecha = txtfecha
     !letra = cmbletra.ListIndex
     !cod_prov = txtproveedor
-    !gravado = txtn(0)
-    !no_gravado = txtn(1)
-    !exento = txtn(2)
-    !interno = txtn(3)
+    !gravado = CDbl(txtn(0))
+    !no_gravado = CDbl(txtn(1))
+    !exento = CDbl(txtn(2))
+    !interno = CDbl(txtn(3))
     !iva21 = porcs(0, 1)
     !iva105 = porcs(1, 1)
     !iva27 = porcs(2, 1)
-    !litros = txtn(5)
-    !perc_iva = txtn(6)
-    !perc_ib = txtn(7)
-    If txtcuenta <> "" Then !cod_cue = val(txtcuenta)
+    !litros = CDbl(txtn(5))
+    !perc_iva = CDbl(txtn(6))
+    !perc_ib = CDbl(txtn(7))
+    If txtcuenta <> "" Then !cod_cue = CDbl(txtcuenta)
   End With
 End Sub
 
 Private Sub txtcuenta_finbusqueda(llave As String, valor As String)
   txtcuenta = llave
   labcodcue = valor
+  cmdguardar.SetFocus
 End Sub
 
 Private Sub txtcuenta_vacio()
   txtcuenta = ""
   labcodcue = ""
+End Sub
+
+Private Sub txtproveedor_vacio()
+  txtproveedor = ""
+  labproveedor = ""
 End Sub
