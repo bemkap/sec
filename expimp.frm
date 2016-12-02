@@ -30,7 +30,7 @@ Begin VB.Form impexp
       ForeColor       =   &H80000008&
       Height          =   5415
       Left            =   4560
-      TabIndex        =   17
+      TabIndex        =   21
       Top             =   1200
       Width           =   4215
       Begin VB.CommandButton Command1 
@@ -47,7 +47,7 @@ Begin VB.Form impexp
          EndProperty
          Height          =   375
          Left            =   3600
-         TabIndex        =   18
+         TabIndex        =   22
          Top             =   2160
          Width           =   375
       End
@@ -67,7 +67,7 @@ Begin VB.Form impexp
          Height          =   375
          IMEMode         =   3  'DISABLE
          Left            =   1200
-         TabIndex        =   23
+         TabIndex        =   7
          Top             =   2640
          Width           =   2295
       End
@@ -84,7 +84,7 @@ Begin VB.Form impexp
          EndProperty
          Height          =   375
          Left            =   1560
-         TabIndex        =   20
+         TabIndex        =   23
          Top             =   4800
          Width           =   1215
       End
@@ -104,7 +104,7 @@ Begin VB.Form impexp
          IMEMode         =   3  'DISABLE
          Left            =   1200
          Locked          =   -1  'True
-         TabIndex        =   19
+         TabIndex        =   6
          Top             =   2160
          Width           =   2295
       End
@@ -122,7 +122,7 @@ Begin VB.Form impexp
          EndProperty
          Height          =   255
          Left            =   120
-         TabIndex        =   22
+         TabIndex        =   25
          Top             =   2760
          Width           =   855
       End
@@ -140,7 +140,7 @@ Begin VB.Form impexp
          EndProperty
          Height          =   255
          Left            =   120
-         TabIndex        =   21
+         TabIndex        =   24
          Top             =   2280
          Width           =   855
       End
@@ -161,7 +161,7 @@ Begin VB.Form impexp
       ForeColor       =   &H80000008&
       Height          =   5415
       Left            =   240
-      TabIndex        =   4
+      TabIndex        =   11
       Top             =   1200
       Width           =   4215
       Begin VB.Frame Frame5 
@@ -169,7 +169,7 @@ Begin VB.Form impexp
          ForeColor       =   &H80000008&
          Height          =   400
          Left            =   1200
-         TabIndex        =   26
+         TabIndex        =   27
          Top             =   3480
          Width           =   2775
          Begin VB.CheckBox chkborrar 
@@ -188,7 +188,7 @@ Begin VB.Form impexp
             ForeColor       =   &H80000008&
             Height          =   255
             Left            =   30
-            TabIndex        =   27
+            TabIndex        =   5
             Top             =   120
             Width           =   2715
          End
@@ -208,7 +208,7 @@ Begin VB.Form impexp
          Left            =   1200
          List            =   "expimp.frx":000A
          Style           =   2  'Dropdown List
-         TabIndex        =   24
+         TabIndex        =   1
          Top             =   1200
          Width           =   2775
       End
@@ -217,7 +217,7 @@ Begin VB.Form impexp
          ForeColor       =   &H80000008&
          Height          =   1110
          Left            =   1200
-         TabIndex        =   12
+         TabIndex        =   2
          Top             =   1680
          Width           =   2775
          Begin VB.CheckBox chktabla 
@@ -237,7 +237,7 @@ Begin VB.Form impexp
             Height          =   255
             Index           =   3
             Left            =   30
-            TabIndex        =   16
+            TabIndex        =   20
             Top             =   840
             Width           =   2715
          End
@@ -258,7 +258,7 @@ Begin VB.Form impexp
             Height          =   255
             Index           =   2
             Left            =   30
-            TabIndex        =   15
+            TabIndex        =   19
             Top             =   600
             Width           =   2715
          End
@@ -279,7 +279,7 @@ Begin VB.Form impexp
             Height          =   255
             Index           =   1
             Left            =   30
-            TabIndex        =   14
+            TabIndex        =   18
             Top             =   360
             Width           =   2715
          End
@@ -300,7 +300,7 @@ Begin VB.Form impexp
             Height          =   255
             Index           =   0
             Left            =   30
-            TabIndex        =   13
+            TabIndex        =   17
             Top             =   120
             Width           =   2715
          End
@@ -318,7 +318,7 @@ Begin VB.Form impexp
          EndProperty
          Height          =   375
          Left            =   1560
-         TabIndex        =   5
+         TabIndex        =   12
          Top             =   4800
          Width           =   1215
       End
@@ -335,7 +335,7 @@ Begin VB.Form impexp
          Height          =   375
          Index           =   0
          Left            =   1200
-         TabIndex        =   6
+         TabIndex        =   3
          Top             =   3000
          Width           =   975
          _ExtentX        =   1720
@@ -368,7 +368,7 @@ Begin VB.Form impexp
          Height          =   375
          Index           =   1
          Left            =   3000
-         TabIndex        =   7
+         TabIndex        =   4
          Top             =   3000
          Width           =   975
          _ExtentX        =   1720
@@ -402,7 +402,7 @@ Begin VB.Form impexp
          EndProperty
          Height          =   255
          Left            =   120
-         TabIndex        =   25
+         TabIndex        =   26
          Top             =   1305
          Width           =   855
       End
@@ -419,7 +419,7 @@ Begin VB.Form impexp
          EndProperty
          Height          =   255
          Left            =   120
-         TabIndex        =   11
+         TabIndex        =   16
          Top             =   2880
          Width           =   855
       End
@@ -437,7 +437,7 @@ Begin VB.Form impexp
          EndProperty
          Height          =   255
          Left            =   240
-         TabIndex        =   10
+         TabIndex        =   15
          Top             =   3120
          Width           =   735
       End
@@ -455,7 +455,7 @@ Begin VB.Form impexp
          EndProperty
          Height          =   255
          Left            =   2160
-         TabIndex        =   9
+         TabIndex        =   14
          Top             =   3120
          Width           =   735
       End
@@ -473,7 +473,7 @@ Begin VB.Form impexp
          EndProperty
          Height          =   255
          Left            =   120
-         TabIndex        =   8
+         TabIndex        =   13
          Top             =   1800
          Width           =   855
       End
@@ -483,13 +483,13 @@ Begin VB.Form impexp
       Caption         =   "Frame3"
       Height          =   375
       Left            =   840
-      TabIndex        =   0
+      TabIndex        =   8
       Top             =   480
       Width           =   7455
       Begin Project1.UserControl1 txtemp 
          Height          =   375
          Left            =   1080
-         TabIndex        =   1
+         TabIndex        =   0
          Top             =   0
          Width           =   1695
          _extentx        =   2990
@@ -517,7 +517,7 @@ Begin VB.Form impexp
          ForeColor       =   &H80000008&
          Height          =   375
          Left            =   2760
-         TabIndex        =   3
+         TabIndex        =   10
          Top             =   0
          Width           =   4695
       End
@@ -534,7 +534,7 @@ Begin VB.Form impexp
          EndProperty
          Height          =   255
          Left            =   0
-         TabIndex        =   2
+         TabIndex        =   9
          Top             =   120
          Width           =   975
       End
@@ -575,13 +575,16 @@ Private Sub cmdexportar_Click()
   If txtfecha(1) <> "  /    " Then fecha = fecha & " and periodo<=" & Month(CDate(txtfecha(1))) + 12 * Year(CDate(txtfecha(1)))
   tablas = Array("egresos", "degresos", "ingresos", "dingresos")
   claves = Array("cod_egr", "cod_egr", "cod_ing", "cod_ing")
+  fmts = Array(0, 0, 0, 0, 1, 1, 2, 2)
   For i = 0 To 3
     If chktabla(i) Then
       Set rec = query(tablas(i) & txtemp, , fecha, claves(i))
-      tag = rec.fields(claves(i)): rec.MoveLast
-      tag = tag & "-" & rec.fields(claves(i)): rec.MoveFirst
-      exportar rec, tablas(i) & txtemp & "-" & tag, cmbfmt.ListIndex - CInt(i > 1)
-      If chkborrar.Value = vbChecked Then C.Execute "delete from " & tablas(i) & txtemp & " where " & fecha
+      If rec.RecordCount > 0 Then
+        tag = rec.fields(claves(i)): rec.MoveLast
+        tag = tag & "-" & rec.fields(claves(i)): rec.MoveFirst
+        exportar rec, tablas(i) & txtemp & "-" & tag, CInt(fmts(cmbfmt.ListIndex * 4 + i))
+        If chkborrar.Value = vbChecked Then C.Execute "delete from " & tablas(i) & txtemp & " where " & fecha
+      End If
     End If
   Next
   StatusBar1.SimpleText = "Tablas exportadas"
@@ -602,6 +605,7 @@ Private Sub txtemp_finbusqueda(llave As String, valor As String)
   Frame4.enabled = True
   txtemp = llave
   labnom = valor
+  cmbfmt.SetFocus
 End Sub
 
 Private Sub txtemp_vacio()

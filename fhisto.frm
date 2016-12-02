@@ -123,7 +123,7 @@ Private Sub pch_MouseMove(Button As Integer, Shift As Integer, x As Single, y As
   pch.Cls
   pch_Paint
   pch.ForeColor = vbWhite
-  Set cuad = LoadPicture("iconos/rect.bmp")
+  Set cuad = LoadPicture(App.Path & "/iconos/rect.bmp")
   For i = 0 To UBound(isaldos) - 1
     ex = escalarx(i)
     ey = escalary(isaldos(i))
