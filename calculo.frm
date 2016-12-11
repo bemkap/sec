@@ -326,7 +326,7 @@ Private Sub llenar(ByVal j As Integer)
     For i = 1 To flx1.Rows - 2
       flx1.TextMatrix(i, 2) = "0.00"
       If .RecordCount > 0 Then flx1.TextMatrix(i, 2) = Format(coalesce(.fields(i - 1), 0), "0.00")
-      m = m + CDbl(flx1.TextMatrix(i, 2))
+      m = m + val(flx1.TextMatrix(i, 2))
     Next
   End With
   flx1.TextMatrix(flx1.Rows - 1, 1) = n
